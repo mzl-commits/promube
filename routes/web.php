@@ -1,32 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
-use Livewire\Volt\Volt;
+use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\BecaController;
+use App\Http\Controllers\Public\BeneficiadoController;
+use App\Http\Controllers\Public\SedeController;
+use App\Http\Controllers\Public\NoticiaController;
+use App\Http\Controllers\Public\FaqController;
+use App\Http\Controllers\Public\ContactoController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('/becas', [BecaController::class, 'index'])->name('becas.index');
 
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
+Route::get('/beneficiados', [BeneficiadoController::class, 'index'])->name('beneficiados.index');
 
-    Volt::route('settings/profile', 'settings.profile')->name('profile.edit');
-    Volt::route('settings/password', 'settings.password')->name('user-password.edit');
-    Volt::route('settings/appearance', 'settings.appearance')->name('appearance.edit');
+Route::get('/sedes', [SedeController::class, 'index'])->name('sedes.index');
 
-    Volt::route('settings/two-factor', 'settings.two-factor')
-        ->middleware(
-            when(
-                Features::canManageTwoFactorAuthentication()
-                    && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
-                ['password.confirm'],
-                [],
-            ),
-        )
-        ->name('two-factor.show');
-});
+Route::get('/noticias', [NoticiaController::class, 'index'])->name('noticias.index');
+
+Route::get('/preguntas-frecuentes', [FaqController::class, 'index'])->name('faqs.index');
+
+Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto.index');
