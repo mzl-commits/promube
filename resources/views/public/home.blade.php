@@ -233,8 +233,8 @@
             {{-- 1. Izquierda – arriba --}}
             <article class="beca-mosaic-card beca-mosaic-card--left-top">
                 <img
-                    src="{{ asset('img/beca-mosaic-1.jpg') }}"
-                    alt="Beca networking con expertos"
+                    src="{{ asset('img/becas/beca-bcp.png') }}"
+                    alt="Beca BCP"
                     class="beca-mosaic-img"
                 >
                 <div class="beca-mosaic-overlay"></div>
@@ -360,7 +360,7 @@
             position: relative;
             overflow: hidden;
             border-radius: 1rem;
-            background: #000;
+            background:#fff;
             cursor: pointer;
         }
 
@@ -375,11 +375,7 @@
         .beca-mosaic-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                to right,
-                rgba(0, 0, 0, 0.8),
-                rgba(0, 0, 0, 0.15)
-            );
+            background:transparent !important; ;
             transition: background 0.3s ease;
             z-index: 0;
         }
