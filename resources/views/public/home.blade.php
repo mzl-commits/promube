@@ -12,19 +12,13 @@
             --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* Sombra difusa de color para dar sensación premium */
-        .shadow-glow {
-            box-shadow: 0 10px 40px -10px rgba(var(--primary-rgb), 0.3);
-        }
-        
         /* =========================================
-           1. HERO CINEMÁTICO (PERFECCIONADO)
+           1. HERO CINEMÁTICO
            ========================================= */
         .hero-wrapper {
             position: relative;
-            border-radius: 1.5rem; /* Bordes más suaves */
+            border-radius: 1.5rem;
             overflow: hidden;
-            /* Altura dinámica: ocupa el 85% de la ventana pero con límites */
             height: 85vh; 
             min-height: 600px;
             max-height: 900px;
@@ -42,7 +36,6 @@
             background-size: cover;
             background-position: center;
             z-index: 0;
-            /* Ken Burns más sutil y lento */
             animation: kenBurns 25s ease-out infinite alternate;
             will-change: transform;
         }
@@ -50,7 +43,6 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
-            /* Degradado complejo para máxima legibilidad */
             background: linear-gradient(
                 to bottom, 
                 rgba(0,0,0,0.2) 0%, 
@@ -68,14 +60,12 @@
             padding: 0 2rem;
         }
 
-        /* Tipografía fluida: escala suavemente sin breakpoints bruscos */
         .hero-title {
             font-size: clamp(2.5rem, 5vw + 1rem, 5rem); 
             line-height: 1.1;
             text-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
-        /* Animaciones de entrada escalonadas */
         .animate-enter {
             opacity: 0;
             transform: translateY(40px);
@@ -84,9 +74,7 @@
         }
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.3s; }
-        .delay-3 { animation-delay: 0.5s; }
 
-        /* Botón Premium con efecto "Shine" */
         .btn-hero {
             position: relative;
             overflow: hidden;
@@ -119,37 +107,22 @@
             box-shadow: 0 20px 40px -10px rgba(217, 54, 62, 0.6);
             background: #e63b44;
         }
-        
-        .btn-hero:hover::after {
-            left: 150%;
-            transition: 0.7s ease-in-out;
-        }
+        .btn-hero:hover::after { left: 150%; transition: 0.7s ease-in-out; }
 
-        @keyframes kenBurns {
-            from { transform: scale(1); }
-            to { transform: scale(1.15); }
-        }
-        @keyframes textReveal {
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
+        @keyframes kenBurns { from { transform: scale(1); } to { transform: scale(1.15); } }
+        @keyframes textReveal { to { opacity: 1; transform: translateY(0); filter: blur(0); } }
 
         /* =========================================
            2. BECAS 3D (SUAVIZADO)
            ========================================= */
         .perspective-container {
-            perspective: 2500px; /* Perspectiva más profunda para menos distorsión */
+            perspective: 2500px;
             overflow-x: hidden;
-            padding: 2rem 0; /* Espacio para que la sombra no se corte */
+            padding: 2rem 0;
         }
         
-        .card-3d-wrapper {
-            transition: transform 0.5s var(--ease-out-expo);
-        }
-        
-        /* Efecto parallax suave al hacer hover en el contenedor */
-        .group:hover .card-3d-wrapper {
-            transform: translateY(-5px);
-        }
+        .card-3d-wrapper { transition: transform 0.5s var(--ease-out-expo); }
+        .group:hover .card-3d-wrapper { transform: translateY(-5px); }
 
         .reveal-left, .reveal-right {
             opacity: 0;
@@ -157,22 +130,12 @@
             will-change: transform, opacity;
         }
         
-        .reveal-left {
-            transform: translateX(-80px) rotateY(-15deg) scale(0.95);
-            transform-origin: left center;
-        }
-        .reveal-right {
-            transform: translateX(80px) rotateY(15deg) scale(0.95);
-            transform-origin: right center;
-        }
-        
-        .reveal-left.active, .reveal-right.active {
-            opacity: 1;
-            transform: translateX(0) rotateY(0) scale(1);
-        }
+        .reveal-left { transform: translateX(-80px) rotateY(-15deg) scale(0.95); transform-origin: left center; }
+        .reveal-right { transform: translateX(80px) rotateY(15deg) scale(0.95); transform-origin: right center; }
+        .reveal-left.active, .reveal-right.active { opacity: 1; transform: translateX(0) rotateY(0) scale(1); }
 
         /* =========================================
-           3. TARJETAS MUNICIPALES (INTERACTIVAS)
+           3. TARJETAS MUNICIPALES
            ========================================= */
         .municipality-card {
             background: linear-gradient(145deg, #ffffff, #f3f4f6);
@@ -185,13 +148,11 @@
             background: linear-gradient(145deg, #1f2937, #111827);
             border-color: rgba(255,255,255,0.05);
         }
-
         .municipality-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px -5px rgba(0,0,0,0.1);
-            border-color: rgba(217, 54, 62, 0.3); /* Color primario sutil */
+            border-color: rgba(217, 54, 62, 0.3);
         }
-
         .municipality-badge {
             width: 4.5rem; height: 4.5rem;
             border-radius: 1.25rem;
@@ -202,12 +163,10 @@
             transition: transform 0.4s var(--ease-out-expo);
             margin-bottom: 1.5rem;
         }
-
         .municipality-card:hover .municipality-badge {
             transform: rotate(45deg) scale(1.1);
-            background: #D9363E; /* El badge se ilumina en rojo al hover */
+            background: #D9363E;
         }
-
         .municipality-badge img {
             transform: rotate(-45deg);
             width: 2.5rem; height: 2.5rem;
@@ -216,7 +175,7 @@
         }
 
         /* =========================================
-           4. TESTIMONIOS (LIMPIOS Y ELEGANTES)
+           4. TESTIMONIOS
            ========================================= */
         .student-profile {
             position: relative;
@@ -224,46 +183,26 @@
             border-radius: 1.5rem;
             transition: all 0.4s var(--ease-out-expo);
             border: 1px solid rgba(0,0,0,0.04);
-            /* Sombra inicial suave */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
-        .dark .student-profile {
-            background: #1f2937;
-            border-color: rgba(255,255,255,0.05);
-        }
-
+        .dark .student-profile { background: #1f2937; border-color: rgba(255,255,255,0.05); }
         .student-profile::before {
-            /* Adorno visual: comillas decorativas */
-            content: '"';
-            position: absolute;
-            top: 1rem; right: 1.5rem;
-            font-size: 4rem;
-            color: rgba(217, 54, 62, 0.1);
-            font-family: serif;
-            line-height: 1;
+            content: '"'; position: absolute; top: 1rem; right: 1.5rem;
+            font-size: 4rem; color: rgba(217, 54, 62, 0.1); font-family: serif; line-height: 1;
         }
-
         .student-profile:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             border-color: rgba(217, 54, 62, 0.2);
         }
-
-        .student-img-wrapper {
-            position: relative;
-        }
+        .student-img-wrapper { position: relative; }
         .student-img-wrapper::after {
-            /* Anillo de color sutil */
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 50%;
-            border: 2px solid #D9363E;
-            opacity: 0.5;
+            content: ''; position: absolute; inset: -3px;
+            border-radius: 50%; border: 2px solid #D9363E; opacity: 0.5;
         }
 
         /* =========================================
-           5. SEDES (ESTILO TARJETA FLOTANTE)
+           5. SEDES
            ========================================= */
         .location-card {
             border-radius: 1.5rem;
@@ -273,38 +212,17 @@
             transition: all 0.4s var(--ease-out-expo);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
-        .dark .location-card {
-            background: #1f2937;
-            border-color: rgba(255,255,255,0.05);
-        }
-
-        .location-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-        }
-
-        .location-image-container {
-            overflow: hidden;
-            height: 16rem;
-        }
-
-        .location-card img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s var(--ease-out-expo);
-        }
-
-        .location-card:hover img {
-            transform: scale(1.05); /* Zoom suave de imagen interno */
-        }
+        .dark .location-card { background: #1f2937; border-color: rgba(255,255,255,0.05); }
+        .location-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+        .location-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-out-expo); }
+        .location-card:hover img { transform: scale(1.05); }
     </style>
 
-    {{-- SECCIÓN 1: HERO RENOVADO --}}
+    {{-- SECCIÓN 1: HERO --}}
     <section class="container mx-auto px-4 sm:px-6">
         <div class="hero-wrapper">
             <div class="hero-image"></div>
             <div class="hero-overlay"></div>
-            
             <div class="hero-content">
                 <h1 class="hero-title font-black text-white mb-6 animate-enter">
                     <span class="text-primary inline-block">PROMUBE</span><br/>
@@ -323,7 +241,7 @@
         </div>
     </section>
 
-    {{-- SECCIÓN 2: BECAS (EFECTO 3D PULIDO) --}}
+    {{-- SECCIÓN 2: BECAS (DINÁMICA - MÁX 3) --}}
     <section id="becas" class="py-24 perspective-container overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="text-center mb-20">
@@ -331,73 +249,52 @@
                 <h2 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white">Becas Destacadas</h2>
             </div>
 
-            <div class="space-y-32"> {{-- Más espacio vertical para lucir el efecto --}}
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
-                    <div class="relative reveal-left card-3d-wrapper">
-                        <img alt="Gran edificio universitario" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb3rjnH-tOJDQRjWL8sJngsXXulCafaehs9nDjeAu6zYizs98lX8A_bo54lS2g7vgvdqjkzewg6f-Ic5WxBlPygioYggDKlrDOQo3s2VxqjzqyTcWx7XrH7U5V95QuEH_r6kyoM3UA2g3bP1EeAFT3EAdTblR8q8X6CtM4rE2uQ7c6OGXldSgWRWjYMRY39Rg47GXpcodlmrH_4IXrUg4zEfxirtMnQgYQoUJQPMcI_spSx-NfQ7wKHrcwC8Q1shtPOLaE7_m9LrE"/>
-                    </div>
-                    <div class="reveal-right">
-                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca de Excelencia Académica</h3>
-                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Ofrecemos un apoyo integral a estudiantes con un historial académico sobresaliente que deseen cursar estudios de licenciatura en modalidad presencial.</p>
-                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
-                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
-                        </a>
-                    </div>
-                </div>
+            {{-- Array de imágenes de respaldo para el bucle --}}
+            @php
+                $imagenes = [
+                    'https://lh3.googleusercontent.com/aida-public/AB6AXuDb3rjnH-tOJDQRjWL8sJngsXXulCafaehs9nDjeAu6zYizs98lX8A_bo54lS2g7vgvdqjkzewg6f-Ic5WxBlPygioYggDKlrDOQo3s2VxqjzqyTcWx7XrH7U5V95QuEH_r6kyoM3UA2g3bP1EeAFT3EAdTblR8q8X6CtM4rE2uQ7c6OGXldSgWRWjYMRY39Rg47GXpcodlmrH_4IXrUg4zEfxirtMnQgYQoUJQPMcI_spSx-NfQ7wKHrcwC8Q1shtPOLaE7_m9LrE', // Edificio
+                    'https://lh3.googleusercontent.com/aida-public/AB6AXuDqT5bOwqFGI9AT3NCbmrUvr4QMG-_jIf7Dfmq0XM8qM2NeCUrVGbX0yrHnegIQDlpJUa7n3bGtSJVPDFblF3jcAwJZzJW9yEBUyVZ04BNi9ualLknOd-opJrQCJGdqau_APHvvH5Id9TdCM4aLmcyuf-4EgH92Sta3ZYzFmzLhzvi6AyUOa0eRJPNCCI5zXRAATGD6aL8qh97DRi0P3CwOolBVp16_tC_FK5JeG_oD37J9tQ5zWifDXsCzVtMpmwQmx4OfX_QwvrY', // Laboratorio
+                    'https://lh3.googleusercontent.com/aida-public/AB6AXuADv_BqHe8beMwKtTYPZtrC7KT0_BOv6MDJf5AGBzQMW-Zp_IBt_FTnkTHClhJ28N1dRhs2XLKYUlB31wZYCJmEcAinNBAQ4GnalH4cL4Utfw7P-3Y77bFgAfCONA6r_Nvtk6BUaFhZ6UEzvSklFHvhf6BDMnnKF7fdUS3TxZdIWrdRW_SxCXVz9zGZQz4jdDg-pro2k_id7tiF-0W8yKsdNx67w-SSWkpYK3Tn0OpfTKv2o_SmmCFdFn5vLtfLvZrKnsAtufQ33Kw', // Arte
+                    'https://lh3.googleusercontent.com/aida-public/AB6AXuAqsDW7Eyzl38NxtWzXWj9ZPNb9fnfDkRhiSR5ugftDifvRlgtJRrJgnObPxcDYoKv0hx6cghdStc9Rr8w-H_A5ixsXT1LSeMWXrD727ymKaPh_kk7h-Ul2txlr3zTIgf806_eYucfUe1WRUPIxzgoca2dwJHdAgu9x0gwM-QgJtuydonoDwuv31yLaQ5D5fpDyKZdATqfnn6BK_1dOlv3YKPsKjv_pCf62uLtgJibEcgS32AoV8eOVKyXEaq1D6g3znWc1vivIYjw', // Laptops
+                    'https://lh3.googleusercontent.com/aida-public/AB6AXuB6zVY2V16CGVuc4WNtxW-GpEd3MpEU1wyTOHuWQqEgHLzwbqf05yKK3k2nBdug7uncLU64WSj5tlCmtB_4zAa0TiOYhNJWNkamFFRtRtOPugWEwkMV5iWP9FcOPeoA1je-V16kb-LWsntI2zf-P0JW3iViyI23Qj_9_uLkihF-bJ6LRzwkg-ocWfZzwb0uaCBhESle3HTNAlj4yMaN_PVDw0V8m09VsLeocoJyw-DJqyy8w0FgdKOda0MhoY0rOYbNfRIB3iojjyE'  // Deporte
+                ];
+            @endphp
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
-                    <div class="md:order-2 relative reveal-right card-3d-wrapper">
-                        <img alt="Laboratorio de ciencias" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqT5bOwqFGI9AT3NCbmrUvr4QMG-_jIf7Dfmq0XM8qM2NeCUrVGbX0yrHnegIQDlpJUa7n3bGtSJVPDFblF3jcAwJZzJW9yEBUyVZ04BNi9ualLknOd-opJrQCJGdqau_APHvvH5Id9TdCM4aLmcyuf-4EgH92Sta3ZYzFmzLhzvi6AyUOa0eRJPNCCI5zXRAATGD6aL8qh97DRi0P3CwOolBVp16_tC_FK5JeG_oD37J9tQ5zWifDXsCzVtMpmwQmx4OfX_QwvrY"/>
-                    </div>
-                    <div class="md:order-1 reveal-left">
-                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca de Apoyo a la Investigación</h3>
-                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Dirigida a estudiantes de maestría que desarrollen proyectos de investigación con alto impacto y relevancia social.</p>
-                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
-                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
-                        </a>
-                    </div>
-                </div>
+            <div class="space-y-32"> 
+                @forelse($becasDestacadas as $index => $beca)
+                    {{-- Selección de imagen cíclica --}}
+                    @php $imgSrc = $imagenes[$index % count($imagenes)]; @endphp
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
-                    <div class="relative reveal-left card-3d-wrapper">
-                        <img alt="Suministros de arte" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADv_BqHe8beMwKtTYPZtrC7KT0_BOv6MDJf5AGBzQMW-Zp_IBt_FTnkTHClhJ28N1dRhs2XLKYUlB31wZYCJmEcAinNBAQ4GnalH4cL4Utfw7P-3Y77bFgAfCONA6r_Nvtk6BUaFhZ6UEzvSklFHvhf6BDMnnKF7fdUS3TxZdIWrdRW_SxCXVz9zGZQz4jdDg-pro2k_id7tiF-0W8yKsdNx67w-SSWkpYK3Tn0OpfTKv2o_SmmCFdFn5vLtfLvZrKnsAtufQ33Kw"/>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
+                        
+                        {{-- Alternancia de imagen (Izq/Der) --}}
+                        <div class="relative card-3d-wrapper {{ $loop->even ? 'md:order-2 reveal-right' : 'reveal-left' }}">
+                            <img alt="{{ $beca->titulo }}" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="{{ $imgSrc }}"/>
+                        </div>
+                        
+                        <div class="{{ $loop->even ? 'md:order-1 reveal-left' : 'reveal-right' }}">
+                            <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{{ $beca->titulo }}</h3>
+                            <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+                                {{ $beca->resumen ?? Str::limit($beca->descripcion, 150) }}
+                            </p>
+                            <a href="{{ route('becas.show', $beca->id) }}" class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg">
+                                Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="reveal-right">
-                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca para Talentos Artísticos</h3>
-                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Impulsamos el talento en las artes visuales, música y artes escénicas. Abierta a todos los niveles creativos.</p>
-                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
-                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
-                        </a>
+                @empty
+                    <div class="text-center text-gray-500 py-10">
+                        <p>No hay becas destacadas en este momento.</p>
                     </div>
-                </div>
+                @endforelse
+            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
-                    <div class="md:order-2 relative reveal-right card-3d-wrapper">
-                        <img alt="Estudiantes con laptops" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqsDW7Eyzl38NxtWzXWj9ZPNb9fnfDkRhiSR5ugftDifvRlgtJRrJgnObPxcDYoKv0hx6cghdStc9Rr8w-H_A5ixsXT1LSeMWXrD727ymKaPh_kk7h-Ul2txlr3zTIgf806_eYucfUe1WRUPIxzgoca2dwJHdAgu9x0gwM-QgJtuydonoDwuv31yLaQ5D5fpDyKZdATqfnn6BK_1dOlv3YKPsKjv_pCf62uLtgJibEcgS32AoV8eOVKyXEaq1D6g3znWc1vivIYjw"/>
-                    </div>
-                    <div class="md:order-1 reveal-left">
-                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca de Liderazgo y Emprendimiento</h3>
-                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Buscamos a los líderes del mañana. Para estudiantes de posgrado con proyectos innovadores de alto impacto.</p>
-                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
-                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
-                    <div class="relative reveal-left card-3d-wrapper">
-                        <img alt="Atleta corriendo" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6zVY2V16CGVuc4WNtxW-GpEd3MpEU1wyTOHuWQqEgHLzwbqf05yKK3k2nBdug7uncLU64WSj5tlCmtB_4zAa0TiOYhNJWNkamFFRtRtOPugWEwkMV5iWP9FcOPeoA1je-V16kb-LWsntI2zf-P0JW3iViyI23Qj_9_uLkihF-bJ6LRzwkg-ocWfZzwb0uaCBhESle3HTNAlj4yMaN_PVDw0V8m09VsLeocoJyw-DJqyy8w0FgdKOda0MhoY0rOYbNfRIB3iojjyE"/>
-                    </div>
-                    <div class="reveal-right">
-                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca para Deportistas</h3>
-                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Apoyamos a atletas que combinan su carrera deportiva con la excelencia académica sin sacrificar su rendimiento.</p>
-                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
-                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
-                        </a>
-                    </div>
-                </div>
-
+            {{-- BOTÓN "VER MÁS" --}}
+            <div class="mt-24 text-center">
+                <a href="{{ route('becas.index') }}" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-gray-900 rounded-full hover:bg-primary hover:shadow-lg dark:bg-gray-700 dark:hover:bg-primary group">
+                    Ver todas las becas
+                    <span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
             </div>
         </div>
     </section>
@@ -413,97 +310,72 @@
             </div>
            
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8" data-municipios-grid>
+                @foreach(['Centro', 'Norte', 'Sur', 'Occidente'] as $index => $muni)
                 <div class="municipality-card p-8 rounded-2xl flex flex-col items-center justify-center text-center cursor-default">
                     <div class="municipality-badge">
-                        <img alt="Escudo municipal Centro" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjNg0Wcjux3TCtanPgVBjJ4w4Xs7chq9tQstjwDDVQsCrsRpUc2jxHJdzNvmykzbmskw8W5b1x1OfqVqaEmkay6y4az5620zS6EKB90lewVWLWp16UQxx6MT8n9j1ixEcs3M0fQD7h5okdIk7bSLByE8CEl5bQJrdrV8QIkhuv8OLYC9J6qTKzqmbV3p4CFTIRbRcuBr1qmDQq1ZcyJf7QhUJpQvtfEusPIYeZ0teYRuL9xBGnhfu9psGuAOjdVCQ7SQj7o0OaVe8"/>
+                        {{-- Usamos índices 8, 9, 10, 11 para las imágenes de escudos --}}
+                        <img alt="Escudo municipal {{ $muni }}" src="http://googleusercontent.com/profile/picture/{{ 8 + $index }}"/>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Centro</h3>
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">{{ $muni }}</h3>
                 </div>
-                <div class="municipality-card p-8 rounded-2xl flex flex-col items-center justify-center text-center cursor-default">
-                    <div class="municipality-badge">
-                        <img alt="Escudo municipal Norte" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQReQIgKi-fe01YsN08lsV_AbO7S_-81yE4O-ke7xWfiKE-1yIS8MDbszyYflZlZIU9exwnNRVk9zkUVq1o0Xn_i5c--zTb5fyZ-KnYTXPWbzHZdf_ytHa35Rm3aF8SxIPED_Kjmh59HBPdAtH2FPYQz0EDQ8npfPytvaF6bZPOmn9F-EZaCPJHG2QSulZaM5VNQpZsZT40HMugTnvIeChRRpNujdyW-9yAI99Lexi1maCivTsuWmlg4RMg40EcBVOzvd4DQp6WOY"/>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Norte</h3>
-                </div>
-                <div class="municipality-card p-8 rounded-2xl flex flex-col items-center justify-center text-center cursor-default">
-                    <div class="municipality-badge">
-                        <img alt="Escudo municipal Sur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxxky7anIVv0xQpyi4LbC3Mx-eSM5NGFUZNI_BppsxV0HIrwKCUBcs5aNEw8mefQ13IRbJy6tTadE_35Tci2x6SqMyui192duJPJOjFc4RDwqdW0Xomwlq_88yTKibqT-L_tf_4DK9Jv7Kgc7m0tRvYf5u4bLqkTgY8HI_e8cO0zJGsPGfpPFbaiFGjupRM3rlTvEqBA3EjKH5SoV2lao3zyk9s8koMBZ1YP4H_jP_nS9WeTdkDDL-YgsnU86MhfQsS4Sy_nFR2tE"/>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Sur</h3>
-                </div>
-                <div class="municipality-card p-8 rounded-2xl flex flex-col items-center justify-center text-center cursor-default">
-                    <div class="municipality-badge">
-                        <img alt="Escudo municipal Occidente" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZJWLzamznL2JepkkKLr-ti_BBfDSwuILt8o5M3SjbHvnkAoUJTSal-Qydr4egybbnI3NU_NMLc23q5URSnzmYy_1fhleBGRQAfL1axTtvkopPpnJeULWBWYKfm1KxR3_4e8R9Wq59mPNW2uDfnJBvGZ9zt2goMTOliLBPJ2xpl1qQCUhT5CKAnupen09bC2qMNLx6TPQwVtTBBFLc1pvYrK1MCXhxHFHNX0Jr6cktaR34KOeGTKJc_yyKuSydIi_d7uqlaDgb87g"/>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Occidente</h3>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
 
     {{-- SECCIÓN 4: ALUMNOS --}}
     <section class="py-24 bg-white dark:bg-background-dark relative overflow-hidden">
-        {{-- Adorno de fondo sutil --}}
         <div class="absolute top-0 left-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-
         <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-3xl md:text-5xl font-bold text-center mb-16 text-gray-800 dark:text-white">
-                Historias de Éxito
-            </h2>
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-16 text-gray-800 dark:text-white">Historias de Éxito</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
-                    <div class="student-img-wrapper flex-shrink-0">
-                         <img alt="Retrato de Juan Pérez" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByk8OgTgtv_Epn23gLOB2dvUFQZoSEdH6Yh-xJaA7Cy6jjwfLdEF9O-YR56DRbI_H7bQqJNnUsonVyyiXvnBFPb1dgi4_hy-mYhiPDdA4qaWKzC--5urvzaTJkSkyCiOh5B-sPKeBovAax32rEujmMa285QuIMLqXFbq4cUM-G9rupld6CjAqxtH8lOn-Dtft0iiggVZtq53VyZPdlJZ7wJuCGZ12Yp8wRM4se0pps6DGoOy8revcVhLf72c5GYJjt3HRLGd6aEfg"/>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-xl text-gray-900 dark:text-white">Juan Pérez</h4>
-                        <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Beca Académica '23</p>
-                        <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"Gracias a PROMUBE, pude acceder a una educación de calidad que transformó mi carrera para siempre."</p>
-                    </div>
-                </div>
                 
-                <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
-                    <div class="student-img-wrapper flex-shrink-0">
-                         <img alt="Retrato de María García" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZ-CDAub-k25C4b9XHiXcP0q16s7jyp--A98FEULKdN6R99TRO7jCEn7soMCu9VczjFwRGuSpZTbPR7Hl8qNDI8Coin03EQHTnH01taic6T6bllrywSEqL8yo5bblqJfodvqYWQPzNXpX9uLsM2sVm9cGA1adwoCvg5AIQglOargmdcdRIOElkK0xRgLOhveHlE07f6pc97NfOrETObngAqGe2EO_2YZekdnph3pEylqDu7aaT35jixS1RR-MEYE_3zFgCrcIM4o"/>
+                {{-- Alumnos (Iteramos beneficiados reales o usamos estáticos si la DB está vacía) --}}
+                @forelse($beneficiados as $beneficiado)
+                    <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
+                        <div class="student-img-wrapper flex-shrink-0">
+                             <img alt="Retrato de {{ $beneficiado->nombre }}" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByk8OgTgtv_Epn23gLOB2dvUFQZoSEdH6Yh-xJaA7Cy6jjwfLdEF9O-YR56DRbI_H7bQqJNnUsonVyyiXvnBFPb1dgi4_hy-mYhiPDdA4qaWKzC--5urvzaTJkSkyCiOh5B-sPKeBovAax32rEujmMa285QuIMLqXFbq4cUM-G9rupld6CjAqxtH8lOn-Dtft0iiggVZtq53VyZPdlJZ7wJuCGZ12Yp8wRM4se0pps6DGoOy8revcVhLf72c5GYJjt3HRLGd6aEfg"/>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl text-gray-900 dark:text-white">{{ $beneficiado->nombre }}</h4>
+                            <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">{{ $beneficiado->beca->tipo ?? 'Beca' }}</p>
+                            <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"{{ $beneficiado->testimonio ?? 'Gracias a PROMUBE pude cumplir mis sueños.' }}"</p>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="font-bold text-xl text-gray-900 dark:text-white">María García</h4>
-                        <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Intercambio '22</p>
-                        <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"La experiencia del intercambio cultural amplió mis horizontes y me abrió puertas internacionales."</p>
+                @empty
+                    {{-- Fallback estático para diseño --}}
+                    <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
+                        <div class="student-img-wrapper flex-shrink-0">
+                             <img alt="Retrato de Juan Pérez" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByk8OgTgtv_Epn23gLOB2dvUFQZoSEdH6Yh-xJaA7Cy6jjwfLdEF9O-YR56DRbI_H7bQqJNnUsonVyyiXvnBFPb1dgi4_hy-mYhiPDdA4qaWKzC--5urvzaTJkSkyCiOh5B-sPKeBovAax32rEujmMa285QuIMLqXFbq4cUM-G9rupld6CjAqxtH8lOn-Dtft0iiggVZtq53VyZPdlJZ7wJuCGZ12Yp8wRM4se0pps6DGoOy8revcVhLf72c5GYJjt3HRLGd6aEfg"/>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl text-gray-900 dark:text-white">Juan Pérez</h4>
+                            <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Beca Académica '23</p>
+                            <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"Gracias a PROMUBE, pude acceder a una educación de calidad que transformó mi carrera para siempre."</p>
+                        </div>
                     </div>
-                </div>
+                    <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
+                        <div class="student-img-wrapper flex-shrink-0">
+                             <img alt="Retrato de María García" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZ-CDAub-k25C4b9XHiXcP0q16s7jyp--A98FEULKdN6R99TRO7jCEn7soMCu9VczjFwRGuSpZTbPR7Hl8qNDI8Coin03EQHTnH01taic6T6bllrywSEqL8yo5bblqJfodvqYWQPzNXpX9uLsM2sVm9cGA1adwoCvg5AIQglOargmdcdRIOElkK0xRgLOhveHlE07f6pc97NfOrETObngAqGe2EO_2YZekdnph3pEylqDu7aaT35jixS1RR-MEYE_3zFgCrcIM4o"/>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl text-gray-900 dark:text-white">María García</h4>
+                            <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Intercambio '22</p>
+                            <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"La experiencia del intercambio cultural amplió mis horizontes y me abrió puertas internacionales."</p>
+                        </div>
+                    </div>
+                @endforelse
 
-                <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
-                     <div class="student-img-wrapper flex-shrink-0">
-                        <img alt="Retrato de Carlos Rodríguez" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpU8KRoESuLjsteSfH1lWkdg1LoqGRKWwat75Cq0WvbRZdn0_1CI5TXhYY1e6ubPn84OTDvZe-ArBPgbvPF-3MM--0nUHbCI2rQushsWLD91ie5ypH_pHBoxmF9hP9XZWvRlroxW-KckrNeyt5uAUlzabo07HRUz3PSsaNg9YBDF_XYeTkokXs5fSPNdYaI5OVgLKsy2wx1DReDq1p9RBFVzhNNqpFoviS7v9Y_TEOec97tfMi-QID2VANgqYP_wreXk-e4vUrGvU"/>
-                     </div>
-                    <div>
-                        <h4 class="font-bold text-xl text-gray-900 dark:text-white">Carlos Rodríguez</h4>
-                        <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Investigación '23</p>
-                        <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"El apoyo para mi proyecto fue crucial. PROMUBE creyó en mi potencial científico."</p>
-                    </div>
-                </div>
-
-                <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
-                     <div class="student-img-wrapper flex-shrink-0">
-                        <img alt="Retrato de Ana Martínez" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMWO09q38ZN4aaSh-zy4hY3A9aluAy7WeSaahQH_464-GueR82ZcwzVy2ec9DAJfokqV-0s5SEp4GNEfaM6rcWIsFk2ebagMayohn-6-ZE7Y-jCkQKvTA43OzLxQyT_0FuoHTa8XlJfgcvx4tpgJlwBy3yFMOUEz-WGtu3FYKtesjdQAmlByLogzOxZUWFQEtkj4y0Kr3L8AXDHGIGiv9c61QU_9Ayahyw5NsLLs8lBHPtZU8jSiLExBOX6YFKthnX70H8WtUingQ"/>
-                     </div>
-                    <div>
-                        <h4 class="font-bold text-xl text-gray-900 dark:text-white">Ana Martínez</h4>
-                        <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Deportes '23</p>
-                        <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"Combinar mi pasión por el deporte con mis estudios de alto nivel fue posible gracias a esta beca."</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
+    <div class="container mx-auto px-6"><hr class="border-t border-gray-200 dark:border-gray-700 opacity-50"/></div>
+
     {{-- SECCIÓN 5: SEDES --}}
     <section class="py-24 bg-gray-50 dark:bg-[#121212]">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800 dark:text-white">
-                Nuestras Sedes
-            </h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800 dark:text-white">Nuestras Sedes</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="location-card group">
                     <div class="location-image-container">
@@ -544,12 +416,11 @@
     {{-- SCRIPTS DE INTERACCIÓN --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. Observer optimizado para animaciones de entrada
+            // Observer optimizado
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Usamos requestAnimationFrame para asegurar suavidad
                         requestAnimationFrame(() => {
                             entry.target.classList.add('active');
                         });
@@ -560,10 +431,9 @@
             
             document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
 
-            // 2. Rotación de Municipalidades (Bucle infinito suave)
+            // Rotación de Municipalidades
             const muniContainer = document.querySelector('[data-municipios-grid]');
             if (muniContainer) {
-                // Pausar rotación si el usuario pasa el mouse por encima
                 let isPaused = false;
                 muniContainer.addEventListener('mouseenter', () => isPaused = true);
                 muniContainer.addEventListener('mouseleave', () => isPaused = false);
@@ -572,7 +442,6 @@
                     if (!isPaused) {
                         const last = muniContainer.lastElementChild;
                         if (last) {
-                            // Pequeño fade out antes de mover (opcional, por simplicidad solo movemos DOM)
                             muniContainer.insertBefore(last, muniContainer.firstElementChild);
                         }
                     }

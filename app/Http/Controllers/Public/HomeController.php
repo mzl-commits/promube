@@ -11,8 +11,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Ejemplo: últimas 3 becas, 4 beneficiados, 3 noticias
+        // Traemos solo las 3 últimas para el Home
         $becasDestacadas = Beca::latest()->take(3)->get();
+        
+        // Mantenemos el resto igual
         $beneficiados    = Beneficiado::latest()->take(4)->get();
         $noticias        = Noticia::latest()->take(3)->get();
 

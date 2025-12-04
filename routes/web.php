@@ -22,3 +22,5 @@ Route::get('/noticias', [NoticiaController::class, 'index'])->name('noticias.ind
 Route::get('/preguntas-frecuentes', [FaqController::class, 'index'])->name('faqs.index');
 
 Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto.index');
+
+Route::get('/becas/{beca}', [BecaController::class, 'show'])->name('becas.show');
