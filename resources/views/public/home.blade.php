@@ -1,410 +1,539 @@
 @extends('layouts.public')
 
-@section('title', 'Inicio')
+@section('title', 'Inicio - PROMUBE')
 
 @section('content')
     <style>
-        .hero-bg {
-            background-image:
-                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                url("https://lh3.googleusercontent.com/aida-public/AB6AXoXAVOSubfh8DH8332sqkkCozu99bI-_J2_0e6fZFDdS5X-5TUjS_r-KkfOLZwYTJE8xrvReZUEt8po5s6s80IQV7B9PbDAUYxunLrFP246DQAAckjyXrAJnJPWhwInZPIqmwa3ICR7CrR8di0_biUhSJEWuMzoyhkJ62NZi3MBobwaMqmSRChlwbKBGSB_GZzFhyOXhHeb1CBym-zo57uJjUkgdy5oXSYuGtkoSFuoIJOs4TQ3U113xNXFue2QUw2nsHp54");
-            background-size: cover;
-            background-position: center;
+        /* =========================================
+           0. CONFIGURACIÓN BASE & UTILIDADES
+           ========================================= */
+        :root {
+            --primary-rgb: 217, 54, 62; /* #D9363E */
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* ---------- HERO: animación más lenta y notoria ---------- */
-        @keyframes slideUpHero {
-            from {
-                opacity: 0;
-                transform: translateY(55px);
-            }
-            60% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Sombra difusa de color para dar sensación premium */
+        .shadow-glow {
+            box-shadow: 0 10px 40px -10px rgba(var(--primary-rgb), 0.3);
         }
-
-        .hero-title {
-            animation: slideUpHero 2s ease-out forwards;
-        }
-
-        .hero-description {
-            animation: slideUpHero 2.4s ease-out forwards;
-            animation-delay: 0.2s;
-        }
-
-        .hero-button {
-            animation: slideUpHero 2.8s ease-out forwards;
-            animation-delay: 0.4s;
-        }
-
-        /* ---------- BECAS: diseño anterior (tres tarjetas iguales) ---------- */
-        [data-becas-carousel] > article {
-            border-radius: 0.75rem;
+        
+        /* =========================================
+           1. HERO CINEMÁTICO (PERFECCIONADO)
+           ========================================= */
+        .hero-wrapper {
+            position: relative;
+            border-radius: 1.5rem; /* Bordes más suaves */
             overflow: hidden;
-            background-color: #ffffff;
-            border: 1px solid rgba(148, 163, 184, 0.45);
-            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.1);
-            transition:
-                transform 0.35s ease,
-                box-shadow 0.35s ease,
-                border-color 0.35s ease;
-        }
-
-        .dark [data-becas-carousel] > article {
-            background-color: #1f2937;
-            border-color: rgba(55, 65, 81, 0.8);
-            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
-        }
-
-        [data-becas-carousel] > article:hover {
-            transform: translateY(-10px);
-            border-color: #D9363E;
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
-        }
-
-        [data-becas-carousel] > article img {
-            display: block;
-        }
-
-        /* Animaciones suaves para el carrusel de becas */
-        @keyframes becaOut {
-            from { opacity: 1; transform: translateY(0); }
-            to   { opacity: 0; transform: translateY(-8px); }
-        }
-        @keyframes becaIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .beca-anim-out {
-            animation: becaOut 0.45s ease-in forwards;
-        }
-        .beca-anim-in {
-            animation: becaIn 0.45s ease-out forwards;
-        }
-
-        /* ---------- MUNICIPALIDADES: tarjetas + escudos ---------- */
-        .municipality-card {
-            transition: transform 0.45s ease, box-shadow 0.45s ease, opacity 0.45s ease;
-        }
-
-        .municipality-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
-        }
-
-        .municipality-badge {
-            width: 4rem;
-            height: 4rem;
-            border-radius: 1.25rem;
-            background: #0f172a;
+            /* Altura dinámica: ocupa el 85% de la ventana pero con límites */
+            height: 85vh; 
+            min-height: 600px;
+            max-height: 900px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transform: rotate(45deg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 4rem;
+        }
+
+        .hero-image {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDVAaXoXAVOSubfh8DH8332sqkkCozu99bI-_J2_0e6fZFDdS5X-5TUjS_r-KkfOLZwYTJE8xrvReZUEt8po5s6s80IQV7B9PbDAUYxunLrFP246DQAAckjyXrAJnJPWhwInZPIqmwa3ICR7CrR8di0_biUhSJEWuMzoyhkJ62NZi3MBobwaMqmSRChlwbKBGSB_GZzFhyOXhHeb1CBymS-zo57uJjUkgdy5oXSYuGtkoSFuoIJOs4TQ3U113xNXFue2QUw2nsHp54');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            /* Ken Burns más sutil y lento */
+            animation: kenBurns 25s ease-out infinite alternate;
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            /* Degradado complejo para máxima legibilidad */
+            background: linear-gradient(
+                to bottom, 
+                rgba(0,0,0,0.2) 0%, 
+                rgba(0,0,0,0.5) 50%, 
+                rgba(0,0,0,0.8) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1000px;
+            padding: 0 2rem;
+        }
+
+        /* Tipografía fluida: escala suavemente sin breakpoints bruscos */
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw + 1rem, 5rem); 
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Animaciones de entrada escalonadas */
+        .animate-enter {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(10px);
+            animation: textReveal 1.2s var(--ease-out-expo) forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+
+        /* Botón Premium con efecto "Shine" */
+        .btn-hero {
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.3);
-            margin-bottom: 1rem;
+            background: #D9363E;
+            color: white;
+            font-weight: 700;
+            padding: 1.25rem 3.5rem;
+            border-radius: 9999px;
+            font-size: 1.1rem;
+            letter-spacing: 0.025em;
+            transition: all 0.4s var(--ease-out-expo);
+            box-shadow: 0 4px 15px rgba(217, 54, 62, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transform: skewX(-25deg);
+            transition: 0.5s;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px -10px rgba(217, 54, 62, 0.6);
+            background: #e63b44;
+        }
+        
+        .btn-hero:hover::after {
+            left: 150%;
+            transition: 0.7s ease-in-out;
+        }
+
+        @keyframes kenBurns {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+        @keyframes textReveal {
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        /* =========================================
+           2. BECAS 3D (SUAVIZADO)
+           ========================================= */
+        .perspective-container {
+            perspective: 2500px; /* Perspectiva más profunda para menos distorsión */
+            overflow-x: hidden;
+            padding: 2rem 0; /* Espacio para que la sombra no se corte */
+        }
+        
+        .card-3d-wrapper {
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+        
+        /* Efecto parallax suave al hacer hover en el contenedor */
+        .group:hover .card-3d-wrapper {
+            transform: translateY(-5px);
+        }
+
+        .reveal-left, .reveal-right {
+            opacity: 0;
+            transition: all 1.4s var(--ease-out-expo);
+            will-change: transform, opacity;
+        }
+        
+        .reveal-left {
+            transform: translateX(-80px) rotateY(-15deg) scale(0.95);
+            transform-origin: left center;
+        }
+        .reveal-right {
+            transform: translateX(80px) rotateY(15deg) scale(0.95);
+            transform-origin: right center;
+        }
+        
+        .reveal-left.active, .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0) rotateY(0) scale(1);
+        }
+
+        /* =========================================
+           3. TARJETAS MUNICIPALES (INTERACTIVAS)
+           ========================================= */
+        .municipality-card {
+            background: linear-gradient(145deg, #ffffff, #f3f4f6);
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+            z-index: 1;
+        }
+        .dark .municipality-card {
+            background: linear-gradient(145deg, #1f2937, #111827);
+            border-color: rgba(255,255,255,0.05);
+        }
+
+        .municipality-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.1);
+            border-color: rgba(217, 54, 62, 0.3); /* Color primario sutil */
+        }
+
+        .municipality-badge {
+            width: 4.5rem; height: 4.5rem;
+            border-radius: 1.25rem;
+            background: #1e293b;
+            display: flex; align-items: center; justify-content: center;
+            transform: rotate(45deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.4s var(--ease-out-expo);
+            margin-bottom: 1.5rem;
+        }
+
+        .municipality-card:hover .municipality-badge {
+            transform: rotate(45deg) scale(1.1);
+            background: #D9363E; /* El badge se ilumina en rojo al hover */
         }
 
         .municipality-badge img {
             transform: rotate(-45deg);
-            width: 2.25rem;
-            height: 2.25rem;
+            width: 2.5rem; height: 2.5rem;
             object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
-        /* ---------- ALUMNOS ---------- */
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.94); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-
+        /* =========================================
+           4. TESTIMONIOS (LIMPIOS Y ELEGANTES)
+           ========================================= */
         .student-profile {
-            animation: fadeInScale 0.8s ease-out;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            background: white;
             border-radius: 1.5rem;
-            box-shadow: 0 16px 38px rgba(15, 23, 42, 0.18);
+            transition: all 0.4s var(--ease-out-expo);
+            border: 1px solid rgba(0,0,0,0.04);
+            /* Sombra inicial suave */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .dark .student-profile {
+            background: #1f2937;
+            border-color: rgba(255,255,255,0.05);
+        }
+
+        .student-profile::before {
+            /* Adorno visual: comillas decorativas */
+            content: '"';
+            position: absolute;
+            top: 1rem; right: 1.5rem;
+            font-size: 4rem;
+            color: rgba(217, 54, 62, 0.1);
+            font-family: serif;
+            line-height: 1;
         }
 
         .student-profile:hover {
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 22px 50px rgba(15, 23, 42, 0.25);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba(217, 54, 62, 0.2);
         }
 
-        .student-profile:nth-child(1) { animation-delay: 0.05s; }
-        .student-profile:nth-child(2) { animation-delay: 0.1s; }
-        .student-profile:nth-child(3) { animation-delay: 0.15s; }
-        .student-profile:nth-child(4) { animation-delay: 0.2s; }
-
-        /* ---------- SEDES: mismo estilo que alumnos, pero más ligero ---------- */
-        @keyframes fadeUpLight {
-            from { opacity: 0; transform: translateY(18px); }
-            to   { opacity: 1; transform: translateY(0); }
+        .student-img-wrapper {
+            position: relative;
+        }
+        .student-img-wrapper::after {
+            /* Anillo de color sutil */
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 2px solid #D9363E;
+            opacity: 0.5;
         }
 
+        /* =========================================
+           5. SEDES (ESTILO TARJETA FLOTANTE)
+           ========================================= */
         .location-card {
             border-radius: 1.5rem;
             overflow: hidden;
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
-            animation: fadeUpLight 0.7s ease-out;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.4s var(--ease-out-expo);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+        .dark .location-card {
+            background: #1f2937;
+            border-color: rgba(255,255,255,0.05);
         }
 
         .location-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 42px rgba(15, 23, 42, 0.22);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
         }
 
-        .dark .location-card {
-            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.6);
+        .location-image-container {
+            overflow: hidden;
+            height: 16rem;
+        }
+
+        .location-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--ease-out-expo);
+        }
+
+        .location-card:hover img {
+            transform: scale(1.05); /* Zoom suave de imagen interno */
         }
     </style>
 
-    {{-- HERO --}}
-    <section class="hero-bg text-white">
-        <div class="container mx-auto px-6 py-28 md:py-48 text-center">
-            <h1 class="hero-title text-4xl md:text-7xl font-black mb-4 uppercase">
-                Oportunidades que transforman
-            </h1>
-            <p class="hero-description max-w-3xl mx-auto mb-8 text-lg md:text-xl text-gray-200">
-                Encuentra la beca o programa educativo perfecto para impulsar tu futuro académico y profesional.
-            </p>
-            <a href="#becas"
-               class="hero-button inline-block bg-white text-primary font-bold py-3 px-10 rounded-full hover:bg-gray-200 transition-colors text-lg">
-                Explorar Becas
-            </a>
-        </div>
-    </section>
-
-    {{-- BECAS DESTACADAS --}}
-    <section id="becas" class="py-16 md:py-24 bg-section-light dark:bg-section-dark">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
-                Becas Destacadas
-            </h2>
-
-            <div data-becas-carousel class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {{-- 1: Apoyo a la Investigación --}}
-                <article>
-                    <img
-                        alt="Equipo de laboratorio de ciencias con tubos de ensayo y matraces"
-                        class="w-full h-64 object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqT5bOwqFGI9AT3NCbmrUvr4QMG-_jIf7Dfmq0XM8qM2NeCUrVGbX0yrHnegIQDlpJUa7n3bGtSJVPDFblF3jcAwJZzJW9yEBUyVZ04BNi9ualLknOd-opJrQCJGdqau_APHvvH5Id9TdCM4aLmcyuf-4EgH92Sta3ZYzFmzLhzvi6AyUOa0eRJPNCCI5zXRAATGD6aL8qh97DRi0P3CwOolBVp16_tC_FK5JeG_oD37J9tQ5zWifDXsCzVtMpmwQmx4OfX_QwvrY"/>
-                    <div class="p-8">
-                        <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
-                            Beca de Apoyo a la Investigación
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">
-                            Tipo: Investigación | Nivel: Maestría | Modalidad: Mixta
-                        </p>
-                        <a href="#"
-                           class="font-semibold text-primary hover:text-red-700 transition-colors">
-                            Saber más
-                        </a>
-                    </div>
-                </article>
-
-                {{-- 2: Talentos Artísticos --}}
-                <article>
-                    <img
-                        alt="Suministros de arte con pinceles, lienzos y caballetes"
-                        class="w-full h-64 object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuADv_BqHe8beMwKtTYPZtrC7KT0_BOv6MDJf5AGBzQMW-Zp_IBt_FTnkTHClhJ28N1dRhs2XLKYUlB31wZYCJmEcAinNBAQ4GnalH4cL4Utfw7P-3Y77bFgAfCONA6r_Nvtk6BUaFhZ6UEzvSklFHvhf6BDMnnKF7fdUS3TxZdIWrdRW_SxCXVz9zGZQz4jdDg-pro2k_id7tiF-0W8yKsdNx67w-SSWkpYK3Tn0OpfTKv2o_SmmCFdFn5vLtfLvZrKnsAtufQ33Kw"/>
-                    <div class="p-8">
-                        <h3 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">
-                            Beca para Talentos Artísticos
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">
-                            Tipo: Artística | Nivel: Todos | Modalidad: Presencial
-                        </p>
-                        <a href="#"
-                           class="font-semibold text-primary hover:text-red-700 transition-colors">
-                            Saber más
-                        </a>
-                    </div>
-                </article>
-
-                {{-- 3: Excelencia Académica --}}
-                <article>
-                    <img
-                        alt="Gran edificio universitario con columnas y escaleras"
-                        class="w-full h-64 object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb3rjnH-tOJDQRjWL8sJngsXXulCafaehs9nDjeAu6zYizs98lX8A_bo54lS2g7vgvdqjkzewg6f-Ic5WxBlPygioYggDKlrDOQo3s2VxqjzqyTcWx7XrH7U5V95QuEH_r6kyoM3UA2g3bP1EeAFT3EAdTblR8q8X6CtM4rE2uQ7c6OGXldSgWRWjYMRY39Rg47GXpcodlmrH_4IXrUg4zEfxirtMnQgYQoUJQPMcI_spSx-NfQ7wKHrcwC8Q1shtPOLaE7_m9LrE"/>
-                    <div class="p-8">
-                        <h3 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">
-                            Beca de Excelencia Académica
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">
-                            Tipo: Académica | Nivel: Licenciatura | Modalidad: Presencial
-                        </p>
-                        <a href="#"
-                           class="font-semibold text-primary hover:text-red-700 transition-colors">
-                            Saber más
-                        </a>
-                    </div>
-                </article>
+    {{-- SECCIÓN 1: HERO RENOVADO --}}
+    <section class="container mx-auto px-4 sm:px-6">
+        <div class="hero-wrapper">
+            <div class="hero-image"></div>
+            <div class="hero-overlay"></div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title font-black text-white mb-6 animate-enter">
+                    <span class="text-primary inline-block">PROMUBE</span><br/>
+                    El Futuro es Tuyo
+                </h1>
+                <p class="text-lg md:text-2xl text-gray-100 mb-10 font-light max-w-2xl mx-auto animate-enter delay-1">
+                    Conectamos talento con oportunidades. Descubre becas y programas educativos diseñados para transformar tu carrera profesional.
+                </p>
+                <div class="animate-enter delay-2">
+                    <a href="#becas" class="btn-hero">
+                        Explorar Becas
+                        <span class="material-symbols-outlined text-xl">arrow_downward</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    {{-- MUNICIPALIDADES ALIADAS --}}
-    <section class="py-16 md:py-24 bg-background-light dark:bg-background-dark">
+    {{-- SECCIÓN 2: BECAS (EFECTO 3D PULIDO) --}}
+    <section id="becas" class="py-24 perspective-container overflow-hidden">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
-                Municipalidades Aliadas
-            </h2>
+            <div class="text-center mb-20">
+                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Oportunidades</span>
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white">Becas Destacadas</h2>
+            </div>
 
+            <div class="space-y-32"> {{-- Más espacio vertical para lucir el efecto --}}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
+                    <div class="relative reveal-left card-3d-wrapper">
+                        <img alt="Gran edificio universitario" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb3rjnH-tOJDQRjWL8sJngsXXulCafaehs9nDjeAu6zYizs98lX8A_bo54lS2g7vgvdqjkzewg6f-Ic5WxBlPygioYggDKlrDOQo3s2VxqjzqyTcWx7XrH7U5V95QuEH_r6kyoM3UA2g3bP1EeAFT3EAdTblR8q8X6CtM4rE2uQ7c6OGXldSgWRWjYMRY39Rg47GXpcodlmrH_4IXrUg4zEfxirtMnQgYQoUJQPMcI_spSx-NfQ7wKHrcwC8Q1shtPOLaE7_m9LrE"/>
+                    </div>
+                    <div class="reveal-right">
+                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca de Excelencia Académica</h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Ofrecemos un apoyo integral a estudiantes con un historial académico sobresaliente que deseen cursar estudios de licenciatura en modalidad presencial.</p>
+                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
+                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
+                    <div class="md:order-2 relative reveal-right card-3d-wrapper">
+                        <img alt="Laboratorio de ciencias" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqT5bOwqFGI9AT3NCbmrUvr4QMG-_jIf7Dfmq0XM8qM2NeCUrVGbX0yrHnegIQDlpJUa7n3bGtSJVPDFblF3jcAwJZzJW9yEBUyVZ04BNi9ualLknOd-opJrQCJGdqau_APHvvH5Id9TdCM4aLmcyuf-4EgH92Sta3ZYzFmzLhzvi6AyUOa0eRJPNCCI5zXRAATGD6aL8qh97DRi0P3CwOolBVp16_tC_FK5JeG_oD37J9tQ5zWifDXsCzVtMpmwQmx4OfX_QwvrY"/>
+                    </div>
+                    <div class="md:order-1 reveal-left">
+                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca de Apoyo a la Investigación</h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Dirigida a estudiantes de maestría que desarrollen proyectos de investigación con alto impacto y relevancia social.</p>
+                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
+                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
+                    <div class="relative reveal-left card-3d-wrapper">
+                        <img alt="Suministros de arte" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADv_BqHe8beMwKtTYPZtrC7KT0_BOv6MDJf5AGBzQMW-Zp_IBt_FTnkTHClhJ28N1dRhs2XLKYUlB31wZYCJmEcAinNBAQ4GnalH4cL4Utfw7P-3Y77bFgAfCONA6r_Nvtk6BUaFhZ6UEzvSklFHvhf6BDMnnKF7fdUS3TxZdIWrdRW_SxCXVz9zGZQz4jdDg-pro2k_id7tiF-0W8yKsdNx67w-SSWkpYK3Tn0OpfTKv2o_SmmCFdFn5vLtfLvZrKnsAtufQ33Kw"/>
+                    </div>
+                    <div class="reveal-right">
+                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca para Talentos Artísticos</h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Impulsamos el talento en las artes visuales, música y artes escénicas. Abierta a todos los niveles creativos.</p>
+                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
+                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
+                    <div class="md:order-2 relative reveal-right card-3d-wrapper">
+                        <img alt="Estudiantes con laptops" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqsDW7Eyzl38NxtWzXWj9ZPNb9fnfDkRhiSR5ugftDifvRlgtJRrJgnObPxcDYoKv0hx6cghdStc9Rr8w-H_A5ixsXT1LSeMWXrD727ymKaPh_kk7h-Ul2txlr3zTIgf806_eYucfUe1WRUPIxzgoca2dwJHdAgu9x0gwM-QgJtuydonoDwuv31yLaQ5D5fpDyKZdATqfnn6BK_1dOlv3YKPsKjv_pCf62uLtgJibEcgS32AoV8eOVKyXEaq1D6g3znWc1vivIYjw"/>
+                    </div>
+                    <div class="md:order-1 reveal-left">
+                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca de Liderazgo y Emprendimiento</h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Buscamos a los líderes del mañana. Para estudiantes de posgrado con proyectos innovadores de alto impacto.</p>
+                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
+                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center group">
+                    <div class="relative reveal-left card-3d-wrapper">
+                        <img alt="Atleta corriendo" class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6zVY2V16CGVuc4WNtxW-GpEd3MpEU1wyTOHuWQqEgHLzwbqf05yKK3k2nBdug7uncLU64WSj5tlCmtB_4zAa0TiOYhNJWNkamFFRtRtOPugWEwkMV5iWP9FcOPeoA1je-V16kb-LWsntI2zf-P0JW3iViyI23Qj_9_uLkihF-bJ6LRzwkg-ocWfZzwb0uaCBhESle3HTNAlj4yMaN_PVDw0V8m09VsLeocoJyw-DJqyy8w0FgdKOda0MhoY0rOYbNfRIB3iojjyE"/>
+                    </div>
+                    <div class="reveal-right">
+                        <h3 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Beca para Deportistas</h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">Apoyamos a atletas que combinan su carrera deportiva con la excelencia académica sin sacrificar su rendimiento.</p>
+                        <a class="text-primary font-bold hover:text-red-700 transition-colors flex items-center group/link text-lg" href="#">
+                            Ver detalles <span class="material-symbols-outlined ml-2 transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="container mx-auto px-6"><hr class="border-t border-gray-200 dark:border-gray-700 opacity-50"/></div>
+
+    {{-- SECCIÓN 3: MUNICIPALIDADES --}}
+    <section class="py-24 bg-gray-50 dark:bg-[#151515]">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">Municipalidades Afiliadas</h2>
+                 <p class="text-gray-500 mt-4 max-w-xl mx-auto">Trabajamos de la mano con gobiernos locales para extender el alcance de nuestros programas.</p>
+            </div>
+           
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8" data-municipios-grid>
-                <div class="municipality-card bg-section-light dark:bg-section-dark p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                <div class="municipality-card p-8 rounded-2xl flex flex-col items-center justify-center text-center cursor-default">
                     <div class="municipality-badge">
-                        <img alt="Escudo municipal Centro"
-                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjNg0Wcjux3TCtanPgVBjJ4w4Xs7chq9tQstjwDDVQsCrsRpUc2jxHJdzNvmykzbmskw8W5b1x1OfqVqaEmkay6y4az5620zS6EKB90lewVWLWp16UQxx6MT8n9j1ixEcs3M0fQD7h5okdIk7bSLByE8CEl5bQJrdrV8QIkhuv8OLYC9J6qTKzqmbV3p4CFTIRbRcuBr1qmDQq1ZcyJf7QhUJpQvtfEusPIYeZ0teYRuL9xBGnhfu9psGuAOjdVCQ7SQj7o0OaVe8"/>
+                        <img alt="Escudo municipal Centro" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjNg0Wcjux3TCtanPgVBjJ4w4Xs7chq9tQstjwDDVQsCrsRpUc2jxHJdzNvmykzbmskw8W5b1x1OfqVqaEmkay6y4az5620zS6EKB90lewVWLWp16UQxx6MT8n9j1ixEcs3M0fQD7h5okdIk7bSLByE8CEl5bQJrdrV8QIkhuv8OLYC9J6qTKzqmbV3p4CFTIRbRcuBr1qmDQq1ZcyJf7QhUJpQvtfEusPIYeZ0teYRuL9xBGnhfu9psGuAOjdVCQ7SQj7o0OaVe8"/>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Municipalidad de Centro</h3>
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Centro</h3>
                 </div>
-
-                <div class="municipality-card bg-section-light dark:bg-section-dark p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                <div class="municipality-card p-8 rounded-2xl flex flex-col items-center justify-center text-center cursor-default">
                     <div class="municipality-badge">
-                        <img alt="Escudo municipal Norte"
-                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQReQIgKi-fe01YsN08lsV_AbO7S_-81yE4O-ke7xWfiKE-1yIS8MDbszyYflZlZIU9exwnNRVk9zkUVq1o0Xn_i5c--zTb5fyZ-KnYTXPWbzHZdf_ytHa35Rm3aF8SxIPED_Kjmh59HBPdAtH2FPYQz0EDQ8npfPytvaF6bZPOmn9F-EZaCPJHG2QSulZaM5VNQpZsZT40HMugTnvIeChRRpNujdyW-9yAI99Lexi1maCivTsuWmlg4RMg40EcBVOzvd4DQp6WOY"/>
+                        <img alt="Escudo municipal Norte" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQReQIgKi-fe01YsN08lsV_AbO7S_-81yE4O-ke7xWfiKE-1yIS8MDbszyYflZlZIU9exwnNRVk9zkUVq1o0Xn_i5c--zTb5fyZ-KnYTXPWbzHZdf_ytHa35Rm3aF8SxIPED_Kjmh59HBPdAtH2FPYQz0EDQ8npfPytvaF6bZPOmn9F-EZaCPJHG2QSulZaM5VNQpZsZT40HMugTnvIeChRRpNujdyW-9yAI99Lexi1maCivTsuWmlg4RMg40EcBVOzvd4DQp6WOY"/>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Municipalidad de Norte</h3>
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Norte</h3>
                 </div>
-
-                <div class="municipality-card bg-section-light dark:bg-section-dark p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                <div class="municipality-card p-8 rounded-2xl flex flex-col items-center justify-center text-center cursor-default">
                     <div class="municipality-badge">
-                        <img alt="Escudo municipal Sur"
-                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxxky7anIVv0xQpyi4LbC3Mx-eSM5NGFUZNI_BppsxV0HIrwKCUBcs5aNEw8mefQ13IRbJy6tTadE_35Tci2x6SqMyui192duJPJOjFc4RDwqdW0Xomwlq_88yTKibqT-L_tf_4DK9Jv7Kgc7m0tRvYf5u4bLqkTgY8HI_e8cO0zJGsPGfpPFbaiFGjupRM3rlTvEqBA3EjKH5SoV2lao3zyk9s8koMBZ1YP4H_jP_nS9WeTdkDDL-YgsnU86MhfQsS4Sy_nFR2tE"/>
+                        <img alt="Escudo municipal Sur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxxky7anIVv0xQpyi4LbC3Mx-eSM5NGFUZNI_BppsxV0HIrwKCUBcs5aNEw8mefQ13IRbJy6tTadE_35Tci2x6SqMyui192duJPJOjFc4RDwqdW0Xomwlq_88yTKibqT-L_tf_4DK9Jv7Kgc7m0tRvYf5u4bLqkTgY8HI_e8cO0zJGsPGfpPFbaiFGjupRM3rlTvEqBA3EjKH5SoV2lao3zyk9s8koMBZ1YP4H_jP_nS9WeTdkDDL-YgsnU86MhfQsS4Sy_nFR2tE"/>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Municipalidad de Sur</h3>
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Sur</h3>
                 </div>
-
-                <div class="municipality-card bg-section-light dark:bg-section-dark p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                <div class="municipality-card p-8 rounded-2xl flex flex-col items-center justify-center text-center cursor-default">
                     <div class="municipality-badge">
-                        <img alt="Escudo municipal Occidente"
-                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZJWLzamznL2JepkkKLr-ti_BBfDSwuILt8o5M3SjbHvnkAoUJTSal-Qydr4egybbnI3NU_NMLc23q5URSnzmYy_1fhleBGRQAfL1axTtvkopPpnJeULWBWYKfm1KxR3_4e8R9Wq59mPNW2uDfnJBvGZ9zt2goMTOliLBPJ2xpl1qQCUhT5CKAnupen09bC2qMNLx6TPQwVtTBBFLc1pvYrK1MCXhxHFHNX0Jr6cktaR34KOeGTKJc_yyKuSydIi_d7uqlaDgb87g"/>
+                        <img alt="Escudo municipal Occidente" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZJWLzamznL2JepkkKLr-ti_BBfDSwuILt8o5M3SjbHvnkAoUJTSal-Qydr4egybbnI3NU_NMLc23q5URSnzmYy_1fhleBGRQAfL1axTtvkopPpnJeULWBWYKfm1KxR3_4e8R9Wq59mPNW2uDfnJBvGZ9zt2goMTOliLBPJ2xpl1qQCUhT5CKAnupen09bC2qMNLx6TPQwVtTBBFLc1pvYrK1MCXhxHFHNX0Jr6cktaR34KOeGTKJc_yyKuSydIi_d7uqlaDgb87g"/>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Municipalidad de Occidente</h3>
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Occidente</h3>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- ALUMNOS BENEFICIADOS --}}
-    <section class="py-16 md:py-24 bg-section-light dark:bg-section-dark">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
-                Alumnos Beneficiados
+    {{-- SECCIÓN 4: ALUMNOS --}}
+    <section class="py-24 bg-white dark:bg-background-dark relative overflow-hidden">
+        {{-- Adorno de fondo sutil --}}
+        <div class="absolute top-0 left-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-16 text-gray-800 dark:text-white">
+                Historias de Éxito
             </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="student-profile bg-white dark:bg-gray-800 rounded-lg p-6 flex items-center space-x-6">
-                    <img alt="Retrato de Juan Pérez"
-                         class="w-20 h-20 rounded-full object-cover flex-shrink-0"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuByk8OgTgtv_Epn23gLOB2dvUFQZoSEdH6Yh-xJaA7Cy6jjwfLdEF9O-YR56DRbI_H7bQqJNnUsonVyyiXvnBFPb1dgi4_hy-mYhiPDdA4qaWKzC--5urvzaTJkSkyCiOh5B-sPKeBovAax32rEujmMa285QuIMLqXFbq4cUM-G9rupld6CjAqxtH8lOn-Dtft0iiggVZtq53VyZPdlJZ7wJuCGZ12Yp8wRM4se0pps6DGoOy8revcVhLf72c5GYJjt3HRLGd6aEfg"/>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
+                    <div class="student-img-wrapper flex-shrink-0">
+                         <img alt="Retrato de Juan Pérez" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByk8OgTgtv_Epn23gLOB2dvUFQZoSEdH6Yh-xJaA7Cy6jjwfLdEF9O-YR56DRbI_H7bQqJNnUsonVyyiXvnBFPb1dgi4_hy-mYhiPDdA4qaWKzC--5urvzaTJkSkyCiOh5B-sPKeBovAax32rEujmMa285QuIMLqXFbq4cUM-G9rupld6CjAqxtH8lOn-Dtft0iiggVZtq53VyZPdlJZ7wJuCGZ12Yp8wRM4se0pps6DGoOy8revcVhLf72c5GYJjt3HRLGd6aEfg"/>
+                    </div>
                     <div>
-                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Juan Pérez</h4>
-                        <p class="text-sm text-primary font-semibold">Beca Académica, 2023</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Región Norte</p>
-                        <p class="text-gray-700 dark:text-gray-300 italic text-sm">
-                            "Gracias a PROMUBE, pude acceder a una educación de calidad que transformó mi carrera. El apoyo fue fundamental."
-                        </p>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white">Juan Pérez</h4>
+                        <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Beca Académica '23</p>
+                        <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"Gracias a PROMUBE, pude acceder a una educación de calidad que transformó mi carrera para siempre."</p>
+                    </div>
+                </div>
+                
+                <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
+                    <div class="student-img-wrapper flex-shrink-0">
+                         <img alt="Retrato de María García" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZ-CDAub-k25C4b9XHiXcP0q16s7jyp--A98FEULKdN6R99TRO7jCEn7soMCu9VczjFwRGuSpZTbPR7Hl8qNDI8Coin03EQHTnH01taic6T6bllrywSEqL8yo5bblqJfodvqYWQPzNXpX9uLsM2sVm9cGA1adwoCvg5AIQglOargmdcdRIOElkK0xRgLOhveHlE07f6pc97NfOrETObngAqGe2EO_2YZekdnph3pEylqDu7aaT35jixS1RR-MEYE_3zFgCrcIM4o"/>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white">María García</h4>
+                        <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Intercambio '22</p>
+                        <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"La experiencia del intercambio cultural amplió mis horizontes y me abrió puertas internacionales."</p>
                     </div>
                 </div>
 
-                <div class="student-profile bg-white dark:bg-gray-800 rounded-lg p-6 flex items-center space-x-6">
-                    <img alt="Retrato de María García"
-                         class="w-20 h-20 rounded-full object-cover flex-shrink-0"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZ-CDAub-k25C4b9XHiXcP0q16s7jyp--A98FEULKdN6R99TRO7jCEn7soMCu9VczjFwRGuSpZTbPR7Hl8qNDI8Coin03EQHTnH01taic6T6bllrywSEqL8yo5bblqJfodvqYWQPzNXpX9uLsM2sVm9cGA1adwoCvg5AIQglOargmdcdRIOElkK0xRgLOhveHlE07f6pc97NfOrETObngAqGe2EO_2YZekdnph3pEylqDu7aaT35jixS1RR-MEYE_3zFgCrcIM4o"/>
+                <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
+                     <div class="student-img-wrapper flex-shrink-0">
+                        <img alt="Retrato de Carlos Rodríguez" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpU8KRoESuLjsteSfH1lWkdg1LoqGRKWwat75Cq0WvbRZdn0_1CI5TXhYY1e6ubPn84OTDvZe-ArBPgbvPF-3MM--0nUHbCI2rQushsWLD91ie5ypH_pHBoxmF9hP9XZWvRlroxW-KckrNeyt5uAUlzabo07HRUz3PSsaNg9YBDF_XYeTkokXs5fSPNdYaI5OVgLKsy2wx1DReDq1p9RBFVzhNNqpFoviS7v9Y_TEOec97tfMi-QID2VANgqYP_wreXk-e4vUrGvU"/>
+                     </div>
                     <div>
-                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">María García</h4>
-                        <p class="text-sm text-primary font-semibold">Programa de Intercambio, 2022</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Región Centro</p>
-                        <p class="text-gray-700 dark:text-gray-300 italic text-sm">
-                            "La experiencia del intercambio cultural amplió mis horizontes y me abrió puertas que nunca imaginé. ¡Una oportunidad increíble!"
-                        </p>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white">Carlos Rodríguez</h4>
+                        <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Investigación '23</p>
+                        <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"El apoyo para mi proyecto fue crucial. PROMUBE creyó en mi potencial científico."</p>
                     </div>
                 </div>
 
-                <div class="student-profile bg-white dark:bg-gray-800 rounded-lg p-6 flex items-center space-x-6">
-                    <img alt="Retrato de Carlos Rodríguez"
-                         class="w-20 h-20 rounded-full object-cover flex-shrink-0"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpU8KRoESuLjsteSfH1lWkdg1LoqGRKWwat75Cq0WvbRZdn0_1CI5TXhYY1e6ubPn84OTDvZe-ArBPgbvPF-3MM--0nUHbCI2rQushsWLD91ie5ypH_pHBoxmF9hP9XZWvRlroxW-KckrNeyt5uAUlzabo07HRUz3PSsaNg9YBDF_XYeTkokXs5fSPNdYaI5OVgLKsy2wx1DReDq1p9RBFVzhNNqpFoviS7v9Y_TEOec97tfMi-QID2VANgqYP_wreXk-e4vUrGvU"/>
+                <div class="student-profile p-8 flex items-start sm:items-center space-x-6">
+                     <div class="student-img-wrapper flex-shrink-0">
+                        <img alt="Retrato de Ana Martínez" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMWO09q38ZN4aaSh-zy4hY3A9aluAy7WeSaahQH_464-GueR82ZcwzVy2ec9DAJfokqV-0s5SEp4GNEfaM6rcWIsFk2ebagMayohn-6-ZE7Y-jCkQKvTA43OzLxQyT_0FuoHTa8XlJfgcvx4tpgJlwBy3yFMOUEz-WGtu3FYKtesjdQAmlByLogzOxZUWFQEtkj4y0Kr3L8AXDHGIGiv9c61QU_9Ayahyw5NsLLs8lBHPtZU8jSiLExBOX6YFKthnX70H8WtUingQ"/>
+                     </div>
                     <div>
-                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Carlos Rodríguez</h4>
-                        <p class="text-sm text-primary font-semibold">Beca de Investigación, 2023</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Región Sur</p>
-                        <p class="text-gray-700 dark:text-gray-300 italic text-sm">
-                            "El apoyo para mi proyecto de investigación fue crucial. PROMUBE creyó en mi potencial y me dio las herramientas para innovar."
-                        </p>
-                    </div>
-                </div>
-
-                <div class="student-profile bg-white dark:bg-gray-800 rounded-lg p-6 flex items-center space-x-6">
-                    <img alt="Retrato de Ana Martínez"
-                         class="w-20 h-20 rounded-full object-cover flex-shrink-0"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMWO09q38ZN4aaSh-zy4hY3A9aluAy7WeSaahQH_464-GueR82ZcwzVy2ec9DAJfokqV-0s5SEp4GNEfaM6rcWIsFk2ebagMayohn-6-ZE7Y-jCkQKvTA43OzLxQyT_0FuoHTa8XlJfgcvx4tpgJlwBy3yFMOUEz-WGtu3FYKtesjdQAmlByLogzOxZUWFQEtkj4y0Kr3L8AXDHGIGiv9c61QU_9Ayahyw5NsLLs8lBHPtZU8jSiLExBOX6YFKthnX70H8WtUingQ"/>
-                    <div>
-                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Ana Martínez</h4>
-                        <p class="text-sm text-primary font-semibold">Beca Deportiva, 2023</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Región Occidente</p>
-                        <p class="text-gray-700 dark:text-gray-300 italic text-sm">
-                            "Combinar mi pasión por el deporte con mis estudios fue posible gracias a esta beca. Un sueño hecho realidad."
-                        </p>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white">Ana Martínez</h4>
+                        <p class="text-sm text-primary font-bold uppercase tracking-wide mb-3">Deportes '23</p>
+                        <p class="text-gray-600 dark:text-gray-300 italic text-base leading-relaxed">"Combinar mi pasión por el deporte con mis estudios de alto nivel fue posible gracias a esta beca."</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- SEDES --}}
-    <section class="py-16 md:py-24 bg-background-light dark:bg-background-dark">
+    {{-- SECCIÓN 5: SEDES --}}
+    <section class="py-24 bg-gray-50 dark:bg-[#121212]">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
-                Conoce nuestras Sedes
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800 dark:text-white">
+                Nuestras Sedes
             </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="location-card bg-section-light dark:bg-section-dark">
-                    <img alt="Edificio de oficinas moderno CIDECH"
-                         class="w-full h-56 object-cover"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd2_H08jilsWIyRClEVK8eRTHnJGc3jQKquVDiSoNGEmoEB0C6UCpS7WeA8aDPrO52EOkPAKHDWRSSDC-CvWlIn_NF_xhC7D77LVrpgHAWwwZUYdgrD9MNYUhAJPn7H1g40rCQNKpMSsI8w1pnFQnDuHRLeFLZ5JWnmxFqjoby8WiAddfI1QE-0yVUXwJn1BOTldsaWXw3NK5bk6E1Nd9-wP0qxr1pTSn0WZul-HeY6eu5E7RZpploWOPfTa6-5N3ra-k2AbbdoYI"/>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Sede Central CIDECH</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-1">
-                            <span class="font-semibold">Dirección:</span> Av. Universidad 1234, Col. Centro, Ciudad de México.
-                        </p>
-                        <p class="text-gray-600 dark:text-gray-400 mb-6">
-                            <span class="font-semibold">Atención:</span> Lunes a Viernes, 9am - 6pm.
-                        </p>
-                        <a href="#"
-                           class="block text-center w-full bg-primary text-white font-bold py-2.5 px-6 rounded-lg hover:bg-red-700 transition-colors">
-                            Ver más
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="location-card group">
+                    <div class="location-image-container">
+                        <img alt="Edificio de oficinas moderno CIDECH" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd2_H08jilsWIyRClEVK8eRTHnJGc3jQKquVDiSoNGEmoEB0C6UCpS7WeA8aDPrO52EOkPAKHDWRSSDC-CvWlIn_NF_xhC7D77LVrpgHAWwwZUYdgrD9MNYUhAJPn7H1g40rCQNKpMSsI8w1pnFQnDuHRLeFLZ5JWnmxFqjoby8WiAddfI1QE-0yVUXwJn1BOTldsaWXw3NK5bk6E1Nd9-wP0qxr1pTSn0WZul-HeY6eu5E7RZpploWOPfTa6-5N3ra-k2AbbdoYI"/>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Central</h3>
+                            <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">CDMX</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-2 text-base"><span class="font-semibold text-gray-900 dark:text-white">Dirección:</span> Av. Universidad 1234, Col. Centro.</p>
+                        <p class="text-gray-600 dark:text-gray-400 mb-8 text-base"><span class="font-semibold text-gray-900 dark:text-white">Horario:</span> Lun-Vie, 9am - 6pm.</p>
+                        <a href="#" class="block text-center w-full border-2 border-primary text-primary font-bold py-3 px-6 rounded-xl hover:bg-primary hover:text-white transition-all duration-300">
+                            Ver ubicación en mapa
                         </a>
                     </div>
                 </div>
-
-                <div class="location-card bg-section-light dark:bg-section-dark">
-                    <img alt="Parque de oficinas corporativas Sede Norte"
-                         class="w-full h-56 object-cover"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiapKTJC8xcc7tkIfBrgC_FyqQlJ9OJ2UKNO07Zn7DYyoBJF-WSsgB3AJ_Qhuv7-n7N4D4xk7E2__eeQkdC-7ITFPyjGPBCmN8uiFtl4rnFbeT7t4ioAKfwjUFfFDDgijzBfMFgvVpiWS-EHiaKdNeGqoWFXOVphvMsFx1MQu2nNeoG_hJDWRV9YXisLjkhE7v3j69MJquAhDtDOEppbV4pOiJjzhINDrhZ36WrXQ0YL0a2VTepauikYBVK6jYxgyx55XuPnwaVZs"/>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Sede Norte</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-1">
-                            <span class="font-semibold">Dirección:</span> Calle del Sol 567, Plaza Norte, Monterrey.
-                        </p>
-                        <p class="text-gray-600 dark:text-gray-400 mb-6">
-                            <span class="font-semibold">Atención:</span> Lunes a Viernes, 10am - 5pm.
-                        </p>
-                        <a href="#"
-                           class="block text-center w-full bg-primary text-white font-bold py-2.5 px-6 rounded-lg hover:bg-red-700 transition-colors">
-                            Ver más
+                <div class="location-card group">
+                    <div class="location-image-container">
+                        <img alt="Parque de oficinas corporativas Sede Norte" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiapKTJC8xcc7tkIfBrgC_FyqQlJ9OJ2UKNO07Zn7DYyoBJF-WSsgB3AJ_Qhuv7-n7N4D4xk7E2__eeQkdC-7ITFPyjGPBCmN8uiFtl4rnFbeT7t4ioAKfwjUFfFDDgijzBfMFgvVpiWS-EHiaKdNeGqoWFXOVphvMsFx1MQu2nNeoG_hJDWRV9YXisLjkhE7v3j69MJquAhDtDOEppbV4pOiJjzhINDrhZ36WrXQ0YL0a2VTepauikYBVK6jYxgyx55XuPnwaVZs"/>
+                    </div>
+                    <div class="p-8">
+                         <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Norte</h3>
+                            <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">Monterrey</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-2 text-base"><span class="font-semibold text-gray-900 dark:text-white">Dirección:</span> Calle del Sol 567, Plaza Norte.</p>
+                        <p class="text-gray-600 dark:text-gray-400 mb-8 text-base"><span class="font-semibold text-gray-900 dark:text-white">Horario:</span> Lun-Vie, 10am - 5pm.</p>
+                        <a href="#" class="block text-center w-full border-2 border-primary text-primary font-bold py-3 px-6 rounded-xl hover:bg-primary hover:text-white transition-all duration-300">
+                            Ver ubicación en mapa
                         </a>
                     </div>
                 </div>
@@ -412,45 +541,42 @@
         </div>
     </section>
 
-    {{-- JS para rotación de becas y municipalidades --}}
+    {{-- SCRIPTS DE INTERACCIÓN --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Carrusel de becas: rotación suave
-            const becasContainer = document.querySelector('[data-becas-carousel]');
-            if (becasContainer) {
-                let becaIsAnimating = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Observer optimizado para animaciones de entrada
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Usamos requestAnimationFrame para asegurar suavidad
+                        requestAnimationFrame(() => {
+                            entry.target.classList.add('active');
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
 
-                setInterval(() => {
-                    if (becaIsAnimating) return;
-                    const first = becasContainer.firstElementChild;
-                    if (!first) return;
-
-                    becaIsAnimating = true;
-                    first.classList.add('beca-anim-out');
-
-                    first.addEventListener('animationend', function handler() {
-                        first.removeEventListener('animationend', handler);
-                        first.classList.remove('beca-anim-out');
-                        becasContainer.appendChild(first);
-                        first.classList.add('beca-anim-in');
-
-                        setTimeout(() => {
-                            first.classList.remove('beca-anim-in');
-                            becaIsAnimating = false;
-                        }, 450); // coincide con duración de la animación
-                    }, { once: true });
-                }, 6000); // un poco más pausado
-            }
-
-            // Municipalidades: mueve el último al inicio para que "giren" de posición
+            // 2. Rotación de Municipalidades (Bucle infinito suave)
             const muniContainer = document.querySelector('[data-municipios-grid]');
             if (muniContainer) {
+                // Pausar rotación si el usuario pasa el mouse por encima
+                let isPaused = false;
+                muniContainer.addEventListener('mouseenter', () => isPaused = true);
+                muniContainer.addEventListener('mouseleave', () => isPaused = false);
+
                 setInterval(() => {
-                    const last = muniContainer.lastElementChild;
-                    if (last) {
-                        muniContainer.insertBefore(last, muniContainer.firstElementChild);
+                    if (!isPaused) {
+                        const last = muniContainer.lastElementChild;
+                        if (last) {
+                            // Pequeño fade out antes de mover (opcional, por simplicidad solo movemos DOM)
+                            muniContainer.insertBefore(last, muniContainer.firstElementChild);
+                        }
                     }
-                }, 3800);
+                }, 4000);
             }
         });
     </script>
