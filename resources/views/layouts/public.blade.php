@@ -1,4 +1,3 @@
-{{-- resources/views/layouts/public.blade.php --}}
 <!DOCTYPE html>
 <html class="light" lang="es">
 <head>
@@ -38,13 +37,17 @@
     {{-- Header --}}
     <header class="sticky top-0 z-50 w-full bg-primary font-display shadow-md">
         <div class="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+            {{-- Logo --}}
             <div class="flex items-center gap-3">
-                <h1 class="text-2xl font-bold tracking-tight text-white">PROMUBE</h1>
-                <span class="hidden border-l border-white/50 pl-3 text-sm font-light text-white sm:inline">
-                    CIDECH
-                </span>
+                <a href="{{ route('home') }}" class="flex items-center gap-3">
+                    <h1 class="text-2xl font-bold tracking-tight text-white">PROMUBE</h1>
+                    <span class="hidden border-l border-white/50 pl-3 text-sm font-light text-white sm:inline">
+                        CIDECH
+                    </span>
+                </a>
             </div>
 
+            {{-- Navegación Principal (Limpia) --}}
             <nav class="hidden items-center gap-6 md:flex">
                 <a href="{{ route('home') }}"
                    class="text-sm font-medium text-white transition-colors hover:text-white/80">
@@ -62,21 +65,13 @@
                    class="text-sm font-medium text-white transition-colors hover:text-white/80">
                     Sedes
                 </a>
-                <a href="{{ route('noticias.index') }}"
-                   class="text-sm font-medium text-white transition-colors hover:text-white/80">
-                    Noticias
-                </a>
-                <a href="{{ route('faqs.index') }}"
-                   class="text-sm font-medium text-white transition-colors hover:text-white/80">
-                    Preguntas frecuentes
-                </a>
                 <a href="{{ route('contacto.index') }}"
                    class="text-sm font-medium text-white transition-colors hover:text-white/80">
                     Contacto
                 </a>
             </nav>
 
-            {{-- Botón menú móvil (por ahora solo visual) --}}
+            {{-- Botón menú móvil --}}
             <button class="md:hidden rounded p-1.5 text-white transition-colors hover:bg-white/20">
                 <span class="material-symbols-outlined">menu</span>
             </button>
@@ -85,7 +80,9 @@
 
     {{-- Contenido --}}
     <main class="flex-grow">
-        <div class="mx-auto max-w-6xl px-4 py-8">
+        {{-- Quitamos padding-top/bottom excesivo si el diseño lo requiere, 
+             pero mantenemos el contenedor base --}}
+        <div class="mx-auto w-full"> 
             @yield('content')
         </div>
     </main>
@@ -94,6 +91,8 @@
     <footer class="w-full bg-[#212121] text-white font-display">
         <div class="mx-auto max-w-6xl px-4 py-10">
             <div class="grid grid-cols-1 gap-8 text-center md:grid-cols-3 md:text-left">
+                
+                {{-- Columna 1: Info --}}
                 <div class="flex flex-col items-center md:items-start">
                     <h3 class="mb-2 text-lg font-bold">PROMUBE</h3>
                     <p class="text-sm text-gray-400">
@@ -102,6 +101,7 @@
                     </p>
                 </div>
 
+                {{-- Columna 2: Contacto --}}
                 <div class="flex flex-col items-center">
                     <h3 class="mb-2 text-lg font-bold">Contacto</h3>
                     <div class="flex flex-col gap-2 text-sm text-gray-400">
@@ -118,21 +118,19 @@
                     </div>
                 </div>
 
+                {{-- Columna 3: Redes --}}
                 <div class="flex flex-col items-center md:items-end">
                     <h3 class="mb-2 text-lg font-bold">Síguenos</h3>
                     <div class="flex gap-4">
                         <a href="#" aria-label="Facebook"
                            class="text-gray-400 transition-colors hover:text-white">
-                            {{-- Icono Facebook --}}
                             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                       d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
                             </svg>
                         </a>
-
                         <a href="#" aria-label="TikTok"
                            class="text-gray-400 transition-colors hover:text-white">
-                            {{-- Icono TikTok (puedes reemplazar por uno más preciso si quieres) --}}
                             <span class="material-symbols-outlined text-base">music_note</span>
                         </a>
                     </div>
