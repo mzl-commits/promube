@@ -13,6 +13,7 @@
             --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
+        /* OVERRIDES GLOBALES */
         .bg-primary { background-color: var(--brand-red) !important; }
         .text-primary { color: var(--brand-red) !important; }
         .border-primary { border-color: var(--brand-red) !important; }
@@ -21,17 +22,20 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
-           1. HERO (SPLIT LAYOUT: TEXTO IZQ - LOGO DER)
+           1. HERO (SPLIT LAYOUT + ALTURA AJUSTADA)
            ========================================= */
         .hero-wrapper {
             position: relative;
-            width: 100vw; height: 100vh;
-            margin-left: calc(-50vw + 50%);
+            width: 100%; /* Se adapta al layout */
+            /* Altura exacta: Pantalla menos Header (96px/6rem) */
+            height: calc(100vh - 6rem); 
+            min-height: 600px;
             overflow: hidden;
             display: flex; align-items: center; justify-content: center;
             background-color: var(--brand-red);
         }
         
+        /* Fondo Degradado */
         .hero-bg-css {
             position: absolute; inset: 0; z-index: 0;
             background: linear-gradient(135deg, #ff4d63 0%, #ef233c 50%, #d61c32 100%);
@@ -39,20 +43,21 @@
             animation: gradientMove 10s ease infinite alternate;
         }
 
+        /* Patrón Sutil */
         .hero-pattern {
             position: absolute; inset: 0; z-index: 1;
             background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
             background-size: 30px 30px; opacity: 0.4;
         }
 
-        /* Contenedor Principal en Grid de 2 Columnas */
+        /* GRID DE 2 COLUMNAS */
         .hero-content {
             position: relative; z-index: 10;
             width: 100%; max-width: 1200px; padding: 0 2rem;
             display: grid;
             grid-template-columns: 1fr 1fr; /* 50% Texto - 50% Logo */
             align-items: center;
-            gap: 4rem;
+            gap: 2rem;
         }
 
         /* Columna Izquierda: Texto */
@@ -62,7 +67,7 @@
         }
 
         .hero-title {
-            font-size: clamp(3.5rem, 6vw + 1rem, 7.5rem); /* Letras más grandes */
+            font-size: clamp(3.5rem, 6vw + 1rem, 7.5rem);
             line-height: 0.9; font-weight: 900; color: #ffffff;
             text-shadow: 0 4px 30px rgba(180, 20, 30, 0.4); 
             margin-bottom: 1.5rem; letter-spacing: -0.04em;
@@ -85,17 +90,15 @@
             position: relative;
         }
 
-        /* El Logo (Icono) */
         .hero-main-icon {
-            font-size: clamp(15rem, 25vw, 30rem); /* Tamaño masivo responsivo */
-            color: rgba(255, 255, 255, 0.2); /* Sutilmente transparente */
-            filter: drop-shadow(0 10px 40px rgba(0,0,0,0.2));
+            font-size: clamp(15rem, 25vw, 30rem);
+            color: rgba(255, 255, 255, 0.15); /* Transparencia sutil */
+            filter: drop-shadow(0 10px 40px rgba(0,0,0,0.1));
             animation: floatingLogo 6s ease-in-out infinite;
-            /* Inclinación ligera para estilo moderno */
             transform: rotate(-10deg);
         }
 
-        /* Typewriter alineado a la izquierda */
+        /* Typewriter (Alineado a la izquierda) */
         .typewriter-box {
             display: inline-flex; align-items: center;
             background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.4);
@@ -118,29 +121,25 @@
         }
         .scroll-indicator:hover { color: white; }
 
-        /* Media Query para Móviles: Apilar Verticalmente */
+        /* Móvil: Apilar */
         @media (max-width: 1024px) {
             .hero-content {
-                grid-template-columns: 1fr; /* Una columna */
+                grid-template-columns: 1fr;
                 text-align: center;
                 gap: 2rem;
-                padding-top: 4rem; /* Espacio extra arriba */
             }
-            .hero-text-col { align-items: center; } /* Centrar texto en móvil */
-            .hero-visual-col { order: -1; } /* Poner logo arriba del texto (opcional) o dejar abajo */
-            .hero-main-icon { font-size: 10rem; margin-bottom: -2rem; opacity: 0.4; } /* Más pequeño en móvil */
+            .hero-text-col { align-items: center; }
+            .hero-visual-col { order: -1; } /* Logo arriba */
+            .hero-main-icon { font-size: 12rem; margin-bottom: -2rem; opacity: 0.3; }
         }
 
         @keyframes gradientMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-        @keyframes floatingLogo { 
-            0%, 100% { transform: translateY(0) rotate(-5deg); } 
-            50% { transform: translateY(-20px) rotate(5deg); } 
-        }
+        @keyframes floatingLogo { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
         @keyframes blink { 50% { opacity: 0; } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform:translate(-50%,0);} 40% {transform:translate(-50%,-10px);} 60% {transform:translate(-50%,-5px);} }
 
         /* =========================================
-           2. ESTILOS RESTANTES (MANTENIDOS)
+           2. ESTILOS TARJETAS Y SECCIONES
            ========================================= */
         .perspective-container { perspective: 2500px; overflow-x: hidden; padding: 2rem 0; }
         .card-3d-wrapper { transition: transform 0.6s var(--ease-out-expo); }
@@ -159,6 +158,7 @@
             transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(239, 35, 60, 0.15); border-color: rgba(239, 35, 60, 0.3);
         }
 
+        /* Partner Card */
         .partner-card { padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; height: 100%; }
         .partner-logo-wrapper { width: 6rem; height: 6rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; filter: grayscale(100%) opacity(0.7); transition: 0.5s ease; }
         .partner-card:hover .partner-logo-wrapper { filter: grayscale(0%) opacity(1); transform: scale(1.1); }
@@ -168,108 +168,443 @@
         .partner-description { font-size: 0.95rem; color: #64748b; text-align: center; line-height: 1.7; font-weight: 400; }
         .dark .partner-description { color: #94a3b8; }
 
-        .student-slide { height: 100%; display: flex; flex-direction: column; }
-        .student-profile { height: 100%; display: flex; flex-direction: column; justify-content: center; }
-        .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background-color: #e5e7eb; transition: 0.3s ease; cursor: pointer; }
-        .dark .carousel-dot { background-color: #333; }
-        .carousel-dot.active { background-color: var(--brand-red); transform: scale(1.3); }
-
+        /* Sedes */
         .location-card { display: flex; flex-direction: column; height: 100%; }
         .location-image-container { height: 16rem; overflow: hidden; position: relative; }
         .location-card img, .beca-slide-card img { transition: 0.7s ease; width: 100%; height: 100%; object-fit: cover; }
         .location-card:hover img, .beca-slide-card:hover img { transform: scale(1.08); }
         .sede-icon { width: 3.5rem; height: 3.5rem; background-color: var(--brand-red-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--brand-red); transition: all 0.3s ease; }
         .location-card:hover .sede-icon { background-color: var(--brand-red); color: white; transform: scale(1.1); }
+
+        /* Carrusel Alumnos */
+        .student-slide { height: 100%; display: flex; flex-direction: column; }
+        .student-profile { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background-color: #e5e7eb; transition: 0.3s ease; cursor: pointer; }
+        .dark .carousel-dot { background-color: #333; }
+        .carousel-dot.active { background-color: var(--brand-red); transform: scale(1.3); box-shadow: 0 0 10px rgba(239, 35, 60, 0.4); }
     </style>
 
-    {{-- 1. HERO FULL SCREEN (LAYOUT 2 COLUMNAS) --}}
+
+    {{-- 1. HERO (SPLIT LAYOUT) --}}
     <div class="hero-wrapper">
         <div class="hero-bg-css"></div>
         <div class="hero-pattern"></div>
         
         <div class="hero-content animate-fade-in-up">
             
-            {{-- Columna Izquierda: Texto --}}
+            {{-- Columna Izquierda --}}
             <div class="hero-text-col">
                 <h1 class="hero-title">PROMUBE</h1>
                 <p class="hero-subtitle">
-                    Transformando futuros a través de la educación.<br>
-                    Descubre las oportunidades que tenemos para ti.
+                    Promoción de Becas y Programas Educativos.<br>
+                    El futuro está en tus manos.
                 </p>
                 <div class="typewriter-box">
-                    <span class="typewriter-label">BECAS:</span>
+                    <span class="typewriter-label">CONVOCATORIAS:</span>
                     <span id="typewriter-text" class="typewriter-text"></span>
                     <span class="cursor"></span>
                 </div>
             </div>
 
-            {{-- Columna Derecha: Logo Gigante --}}
+            {{-- Columna Derecha --}}
             <div class="hero-visual-col">
                 <span class="material-symbols-outlined hero-main-icon">school</span>
             </div>
 
         </div>
-
         <a href="#becas" class="scroll-indicator"><span class="material-symbols-outlined text-5xl">keyboard_arrow_down</span></a>
     </div>
 
-    {{-- 2. BECAS DESTACADAS (GRID 3D ALTERNADO) --}}
-    <section id="becas" class="py-24 perspective-container bg-white dark:bg-[#0a0a0a] overflow-hidden">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-24">
-                <span class="font-bold tracking-widest uppercase text-xs mb-3 block" style="color: var(--brand-red);">Oportunidades Premium</span>
-                <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white">Becas Destacadas</h2>
-            </div>
 
-            @php
-                $imagenes = [
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuDb3rjnH-tOJDQRjWL8sJngsXXulCafaehs9nDjeAu6zYizs98lX8A_bo54lS2g7vgvdqjkzewg6f-Ic5WxBlPygioYggDKlrDOQo3s2VxqjzqyTcWx7XrH7U5V95QuEH_r6kyoM3UA2g3bP1EeAFT3EAdTblR8q8X6CtM4rE2uQ7c6OGXldSgWRWjYMRY39Rg47GXpcodlmrH_4IXrUg4zEfxirtMnQgYQoUJQPMcI_spSx-NfQ7wKHrcwC8Q1shtPOLaE7_m9LrE',
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuDqT5bOwqFGI9AT3NCbmrUvr4QMG-_jIf7Dfmq0XM8qM2NeCUrVGbX0yrHnegIQDlpJUa7n3bGtSJVPDFblF3jcAwJZzJW9yEBUyVZ04BNi9ualLknOd-opJrQCJGdqau_APHvvH5Id9TdCM4aLmcyuf-4EgH92Sta3ZYzFmzLhzvi6AyUOa0eRJPNCCI5zXRAATGD6aL8qh97DRi0P3CwOolBVp16_tC_FK5JeG_oD37J9tQ5zWifDXsCzVtMpmwQmx4OfX_QwvrY',
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuADv_BqHe8beMwKtTYPZtrC7KT0_BOv6MDJf5AGBzQMW-Zp_IBt_FTnkTHClhJ28N1dRhs2XLKYUlB31wZYCJmEcAinNBAQ4GnalH4cL4Utfw7P-3Y77bFgAfCONA6r_Nvtk6BUaFhZ6UEzvSklFHvhf6BDMnnKF7fdUS3TxZdIWrdRW_SxCXVz9zGZQz4jdDg-pro2k_id7tiF-0W8yKsdNx67w-SSWkpYK3Tn0OpfTKv2o_SmmCFdFn5vLtfLvZrKnsAtufQ33Kw',
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuAqsDW7Eyzl38NxtWzXWj9ZPNb9fnfDkRhiSR5ugftDifvRlgtJRrJgnObPxcDYoKv0hx6cghdStc9Rr8w-H_A5ixsXT1LSeMWXrD727ymKaPh_kk7h-Ul2txlr3zTIgf806_eYucfUe1WRUPIxzgoca2dwJHdAgu9x0gwM-QgJtuydonoDwuv31yLaQ5D5fpDyKZdATqfnn6BK_1dOlv3YKPsKjv_pCf62uLtgJibEcgS32AoV8eOVKyXEaq1D6g3znWc1vivIYjw',
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuB6zVY2V16CGVuc4WNtxW-GpEd3MpEU1wyTOHuWQqEgHLzwbqf05yKK3k2nBdug7uncLU64WSj5tlCmtB_4zAa0TiOYhNJWNkamFFRtRtOPugWEwkMV5iWP9FcOPeoA1je-V16kb-LWsntI2zf-P0JW3iViyI23Qj_9_uLkihF-bJ6LRzwkg-ocWfZzwb0uaCBhESle3HTNAlj4yMaN_PVDw0V8m09VsLeocoJyw-DJqyy8w0FgdKOda0MhoY0rOYbNfRIB3iojjyE'
-                ];
-            @endphp
+  
 
-            <div class="space-y-40"> 
-                @forelse($becasDestacadas as $index => $beca)
-                    @php $imgSrc = $imagenes[$index % count($imagenes)]; @endphp
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center group">
-                        <div class="relative card-3d-wrapper {{ $loop->even ? 'md:order-2 reveal-right' : 'reveal-left' }}">
-                            <img alt="{{ $beca->titulo }}" class="rounded-3xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="{{ $imgSrc }}"/>
-                            <div class="absolute top-6 left-6">
-                                <span class="text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg uppercase tracking-wide" style="background-color: var(--brand-red);">
-                                    {{ $beca->tipo ?? 'Beca' }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="{{ $loop->even ? 'md:order-1 reveal-left' : 'reveal-right' }}">
-                            <h3 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white leading-tight">
-                                {{ $beca->titulo }}
-                            </h3>
-                            <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                                {{ $beca->resumen ?? Str::limit($beca->descripcion, 180) }}
-                            </p>
-                            <a href="{{ route('becas.show', $beca->id) }}" class="inline-flex items-center text-lg font-bold hover:opacity-80 transition-opacity group/link" style="color: var(--brand-red);">
-                                <span class="border-b-2 pb-1" style="border-color: var(--brand-red);">Ver detalles completos</span>
-                                <span class="material-symbols-outlined ml-2 transform group-hover/link:translate-x-2 transition-transform">arrow_right_alt</span>
-                            </a>
-                        </div>
-                    </div>
-                @empty
-                    <div class="text-center text-gray-500 py-20 bg-gray-50 dark:bg-gray-900 rounded-3xl border border-dashed border-gray-200 dark:border-gray-800">
-                        <p class="text-xl">Próximamente nuevas convocatorias.</p>
-                    </div>
-                @endforelse
-            </div>
-
-            <div class="mt-32 text-center">
-                <a href="{{ route('becas.index') }}" class="inline-flex items-center justify-center px-10 py-4 text-lg font-bold text-white transition-all rounded-full hover:shadow-lg hover:shadow-red-500/20 hover:opacity-90" style="background-color: var(--brand-red);">
-                    Explorar Catálogo Completo
-                </a>
-            </div>
+    {{-- 2. BECAS DESTACADAS – Estilo noticias UPC --}}
+<section id="becas" class="py-2 bg-white dark:bg-[#0a0a0a] overflow-hidden">
+    {{-- quitamos container y padding lateral para usar todo el ancho --}}
+    <div class="mx-auto px-0 becas-mosaic-container">
+        {{-- Título sección --}}
+        <div class="becas-header px-6">
+            <h2 class="becas-title">
+                Becas destacadas
+            </h2>
         </div>
-    </section>
+        {{-- MOSAICO DE BECAS --}}
+        <div class="becas-mosaic-grid">
+            {{-- 1. Izquierda – arriba --}}
+            <article class="beca-mosaic-card beca-mosaic-card--left-top">
+                <img
+                    src="{{ asset('img/beca-mosaic-1.jpg') }}"
+                    alt="Beca networking con expertos"
+                    class="beca-mosaic-img"
+                >
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body">
+                    <span class="beca-mosaic-tag">Evento presencial</span>
+                    <h3 class="beca-mosaic-title">
+                        EPGXpert Talks: beca para líderes que quieren conectar con expertos
+                    </h3>
+                    <p class="beca-mosaic-text">
+                        Accede a charlas exclusivas, mentorías y oportunidades de networking académico.
+                    </p>
+                </div>
+            </article>
+
+            {{-- 2. Centro – tarjeta alta (ocupa 2 filas) --}}
+            <article class="beca-mosaic-card beca-mosaic-card--center">
+                <img
+                    src="{{ asset('img/beca-mosaic-2.jpg') }}"
+                    alt="Beca internacional de arbitraje"
+                    class="beca-mosaic-img"
+                >
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body beca-mosaic-body--center">
+                    <h3 class="beca-mosaic-title">
+                        Beca internacional de arbitraje: PROMUBE & aliados
+                    </h3>
+                    <p class="beca-mosaic-text">
+                        La beca reconoce el talento académico y el compromiso con la investigación jurídica.
+                    </p>
+                </div>
+            </article>
+
+            {{-- 3. Derecha – arriba --}}
+            <article class="beca-mosaic-card beca-mosaic-card--right-top">
+                <img
+                    src="{{ asset('img/beca-mosaic-3.jpg') }}"
+                    alt="Beca reputación educativa"
+                    class="beca-mosaic-img"
+                >
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body">
+                    <span class="beca-mosaic-tag">Top educación</span>
+                    <h3 class="beca-mosaic-title">
+                        Beca excelencia académica en instituciones líderes del país
+                    </h3>
+                    <p class="beca-mosaic-text">
+                        Beneficios para quienes destacan por su rendimiento y participación en proyectos.
+                    </p>
+                </div>
+            </article>
+
+            {{-- 4. Izquierda – abajo --}}
+            <article class="beca-mosaic-card beca-mosaic-card--left-bottom">
+                <img
+                    src="{{ asset('img/beca-mosaic-4.jpg') }}"
+                    alt="Beca actualización profesional"
+                    class="beca-mosaic-img"
+                >
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body">
+                    <span class="beca-mosaic-tag">Novedades PROMUBE</span>
+                    <h3 class="beca-mosaic-title">
+                        Becas para diplomados y especializaciones en alianza con universidades
+                    </h3>
+                    <p class="beca-mosaic-text">
+                        Programas cortos para actualizarte y mantener tu perfil competitivo en el mercado.
+                    </p>
+                </div>
+            </article>
+
+            {{-- 5. Derecha – abajo --}}
+            <article class="beca-mosaic-card beca-mosaic-card--right-bottom">
+                <img
+                    src="{{ asset('img/beca-mosaic-5.jpg') }}"
+                    alt="Beca experiencia universitaria"
+                    class="beca-mosaic-img"
+                >
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body">
+                    <span class="beca-mosaic-tag">Vida universitaria</span>
+                    <h3 class="beca-mosaic-title">
+                        Beca integral que cubre estudios y participación en actividades estudiantiles
+                    </h3>
+                    <p class="beca-mosaic-text">
+                        Ideal para quienes quieren estudiar, investigar y participar en proyectos estudiantiles.
+                    </p>
+                </div>
+            </article>
+        </div>
+
+    {{-- CSS específico de la grilla tipo UPC --}}
+    <style>
+
+        .becas-header {
+            text-align: center;   /* centra el texto */
+            margin-top: 3rem;     /* 🔺 más espacio con la parte de arriba */
+            margin-bottom: 3rem;  /* espacio entre título y tarjetas */
+        }
+
+        .becas-title {
+            margin: 0;
+            font-size: 2.5rem;    /* ajusta si la quieres más grande o pequeña */
+            font-weight: 900;     /* negrita */
+            color: #111827;       /* color del título */
+        }
+
+        /* el contenedor ocupa todo el ancho del layout */
+        .becas-mosaic-container {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .becas-mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            /* filas más altas para tarjetas más grandes */
+            grid-auto-rows: 380px;
+            gap: 1.5rem;
+            padding: 0 1.5rem; /* pequeño margen interno para que no pegue al borde */
+        }
+
+        .beca-mosaic-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #000;
+            cursor: pointer;
+        }
+
+        .beca-mosaic-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .beca-mosaic-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.15)
+            );
+            transition: background 0.3s ease;
+            z-index: 0;
+        }
+
+        .beca-mosaic-body {
+            position: absolute;
+            inset-inline: 0;
+            bottom: 0;
+            padding: 1.4rem 1.8rem;
+            color: #fff;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .beca-mosaic-body--center {
+            top: 50%;
+            bottom: auto;
+            transform: translateY(-50%);
+        }
+
+        .beca-mosaic-tag {
+            display: inline-block;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            background: #ffffff;
+            color: var(--brand-red);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .beca-mosaic-title {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            max-width: 24rem;
+        }
+
+        .beca-mosaic-text {
+            margin: 0;
+            font-size: 0.8rem;
+            max-width: 26rem;
+            opacity: 0.9;
+        }
+
+        /* Tarjeta central ocupa 2 filas */
+        .beca-mosaic-card--center {
+            grid-row: span 2;
+        }
+
+        /* HOVER: rojo */
+        .beca-mosaic-card:hover .beca-mosaic-img {
+            transform: scale(1.05);
+        }
+
+        .beca-mosaic-card:hover .beca-mosaic-overlay {
+            background: rgba(239, 35, 60, 0.9);
+        }
+
+        /* Responsivo */
+        @media (max-width: 1024px) {
+            .becas-mosaic-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 320px;
+            }
+            .beca-mosaic-card--center {
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .becas-mosaic-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 450px;
+            }
+        }
+    </style>
+</section>
+
+
+
+
+
+        {{-- BOTÓN VER MÁS --}}
+        <div class="mt-12 text-center">
+            <a href="{{ route('becas.index') }}"
+               class="inline-flex items-center justify-center px-10 py-3 text-sm md:text-base font-bold rounded-full
+                      text-white hover:opacity-90 transition-all"
+               style="background-color: var(--brand-red); box-shadow: 0 10px 30px rgba(239,35,60,0.25);">
+                Ver más becas
+            </a>
+        </div>
+    </div>
+
+    {{-- CSS específico de la grilla tipo UPC --}}
+    <style>
+        .becas-mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-auto-rows: 30vh;
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+        }
+
+        .beca-mosaic-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #000;
+            cursor: pointer;
+        }
+
+        .beca-mosaic-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .beca-mosaic-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.15)
+            );
+            transition: background 0.3s ease;
+            z-index: 0;
+        }
+
+        .beca-mosaic-body {
+            position: absolute;
+            inset-inline: 0;
+            bottom: 0;
+            padding: 1.4rem 1.8rem;
+            color: #fff;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .beca-mosaic-body--center {
+            top: 50%;
+            bottom: auto;
+            transform: translateY(-50%);
+        }
+
+        .beca-mosaic-tag {
+            display: inline-block;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            background: #ffffff;
+            color: var(--brand-red);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .beca-mosaic-title {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 800;
+            line-height: 1.2;
+            max-width: 24rem;
+        }
+
+        .beca-mosaic-text {
+            margin: 0;
+            font-size: 0.8rem;
+            max-width: 26rem;
+            opacity: 0.9;
+        }
+
+        /* Tarjeta central ocupa 2 filas */
+        .beca-mosaic-card--center {
+            grid-row: span 2;
+        }
+
+        /* HOVER: rojo, como pediste */
+        .beca-mosaic-card:hover .beca-mosaic-img {
+            transform: scale(1.05);
+        }
+
+        .beca-mosaic-card:hover .beca-mosaic-overlay {
+            background: rgba(239, 35, 60, 0.9);
+        }
+
+        /* Responsivo */
+        @media (max-width: 1024px) {
+            .becas-mosaic-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 40vh;
+            }
+            .beca-mosaic-card--center {
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .becas-mosaic-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 36vh;
+            }
+        }
+    </style>
+</section>
+
+
+
+
+
+
+
+
+
+
+
 
     {{-- 3. MUNICIPALIDADES --}}
     <section class="py-24 bg-gray-50 dark:bg-[#0f0f0f]">
@@ -278,6 +613,7 @@
                  <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-3">Aliados Estratégicos</h2>
                  <p class="text-gray-500 text-lg">Colaboramos con los gobiernos locales para tu desarrollo.</p>
             </div>
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                 @foreach(['Centro', 'Norte', 'Sur', 'Occidente'] as $index => $muni)
                 <div class="partner-card group">
@@ -299,8 +635,12 @@
     <section class="py-24 bg-white dark:bg-black relative overflow-hidden">
         <div class="container mx-auto px-6 relative z-10">
             <h2 class="text-3xl md:text-5xl font-bold text-center mb-20 text-gray-900 dark:text-white">Historias Reales</h2>
+            
             <div class="relative group">
-                <div id="students-slider" class="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-10 px-4" style="-webkit-overflow-scrolling: touch;">
+                <div id="students-slider" 
+                     class="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-10 px-4"
+                     style="-webkit-overflow-scrolling: touch;">
+                    
                     @forelse($beneficiados as $beneficiado)
                         <div class="snap-center shrink-0 w-full md:w-[calc(50%-16px)] flex">
                             <div class="student-slide w-full">
@@ -332,7 +672,7 @@
         </div>
     </section>
 
-    {{-- 5. SEDES --}}
+    {{-- 5. SEDES (CON ICONOS) --}}
     <section class="py-24 bg-gray-50 dark:bg-[#0a0a0a]">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800 dark:text-white">Nuestras Sedes</h2>
@@ -401,6 +741,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            /* 1. TYPEWRITER */
             const textElement = document.getElementById('typewriter-text');
             const phrases = ["Beca Tecsup", "Beca Cayetano Heredia", "Beca Ferreyros", "Beca BCP", "Beca Uni", "Beca San Marcos"];
             let phraseIndex = 0; let charIndex = 0; let isDeleting = false;
@@ -414,6 +755,7 @@
             }
             if(textElement) type();
 
+            /* 2. CARRUSEL ALUMNOS */
             const slider = document.getElementById('students-slider');
             const dotsContainer = document.getElementById('student-dots');
             if (slider && dotsContainer) {
@@ -444,6 +786,7 @@
                 window.addEventListener('resize', updateDots);
             }
 
+            /* 3. SCROLL REVEAL */
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); }
