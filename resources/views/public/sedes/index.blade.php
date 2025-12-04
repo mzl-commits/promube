@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Sedes y cobertura - PROMUBE')
+@section('title', 'Sedes - PROMUBE')
 
 @section('content')
     <style>
@@ -78,6 +78,12 @@
             background-color: var(--brand-red-light);
             color: var(--brand-red);
             transition: all 0.3s ease;
+            width: 60px; /* Tamaño fijo */
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%; /* Círculo */
         }
         .sede-card:hover .icon-box {
             background-color: var(--brand-red);
@@ -149,7 +155,8 @@
                 <div id="info-central" class="sede-info fade-enter">
                     <div class="sede-card bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none">
                         <div class="flex items-center gap-4 mb-8">
-                            <div class="icon-box p-4 rounded-2xl">
+                            {{-- Ícono destacado --}}
+                            <div class="icon-box">
                                 <span class="material-symbols-outlined text-3xl">apartment</span>
                             </div>
                             <div>
@@ -195,7 +202,8 @@
                 <div id="info-norte" class="sede-info hidden">
                     <div class="sede-card bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none">
                         <div class="flex items-center gap-4 mb-8">
-                            <div class="icon-box p-4 rounded-2xl">
+                            {{-- Ícono destacado --}}
+                            <div class="icon-box">
                                 <span class="material-symbols-outlined text-3xl">business</span>
                             </div>
                             <div>
@@ -241,7 +249,8 @@
                 <div id="info-sur" class="sede-info hidden">
                     <div class="sede-card bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none">
                         <div class="flex items-center gap-4 mb-8">
-                            <div class="icon-box p-4 rounded-2xl">
+                            {{-- Ícono destacado --}}
+                            <div class="icon-box">
                                 <span class="material-symbols-outlined text-3xl">store</span>
                             </div>
                             <div>
@@ -314,14 +323,14 @@
         };
 
         function switchSede(sedeId) {
-            // 1. Actualizar Botones (Tabs)
+            // 1. Actualizar Tabs
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             const btn = document.getElementById('tab-' + sedeId);
             if(btn) btn.classList.add('active');
 
-            // 2. Actualizar Información (Columna Izquierda)
+            // 2. Actualizar Info
             document.querySelectorAll('.sede-info').forEach(info => {
                 info.classList.add('hidden');
                 info.classList.remove('fade-enter');
@@ -334,7 +343,7 @@
                 selectedInfo.classList.add('fade-enter');
             }
 
-            // 3. Actualizar Mapa (Columna Derecha)
+            // 3. Actualizar Mapa
             const mapFrame = document.getElementById('map-frame');
             const loader = document.getElementById('map-loader');
 

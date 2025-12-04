@@ -5,15 +5,14 @@
 @section('content')
     <style>
         /* =========================================
-           0. CONFIGURACIÓN BASE (#EF233C)
+           CONFIGURACIÓN BASE (#EF233C)
            ========================================= */
         :root {
             --brand-red: #ef233c; 
-            --brand-red-hover: #d11a30; 
+            --brand-red-light: rgba(239, 35, 60, 0.08);
             --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* FORZAR EL COLOR EN EL LAYOUT GLOBAL */
         .bg-primary { background-color: var(--brand-red) !important; }
         .text-primary { color: var(--brand-red) !important; }
         .border-primary { border-color: var(--brand-red) !important; }
@@ -22,7 +21,7 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
-           1. HERO (ATMÓSFERA ROJA)
+           1. HERO (SPLIT LAYOUT: TEXTO IZQ - LOGO DER)
            ========================================= */
         .hero-wrapper {
             position: relative;
@@ -32,35 +31,75 @@
             display: flex; align-items: center; justify-content: center;
             background-color: var(--brand-red);
         }
+        
         .hero-bg-css {
             position: absolute; inset: 0; z-index: 0;
             background: linear-gradient(135deg, #ff4d63 0%, #ef233c 50%, #d61c32 100%);
             background-size: 200% 200%;
             animation: gradientMove 10s ease infinite alternate;
         }
+
         .hero-pattern {
             position: absolute; inset: 0; z-index: 1;
             background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
             background-size: 30px 30px; opacity: 0.4;
         }
+
+        /* Contenedor Principal en Grid de 2 Columnas */
         .hero-content {
-            position: relative; z-index: 10; text-align: center;
-            max-width: 1200px; padding: 0 2rem;
-            display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+            position: relative; z-index: 10;
+            width: 100%; max-width: 1200px; padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 50% Texto - 50% Logo */
+            align-items: center;
+            gap: 4rem;
         }
+
+        /* Columna Izquierda: Texto */
+        .hero-text-col {
+            text-align: left;
+            display: flex; flex-direction: column; align-items: flex-start;
+        }
+
         .hero-title {
-            font-size: clamp(3rem, 7vw + 1rem, 7rem);
-            line-height: 0.95; font-weight: 900; color: #ffffff;
-            text-shadow: 0 4px 30px rgba(200, 20, 40, 0.4); margin-bottom: 0.5rem; letter-spacing: -0.03em;
+            font-size: clamp(3.5rem, 6vw + 1rem, 7.5rem); /* Letras más grandes */
+            line-height: 0.9; font-weight: 900; color: #ffffff;
+            text-shadow: 0 4px 30px rgba(180, 20, 30, 0.4); 
+            margin-bottom: 1.5rem; letter-spacing: -0.04em;
         }
+
         .hero-subtitle {
-            font-size: clamp(1.2rem, 2vw, 1.8rem);
-            color: rgba(255, 255, 255, 0.95); font-weight: 400; max-width: 800px; margin-bottom: 2rem;
+            font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.95); 
+            font-weight: 400; 
+            max-width: 600px; 
+            margin-bottom: 2.5rem;
+            line-height: 1.4;
         }
+
+        /* Columna Derecha: Logo / Icono Gigante */
+        .hero-visual-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* El Logo (Icono) */
+        .hero-main-icon {
+            font-size: clamp(15rem, 25vw, 30rem); /* Tamaño masivo responsivo */
+            color: rgba(255, 255, 255, 0.2); /* Sutilmente transparente */
+            filter: drop-shadow(0 10px 40px rgba(0,0,0,0.2));
+            animation: floatingLogo 6s ease-in-out infinite;
+            /* Inclinación ligera para estilo moderno */
+            transform: rotate(-10deg);
+        }
+
+        /* Typewriter alineado a la izquierda */
         .typewriter-box {
             display: inline-flex; align-items: center;
             background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 0.8rem 2.5rem; border-radius: 99px; backdrop-filter: blur(8px);
+            padding: 0.8rem 2rem; border-radius: 12px; backdrop-filter: blur(8px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         .typewriter-label {
@@ -68,55 +107,58 @@
             text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;
         }
         .typewriter-text {
-            font-family: 'Courier New', monospace; font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-family: 'Courier New', monospace; font-size: clamp(1.1rem, 2vw, 1.4rem);
             font-weight: 700; color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.6);
         }
-        .cursor {
-            width: 3px; height: 1.4em; background: #ffffff; margin-left: 8px;
-            animation: blink 1s step-end infinite;
-        }
-        .scroll-indicator {
-            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-            color: rgba(255,255,255,0.7); animation: bounce 2s infinite; z-index: 20;
-            transition: color 0.3s;
+        .cursor { width: 3px; height: 1.4em; background: #ffffff; margin-left: 8px; animation: blink 1s step-end infinite; }
+
+        .scroll-indicator { 
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); 
+            color: rgba(255,255,255,0.7); animation: bounce 2s infinite; z-index: 20; transition: color 0.3s; 
         }
         .scroll-indicator:hover { color: white; }
+
+        /* Media Query para Móviles: Apilar Verticalmente */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr; /* Una columna */
+                text-align: center;
+                gap: 2rem;
+                padding-top: 4rem; /* Espacio extra arriba */
+            }
+            .hero-text-col { align-items: center; } /* Centrar texto en móvil */
+            .hero-visual-col { order: -1; } /* Poner logo arriba del texto (opcional) o dejar abajo */
+            .hero-main-icon { font-size: 10rem; margin-bottom: -2rem; opacity: 0.4; } /* Más pequeño en móvil */
+        }
+
         @keyframes gradientMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        @keyframes floatingLogo { 
+            0%, 100% { transform: translateY(0) rotate(-5deg); } 
+            50% { transform: translateY(-20px) rotate(5deg); } 
+        }
         @keyframes blink { 50% { opacity: 0; } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform:translate(-50%,0);} 40% {transform:translate(-50%,-10px);} 60% {transform:translate(-50%,-5px);} }
 
         /* =========================================
-           2. ESTILOS TARJETAS (ADAPTADOS AL ROJO)
+           2. ESTILOS RESTANTES (MANTENIDOS)
            ========================================= */
-        /* Estilos 3D para Becas */
         .perspective-container { perspective: 2500px; overflow-x: hidden; padding: 2rem 0; }
         .card-3d-wrapper { transition: transform 0.6s var(--ease-out-expo); }
         .group:hover .card-3d-wrapper { transform: scale(1.02) translateY(-10px); }
-        
-        /* Animaciones de entrada lateral */
         .reveal-left, .reveal-right { opacity: 0; transition: all 1.2s var(--ease-out-expo); will-change: transform, opacity; }
         .reveal-left { transform: translateX(-80px) rotateY(-10deg) scale(0.95); transform-origin: left center; }
         .reveal-right { transform: translateX(80px) rotateY(10deg) scale(0.95); transform-origin: right center; }
         .reveal-left.active, .reveal-right.active { opacity: 1; transform: translateX(0) rotateY(0) scale(1); }
 
-        /* Estilos Generales Tarjetas */
         .partner-card, .student-profile, .location-card, .beca-slide-card {
-            background: #ffffff;
-            border-radius: 1rem;
-            border: 1px solid rgba(239, 35, 60, 0.08);
-            transition: all 0.4s var(--ease-out-expo);
-            overflow: hidden;
+            background: #ffffff; border-radius: 1rem; border: 1px solid rgba(239, 35, 60, 0.08);
+            transition: all 0.4s var(--ease-out-expo); overflow: hidden;
         }
-        .dark .partner-card, .dark .student-profile, .dark .location-card, .dark .beca-slide-card {
-            background: #151515; border-color: rgba(255,255,255,0.05);
-        }
+        .dark .partner-card, .dark .student-profile, .dark .location-card, .dark .beca-slide-card { background: #151515; border-color: rgba(255,255,255,0.05); }
         .partner-card:hover, .student-profile:hover, .location-card:hover, .beca-slide-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px -10px rgba(239, 35, 60, 0.15);
-            border-color: rgba(239, 35, 60, 0.3);
+            transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(239, 35, 60, 0.15); border-color: rgba(239, 35, 60, 0.3);
         }
 
-        /* Partner Card */
         .partner-card { padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; height: 100%; }
         .partner-logo-wrapper { width: 6rem; height: 6rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; filter: grayscale(100%) opacity(0.7); transition: 0.5s ease; }
         .partner-card:hover .partner-logo-wrapper { filter: grayscale(0%) opacity(1); transform: scale(1.1); }
@@ -126,37 +168,52 @@
         .partner-description { font-size: 0.95rem; color: #64748b; text-align: center; line-height: 1.7; font-weight: 400; }
         .dark .partner-description { color: #94a3b8; }
 
-        /* Otros */
+        .student-slide { height: 100%; display: flex; flex-direction: column; }
+        .student-profile { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background-color: #e5e7eb; transition: 0.3s ease; cursor: pointer; }
+        .dark .carousel-dot { background-color: #333; }
+        .carousel-dot.active { background-color: var(--brand-red); transform: scale(1.3); }
+
         .location-card { display: flex; flex-direction: column; height: 100%; }
         .location-image-container { height: 16rem; overflow: hidden; position: relative; }
         .location-card img, .beca-slide-card img { transition: 0.7s ease; width: 100%; height: 100%; object-fit: cover; }
         .location-card:hover img, .beca-slide-card:hover img { transform: scale(1.08); }
-        .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background-color: #e5e7eb; transition: 0.3s ease; cursor: pointer; }
-        .dark .carousel-dot { background-color: #333; }
-        .carousel-dot.active { background-color: var(--brand-red); transform: scale(1.3); }
+        .sede-icon { width: 3.5rem; height: 3.5rem; background-color: var(--brand-red-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--brand-red); transition: all 0.3s ease; }
+        .location-card:hover .sede-icon { background-color: var(--brand-red); color: white; transform: scale(1.1); }
     </style>
 
-    {{-- 1. HERO FULL SCREEN (RED) --}}
+    {{-- 1. HERO FULL SCREEN (LAYOUT 2 COLUMNAS) --}}
     <div class="hero-wrapper">
         <div class="hero-bg-css"></div>
         <div class="hero-pattern"></div>
+        
         <div class="hero-content animate-fade-in-up">
-            <h1 class="hero-title">PROMUBE</h1>
-            <p class="hero-subtitle">
-                Promoción de Becas y Programas Educativos.<br>
-                El futuro está en tus manos.
-            </p>
-            <div class="typewriter-box">
-                <span class="typewriter-label">CONVOCATORIAS:</span>
-                <span id="typewriter-text" class="typewriter-text"></span>
-                <span class="cursor"></span>
+            
+            {{-- Columna Izquierda: Texto --}}
+            <div class="hero-text-col">
+                <h1 class="hero-title">PROMUBE</h1>
+                <p class="hero-subtitle">
+                    Transformando futuros a través de la educación.<br>
+                    Descubre las oportunidades que tenemos para ti.
+                </p>
+                <div class="typewriter-box">
+                    <span class="typewriter-label">BECAS:</span>
+                    <span id="typewriter-text" class="typewriter-text"></span>
+                    <span class="cursor"></span>
+                </div>
             </div>
+
+            {{-- Columna Derecha: Logo Gigante --}}
+            <div class="hero-visual-col">
+                <span class="material-symbols-outlined hero-main-icon">school</span>
+            </div>
+
         </div>
+
         <a href="#becas" class="scroll-indicator"><span class="material-symbols-outlined text-5xl">keyboard_arrow_down</span></a>
     </div>
 
     {{-- 2. BECAS DESTACADAS (GRID 3D ALTERNADO) --}}
-    {{-- ¡AQUÍ ESTÁ EL CAMBIO! Restaurado el diseño de cuadrícula alternada --}}
     <section id="becas" class="py-24 perspective-container bg-white dark:bg-[#0a0a0a] overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="text-center mb-24">
@@ -177,22 +234,15 @@
             <div class="space-y-40"> 
                 @forelse($becasDestacadas as $index => $beca)
                     @php $imgSrc = $imagenes[$index % count($imagenes)]; @endphp
-
-                    {{-- GRID ALTERNADO --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center group">
-                        
-                        {{-- Lado Imagen (con efecto 3D) --}}
                         <div class="relative card-3d-wrapper {{ $loop->even ? 'md:order-2 reveal-right' : 'reveal-left' }}">
                             <img alt="{{ $beca->titulo }}" class="rounded-3xl shadow-2xl w-full h-auto object-cover aspect-[4/3]" src="{{ $imgSrc }}"/>
-                            {{-- Badge --}}
                             <div class="absolute top-6 left-6">
                                 <span class="text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg uppercase tracking-wide" style="background-color: var(--brand-red);">
                                     {{ $beca->tipo ?? 'Beca' }}
                                 </span>
                             </div>
                         </div>
-                        
-                        {{-- Lado Texto --}}
                         <div class="{{ $loop->even ? 'md:order-1 reveal-left' : 'reveal-right' }}">
                             <h3 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white leading-tight">
                                 {{ $beca->titulo }}
@@ -236,7 +286,7 @@
                     </div>
                     <h3 class="partner-name text-center">Muni. {{ $muni }}</h3>
                     <p class="partner-description">
-                        Gracias a la alianza estratégica con la Municipalidad de {{ $muni }}, hemos logrado beneficiar a más de 500 estudiantes este año. Juntos trabajamos para reducir la deserción escolar.
+                        Gracias a la alianza estratégica con la Municipalidad de {{ $muni }}, hemos logrado beneficiar a más de 500 estudiantes este año.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" style="background-color: var(--brand-red);"></div>
                 </div>
@@ -249,12 +299,8 @@
     <section class="py-24 bg-white dark:bg-black relative overflow-hidden">
         <div class="container mx-auto px-6 relative z-10">
             <h2 class="text-3xl md:text-5xl font-bold text-center mb-20 text-gray-900 dark:text-white">Historias Reales</h2>
-            
             <div class="relative group">
-                <div id="students-slider" 
-                     class="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-10 px-4"
-                     style="-webkit-overflow-scrolling: touch;">
-                    
+                <div id="students-slider" class="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-10 px-4" style="-webkit-overflow-scrolling: touch;">
                     @forelse($beneficiados as $beneficiado)
                         <div class="snap-center shrink-0 w-full md:w-[calc(50%-16px)] flex">
                             <div class="student-slide w-full">
@@ -282,7 +328,6 @@
                     @endforelse
                 </div>
             </div>
-
             <div class="flex justify-center items-center gap-3 mt-6" id="student-dots"></div>
         </div>
     </section>
@@ -299,9 +344,15 @@
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full" style="color: var(--brand-red);">CDMX</div>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Sede Central</h3>
-                        <p class="text-gray-500 mb-2">Av. Universidad 1234, Col. Centro.</p>
-                        <div class="flex items-center gap-2 text-sm text-gray-400 mb-6"><span class="material-symbols-outlined text-lg">schedule</span><span>Horario: Lun-Vie, 9am - 6pm</span></div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="sede-icon"><span class="material-symbols-outlined text-2xl">apartment</span></div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Central</h3>
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300"><span class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span><span class="text-sm">Av. Universidad 1234, Col. Centro.</span></div>
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span class="material-symbols-outlined text-lg text-gray-400">schedule</span><span class="text-sm">Lun-Vie, 9am - 6pm</span></div>
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span class="material-symbols-outlined text-lg text-gray-400">call</span><span class="text-sm font-medium">+52 55 1234 5678</span></div>
+                        </div>
                         <a href="{{ route('sedes.index') }}#central" class="mt-auto block w-full py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-center font-bold hover:text-white transition-colors" onmouseover="this.style.backgroundColor=var(--brand-red)" onmouseout="this.style.backgroundColor=''">Ver mapa</a>
                     </div>
                 </div>
@@ -312,9 +363,15 @@
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full" style="color: var(--brand-red);">Monterrey</div>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Sede Norte</h3>
-                        <p class="text-gray-500 mb-2">Calle del Sol 567, Plaza Norte.</p>
-                        <div class="flex items-center gap-2 text-sm text-gray-400 mb-6"><span class="material-symbols-outlined text-lg">schedule</span><span>Horario: Lun-Vie, 10am - 5pm</span></div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="sede-icon"><span class="material-symbols-outlined text-2xl">business</span></div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Norte</h3>
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300"><span class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span><span class="text-sm">Calle del Sol 567, Plaza Norte.</span></div>
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span class="material-symbols-outlined text-lg text-gray-400">schedule</span><span class="text-sm">Lun-Vie, 10am - 5pm</span></div>
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span class="material-symbols-outlined text-lg text-gray-400">call</span><span class="text-sm font-medium">+52 81 8765 4321</span></div>
+                        </div>
                         <a href="{{ route('sedes.index') }}#norte" class="mt-auto block w-full py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-center font-bold hover:text-white transition-colors" onmouseover="this.style.backgroundColor=var(--brand-red)" onmouseout="this.style.backgroundColor=''">Ver mapa</a>
                     </div>
                 </div>
@@ -325,9 +382,15 @@
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full" style="color: var(--brand-red);">Guadalajara</div>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Sede Sur</h3>
-                        <p class="text-gray-500 mb-2">Av. Vallarta 999, Zona Minerva.</p>
-                        <div class="flex items-center gap-2 text-sm text-gray-400 mb-6"><span class="material-symbols-outlined text-lg">schedule</span><span>Horario: Lun-Vie, 9am - 6pm</span></div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="sede-icon"><span class="material-symbols-outlined text-2xl">store</span></div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Sur</h3>
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300"><span class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span><span class="text-sm">Av. Vallarta 999, Zona Minerva.</span></div>
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span class="material-symbols-outlined text-lg text-gray-400">schedule</span><span class="text-sm">Lun-Vie, 9am - 6pm</span></div>
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span class="material-symbols-outlined text-lg text-gray-400">call</span><span class="text-sm font-medium">+52 33 1122 3344</span></div>
+                        </div>
                         <a href="{{ route('sedes.index') }}#sur" class="mt-auto block w-full py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-center font-bold hover:text-white transition-colors" onmouseover="this.style.backgroundColor=var(--brand-red)" onmouseout="this.style.backgroundColor=''">Ver mapa</a>
                     </div>
                 </div>
@@ -338,7 +401,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            /* 1. TYPEWRITER */
             const textElement = document.getElementById('typewriter-text');
             const phrases = ["Beca Tecsup", "Beca Cayetano Heredia", "Beca Ferreyros", "Beca BCP", "Beca Uni", "Beca San Marcos"];
             let phraseIndex = 0; let charIndex = 0; let isDeleting = false;
@@ -352,7 +414,6 @@
             }
             if(textElement) type();
 
-            /* 2. CARRUSEL ALUMNOS */
             const slider = document.getElementById('students-slider');
             const dotsContainer = document.getElementById('student-dots');
             if (slider && dotsContainer) {
@@ -383,7 +444,6 @@
                 window.addEventListener('resize', updateDots);
             }
 
-            /* 3. ANIMACIONES SCROLL */
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); }
