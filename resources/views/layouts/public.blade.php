@@ -54,7 +54,7 @@
                 </a>
             </div>
 
-            {{-- Navegación Principal (Texto más grande y bold) --}}
+            {{-- Navegación Principal --}}
             <nav class="hidden items-center gap-10 md:flex">
                 <a href="{{ route('home') }}"
                    class="text-base font-bold text-white transition-all hover:text-white/80 hover:scale-105">
@@ -73,14 +73,14 @@
                     Sedes
                 </a>
                 
-                {{-- Botón Contacto destacado (Estilo Píldora blanca) --}}
+                {{-- Botón Contacto --}}
                 <a href="{{ route('contacto.index') }}"
                    class="rounded-full bg-white px-6 py-2.5 text-base font-bold text-primary shadow-lg transition-all hover:bg-gray-100 hover:shadow-xl hover:-translate-y-0.5">
                     Contacto
                 </a>
             </nav>
 
-            {{-- Botón menú móvil (Más grande) --}}
+            {{-- Botón menú móvil --}}
             <button class="md:hidden rounded-lg p-2 text-white transition-colors hover:bg-white/20">
                 <span class="material-symbols-outlined text-3xl">menu</span>
             </button>
@@ -89,13 +89,12 @@
 
     {{-- Contenido Principal --}}
     <main class="flex-grow">
-        {{-- Quitamos padding extra del contenedor para que el Hero del Home pegue con el Header --}}
-        <div class="w-full"> 
+        <div class="w-full">
             @yield('content')
         </div>
     </main>
 
-    {{-- Footer --}}
+    {{-- Footer solo en negro --}}
     <footer class="w-full bg-[#1a1a1a] text-white font-display border-t-4 border-primary">
         <div class="mx-auto max-w-7xl px-6 py-16">
             <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
@@ -141,10 +140,13 @@
                     {{-- Redes Sociales --}}
                     <div class="flex gap-4 mt-6">
                         <a href="#" class="h-10 w-10 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-primary transition-all">
-                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                            </svg>
                         </a>
                         <a href="#" class="h-10 w-10 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-primary transition-all">
-                            <span class="material-symbols-outlined text-lg">music_note</span> </a>
+                            <span class="material-symbols-outlined text-lg">music_note</span>
+                        </a>
                     </div>
                 </div>
             </div>

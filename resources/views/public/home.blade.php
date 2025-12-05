@@ -5,8 +5,8 @@
 @section('content')
     <style>
         /* =========================================
-               CONFIGURACIÓN BASE (#EF233C)
-               ========================================= */
+                   CONFIGURACIÓN BASE (#EF233C)
+                   ========================================= */
         :root {
             --brand-red: #ef233c;
             --brand-red-light: rgba(239, 35, 60, 0.08);
@@ -36,8 +36,8 @@
         }
 
         /* =========================================
-               1. HERO (SPLIT LAYOUT + ALTURA AJUSTADA)
-               ========================================= */
+                   1. HERO (SPLIT LAYOUT + ALTURA AJUSTADA)
+                   ========================================= */
         .hero-wrapper {
             position: relative;
             width: 100%;
@@ -254,8 +254,8 @@
         }
 
         /* =========================================
-               2. ESTILOS TARJETAS Y SECCIONES
-               ========================================= */
+                   2. ESTILOS TARJETAS Y SECCIONES
+                   ========================================= */
         .perspective-container {
             perspective: 2500px;
             overflow-x: hidden;
@@ -488,103 +488,6 @@
 
 
     {{-- 2. BECAS DESTACADAS – Estilo noticias UPC --}}
-<<<<<<< HEAD
-<section id="becas" class="py-2 bg-white dark:bg-[#0a0a0a] overflow-hidden">
-    {{-- quitamos container y padding lateral para usar todo el ancho --}}
-    <div class="mx-auto px-0 becas-mosaic-container">
-        {{-- Título sección --}}
-        <div class="becas-header px-6">
-            <h2 class="becas-title">
-                Becas destacadas
-            </h2>
-        </div>
-        {{-- MOSAICO DE BECAS --}}
-        <div class="becas-mosaic-grid">
-            {{-- 1. Izquierda – arriba --}}
-            <article class="beca-mosaic-card beca-mosaic-card--left-top"
-            onclick="window.location='{{ route('becas.bcp') }}'"
-            style="cursor: pointer;"
-            >
-                <img
-                    src="{{ asset('img/becas/beca-bcp.png') }}"
-                    alt="Beca BCP"
-                    class="beca-mosaic-img"
-                >
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">BECA BCP</span>
-                    <h3 class="beca-mosaic-title">
-                        EPGXpert Talks: beca para líderes que quieren conectar con expertos
-                    </h3>
-                </div>
-            </article>
-
-            {{-- 2. Centro – tarjeta alta (ocupa 2 filas) --}}
-            <article class="beca-mosaic-card beca-mosaic-card--center">
-                <img
-                    src="{{ asset('img/becas/beca-18.png') }}"
-                    alt="Beca internacional de arbitraje"
-                    class="beca-mosaic-img"
-                >
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">BECA 18</span>
-                    <h3 class="beca-mosaic-title">
-                        Beca excelencia académica en instituciones líderes del país
-                    </h3>
-
-                </div>
-            </article>
-
-            {{-- 3. Derecha – arriba --}}
-            <article class="beca-mosaic-card beca-mosaic-card--right-top">
-                <img
-                    src="{{ asset('img/becas/beca-tecsup.png') }}"
-                    alt="Beca reputación educativa"
-                    class="beca-mosaic-img"
-                >
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">BECA TECSUP</span>
-                    <h3 class="beca-mosaic-title">
-                        Beca excelencia académica en instituciones líderes del país
-                    </h3>
-                </div>
-            </article>
-
-            {{-- 4. Izquierda – abajo --}}
-            <article class="beca-mosaic-card beca-mosaic-card--left-bottom">
-                <img
-                    src="{{ asset('img/Beca-Ferreyros.png') }}"
-                    alt="Beca actualización profesional"
-                    class="beca-mosaic-img"
-                >
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">BECA FERREYROS</span>
-                    <h3 class="beca-mosaic-title">
-                        Becas para diplomados y especializaciones en alianza con universidades
-                    </h3>
-                </div>
-            </article>
-
-            {{-- 5. Derecha – abajo --}}
-            <article class="beca-mosaic-card beca-mosaic-card--right-bottom">
-                <img
-                    src="{{ asset('img/becas/beca-uni.png') }}"
-                    alt="Beca experiencia universitaria"
-                    class="beca-mosaic-img"
-                >
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">BECA UNI</span>
-                    <h3 class="beca-mosaic-title">
-                        Beca integral que cubre estudios y participación en actividades estudiantiles
-                    </h3>
-                </div>
-            </article>
-        </div>
-=======
     <section id="becas" class="py-2 bg-white dark:bg-[#0a0a0a] overflow-hidden">
         {{-- quitamos container y padding lateral para usar todo el ancho --}}
         <div class="mx-auto px-0 becas-mosaic-container">
@@ -597,84 +500,71 @@
             {{-- MOSAICO DE BECAS --}}
             <div class="becas-mosaic-grid">
                 {{-- 1. Izquierda – arriba --}}
-                <article class="beca-mosaic-card beca-mosaic-card--left-top">
-                    <img src="{{ asset('img/beca-mosaic-1.jpg') }}" alt="Beca networking con expertos"
-                        class="beca-mosaic-img">
+                <article class="beca-mosaic-card beca-mosaic-card--left-top"
+                    onclick="window.location='{{ route('becas.bcp') }}'" style="cursor: pointer;">
+                    <img src="{{ asset('img/becas/beca-bcp.png') }}" alt="Beca BCP" class="beca-mosaic-img">
                     <div class="beca-mosaic-overlay"></div>
                     <div class="beca-mosaic-body">
-                        <span class="beca-mosaic-tag">Evento presencial</span>
+                        <span class="beca-mosaic-tag">BECA BCP</span>
                         <h3 class="beca-mosaic-title">
                             EPGXpert Talks: beca para líderes que quieren conectar con expertos
                         </h3>
-                        <p class="beca-mosaic-text">
-                            Accede a charlas exclusivas, mentorías y oportunidades de networking académico.
-                        </p>
                     </div>
                 </article>
 
                 {{-- 2. Centro – tarjeta alta (ocupa 2 filas) --}}
                 <article class="beca-mosaic-card beca-mosaic-card--center">
-                    <img src="{{ asset('img/beca-mosaic-2.jpg') }}" alt="Beca internacional de arbitraje"
+                    <img src="{{ asset('img/becas/beca-18.png') }}" alt="Beca internacional de arbitraje"
                         class="beca-mosaic-img">
                     <div class="beca-mosaic-overlay"></div>
-                    <div class="beca-mosaic-body beca-mosaic-body--center">
+                    <div class="beca-mosaic-body">
+                        <span class="beca-mosaic-tag">BECA 18</span>
                         <h3 class="beca-mosaic-title">
-                            Beca internacional de arbitraje: PROMUBE & aliados
+                            Beca excelencia académica en instituciones líderes del país
                         </h3>
-                        <p class="beca-mosaic-text">
-                            La beca reconoce el talento académico y el compromiso con la investigación jurídica.
-                        </p>
+
                     </div>
                 </article>
 
                 {{-- 3. Derecha – arriba --}}
                 <article class="beca-mosaic-card beca-mosaic-card--right-top">
-                    <img src="{{ asset('img/beca-mosaic-3.jpg') }}" alt="Beca reputación educativa" class="beca-mosaic-img">
+                    <img src="{{ asset('img/becas/beca-tecsup.png') }}" alt="Beca reputación educativa"
+                        class="beca-mosaic-img">
                     <div class="beca-mosaic-overlay"></div>
                     <div class="beca-mosaic-body">
-                        <span class="beca-mosaic-tag">Top educación</span>
+                        <span class="beca-mosaic-tag">BECA TECSUP</span>
                         <h3 class="beca-mosaic-title">
                             Beca excelencia académica en instituciones líderes del país
                         </h3>
-                        <p class="beca-mosaic-text">
-                            Beneficios para quienes destacan por su rendimiento y participación en proyectos.
-                        </p>
                     </div>
                 </article>
 
                 {{-- 4. Izquierda – abajo --}}
                 <article class="beca-mosaic-card beca-mosaic-card--left-bottom">
-                    <img src="{{ asset('img/beca-mosaic-4.jpg') }}" alt="Beca actualización profesional"
+                    <img src="{{ asset('img/Beca-Ferreyros.png') }}" alt="Beca actualización profesional"
                         class="beca-mosaic-img">
                     <div class="beca-mosaic-overlay"></div>
                     <div class="beca-mosaic-body">
-                        <span class="beca-mosaic-tag">Novedades PROMUBE</span>
+                        <span class="beca-mosaic-tag">BECA FERREYROS</span>
                         <h3 class="beca-mosaic-title">
                             Becas para diplomados y especializaciones en alianza con universidades
                         </h3>
-                        <p class="beca-mosaic-text">
-                            Programas cortos para actualizarte y mantener tu perfil competitivo en el mercado.
-                        </p>
                     </div>
                 </article>
 
                 {{-- 5. Derecha – abajo --}}
                 <article class="beca-mosaic-card beca-mosaic-card--right-bottom">
-                    <img src="{{ asset('img/beca-mosaic-5.jpg') }}" alt="Beca experiencia universitaria"
+                    <img src="{{ asset('img/becas/beca-uni.png') }}" alt="Beca experiencia universitaria"
                         class="beca-mosaic-img">
                     <div class="beca-mosaic-overlay"></div>
                     <div class="beca-mosaic-body">
-                        <span class="beca-mosaic-tag">Vida universitaria</span>
+                        <span class="beca-mosaic-tag">BECA UNI</span>
                         <h3 class="beca-mosaic-title">
                             Beca integral que cubre estudios y participación en actividades estudiantiles
                         </h3>
-                        <p class="beca-mosaic-text">
-                            Ideal para quienes quieren estudiar, investigar y participar en proyectos estudiantiles.
-                        </p>
                     </div>
                 </article>
             </div>
->>>>>>> 1790fa15345851ae80d74dbc62f42d2ea7bbc8dc
 
             {{-- CSS específico de la grilla tipo UPC --}}
             <style>
@@ -697,20 +587,15 @@
                     /* color del título */
                 }
 
-<<<<<<< HEAD
-        .becas-title {
-            margin: 0;
-            font-size: 2.5rem;    /* ajusta si la quieres más grande o pequeña */
-            font-weight: 900;     /* negrita */
-            color: #6e0c0cff;       /* color del título */
-        }
-=======
-                /* el contenedor ocupa todo el ancho del layout */
-                .becas-mosaic-container {
-                    width: 100%;
-                    max-width: 100%;
+                .becas-title {
+                    margin: 0;
+                    font-size: 2.5rem;
+                    /* ajusta si la quieres más grande o pequeña */
+                    font-weight: 900;
+                    /* negrita */
+                    color: #6e0c0cff;
+                    /* color del título */
                 }
->>>>>>> 1790fa15345851ae80d74dbc62f42d2ea7bbc8dc
 
                 .becas-mosaic-grid {
                     display: grid;
@@ -722,56 +607,21 @@
                     /* pequeño margen interno para que no pegue al borde */
                 }
 
-<<<<<<< HEAD
-        .becas-mosaic-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            /* filas más altas para tarjetas más grandes */
-            grid-auto-rows: 500px;
-            gap: 1.5rem;
-            padding: 0 1.5rem; /* pequeño margen interno para que no pegue al borde */
-        }
+                .becas-mosaic-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                    /* filas más altas para tarjetas más grandes */
+                    grid-auto-rows: 500px;
+                    gap: 1.5rem;
+                    padding: 0 1.5rem;
+                    /* pequeño margen interno para que no pegue al borde */
+                }
 
-        .beca-mosaic-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem;
-            background:#fff;
-            cursor: pointer;
-        }
-
-        .beca-mosaic-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            filter: none !important;  
-            z-index: 0;
-        }
-
-        .beca-mosaic-overlay {
-            position: absolute;
-            inset: 0;
-            display: none;              /* 👈 sin overlay ni sombra */
-            background: transparent;
-            transition: background 0.3s ease;
-            z-index: 1;
-        }
-
-        .beca-mosaic-body {
-            position: absolute;
-            inset-inline: 0;
-            bottom: 0;
-            padding: 1.4rem 1.8rem;
-            color: #fff;
-            z-index: 2;
-        }
-=======
                 .beca-mosaic-card {
                     position: relative;
                     overflow: hidden;
                     border-radius: 1rem;
-                    background: #000;
+                    background: #fff;
                     cursor: pointer;
                 }
 
@@ -780,17 +630,18 @@
                     height: 100%;
                     object-fit: cover;
                     display: block;
-                    transition: transform 0.4s ease;
+                    filter: none !important;
+                    z-index: 0;
                 }
 
                 .beca-mosaic-overlay {
                     position: absolute;
                     inset: 0;
-                    background: linear-gradient(to right,
-                            rgba(0, 0, 0, 0.8),
-                            rgba(0, 0, 0, 0.15));
+                    display: none;
+                    /* 👈 sin overlay ni sombra */
+                    background: transparent;
                     transition: background 0.3s ease;
-                    z-index: 0;
+                    z-index: 1;
                 }
 
                 .beca-mosaic-body {
@@ -799,18 +650,8 @@
                     bottom: 0;
                     padding: 1.4rem 1.8rem;
                     color: #fff;
-                    z-index: 1;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.4rem;
+                    z-index: 2;
                 }
-
-                .beca-mosaic-body--center {
-                    top: 50%;
-                    bottom: auto;
-                    transform: translateY(-50%);
-                }
->>>>>>> 1790fa15345851ae80d74dbc62f42d2ea7bbc8dc
 
                 .beca-mosaic-tag {
                     display: inline-block;
@@ -824,27 +665,17 @@
                     letter-spacing: 0.06em;
                 }
 
-<<<<<<< HEAD
-        .beca-mosaic-tag {
-            display: inline-block;
-            padding: 0.25rem 0.7rem;
-            border-radius: 2000px;
-            background: #000000ff;
-            color: var(--brand-red);
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-=======
-                .beca-mosaic-title {
-                    margin: 0;
-                    font-size: 2.5rem;
-                    font-weight: 900;
-                    line-height: 1.2;
-                    max-width: 24rem;
+                .beca-mosaic-tag {
+                    display: inline-block;
+                    padding: 0.25rem 0.7rem;
+                    border-radius: 2000px;
+                    background: #000000ff;
+                    color: var(--brand-red);
+                    font-size: 0.7rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.06em;
                 }
->>>>>>> 1790fa15345851ae80d74dbc62f42d2ea7bbc8dc
 
                 .beca-mosaic-text {
                     margin: 0;
@@ -867,23 +698,14 @@
                     background: rgba(239, 35, 60, 0.9);
                 }
 
-<<<<<<< HEAD
-        .beca-mosaic-card:hover .beca-mosaic-overlay {
-            display: block;  
-            background: rgba(255, 190, 190, 0.75);
-        }
-=======
-                /* Responsivo */
-                @media (max-width: 1024px) {
-                    .becas-mosaic-grid {
-                        grid-template-columns: 1fr 1fr;
-                        grid-auto-rows: 320px;
-                    }
->>>>>>> 1790fa15345851ae80d74dbc62f42d2ea7bbc8dc
+                .beca-mosaic-card:hover .beca-mosaic-overlay {
+                    display: block;
+                    background: rgba(255, 190, 190, 0.75);
+                }
 
-                    .beca-mosaic-card--center {
-                        grid-row: span 1;
-                    }
+                .beca-mosaic-card--center {
+                    grid-row: span 1;
+                }
                 }
 
                 @media (max-width: 800px) {
@@ -895,30 +717,14 @@
             </style>
     </section>
 
-<<<<<<< HEAD
-        {{-- BOTÓN VER MÁS --}}
-        <div class="mt-12 text-center">
-            <a href="{{ route('becas.index') }}"
-               class="inline-flex items-center justify-center px-10 py-3 text-sm md:text-base font-bold rounded-full
-                      text-white hover:opacity-90 transition-all"
-               style="background-color: var(--brand-red); box-shadow: 0 10px 30px rgba(239,35,60,0.25);">
-                Ver más
-            </a>
-        </div>
-=======
-
-
-
-
     {{-- BOTÓN VER MÁS --}}
     <div class="mt-12 text-center">
         <a href="{{ route('becas.index') }}" class="inline-flex items-center justify-center px-10 py-3 text-sm md:text-base font-bold rounded-full
                           text-white hover:opacity-90 transition-all"
             style="background-color: var(--brand-red); box-shadow: 0 10px 30px rgba(239,35,60,0.25);">
-            Ver más becas
+            Ver más
         </a>
     </div>
->>>>>>> 1790fa15345851ae80d74dbc62f42d2ea7bbc8dc
     </div>
 
     {{-- CSS específico de la grilla tipo UPC --}}
@@ -1072,7 +878,7 @@
                         de la provincia de Candarave.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                        group-hover:scale-x-100 transition-transform duration-300"
+                            group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -1090,7 +896,7 @@
                         nuestras familias agricultoras y ganaderas.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                        group-hover:scale-x-100 transition-transform duration-300"
+                            group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -1108,7 +914,7 @@
                         de nuestra historia local.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                        group-hover:scale-x-100 transition-transform duration-300"
+                            group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -1126,7 +932,7 @@
                         y bienestar social para todos los palqueños.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                        group-hover:scale-x-100 transition-transform duration-300"
+                            group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -1190,104 +996,129 @@
     </section>
 
     {{-- 5. SEDES (CON ICONOS) --}}
+    {{-- 5. SEDES (CON ICONOS) --}}
     <section class="py-24 bg-gray-50 dark:bg-[#0a0a0a]">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800 dark:text-white">Nuestras Sedes</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
+                {{-- SEDE AREQUIPA --}}
                 <div class="location-card group">
                     <div class="location-image-container">
-                        <img class="h-full w-full object-cover" alt="Sede Central"
+                        <img class="h-full w-full object-cover" alt="Sede Arequipa"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd2_H08jilsWIyRClEVK8eRTHnJGc3jQKquVDiSoNGEmoEB0C6UCpS7WeA8aDPrO52EOkPAKHDWRSSDC-CvWlIn_NF_xhC7D77LVrpgHAWwwZUYdgrD9MNYUhAJPn7H1g40rCQNKpMSsI8w1pnFQnDuHRLeFLZ5JWnmxFqjoby8WiAddfI1QE-0yVUXwJn1BOTldsaWXw3NK5bk6E1Nd9-wP0qxr1pTSn0WZul-HeY6eu5E7RZpploWOPfTa6-5N3ra-k2AbbdoYI" />
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full"
-                            style="color: var(--brand-red);">CDMX</div>
+                            style="color: var(--brand-red);">Arequipa</div>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
                         <div class="flex items-center gap-4 mb-6">
-                            <div class="sede-icon"><span class="material-symbols-outlined text-2xl">apartment</span></div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Central</h3>
+                            <div class="sede-icon">
+                                <span class="material-symbols-outlined text-2xl">apartment</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Arequipa</h3>
                         </div>
                         <div class="space-y-4 mb-8">
-                            <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300"><span
-                                    class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span><span
-                                    class="text-sm">Av. Universidad 1234, Col. Centro.</span></div>
-                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span
-                                    class="material-symbols-outlined text-lg text-gray-400">schedule</span><span
-                                    class="text-sm">Lun-Vie, 9am - 6pm</span></div>
-                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span
-                                    class="material-symbols-outlined text-lg text-gray-400">call</span><span
-                                    class="text-sm font-medium">+52 55 1234 5678</span></div>
+                            {{-- Dirección Arequipa --}}
+                            <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span>
+                                <span class="text-sm">C. Sanchez Trujillo 240, Miraflores 04004, Arequipa.</span>
+                            </div>
+                            {{-- Horario (puedes ajustarlo si quieres) --}}
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined text-lg text-gray-400">schedule</span>
+                                <span class="text-sm">Lun-Vie, 9am - 6pm</span>
+                            </div>
+                            {{-- Teléfono Arequipa --}}
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined text-lg text-gray-400">call</span>
+                                <span class="text-sm font-medium">931 315 933</span>
+                            </div>
                         </div>
-                        <a href="{{ route('sedes.index') }}#central"
+                        <a href="{{ route('sedes.index') }}#arequipa"
                             class="mt-auto block w-full py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-center font-bold hover:text-white transition-colors"
                             onmouseover="this.style.backgroundColor=var(--brand-red)"
-                            onmouseout="this.style.backgroundColor=''">Ver mapa</a>
+                            onmouseout="this.style.backgroundColor=''">
+                            Ver mapa
+                        </a>
                     </div>
                 </div>
 
+                {{-- SEDE TACNA --}}
                 <div class="location-card group">
                     <div class="location-image-container">
-                        <img class="h-full w-full object-cover" alt="Sede Norte"
+                        <img class="h-full w-full object-cover" alt="Sede Tacna"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiapKTJC8xcc7tkIfBrgC_FyqQlJ9OJ2UKNO07Zn7DYyoBJF-WSsgB3AJ_Qhuv7-n7N4D4xk7E2__eeQkdC-7ITFPyjGPBCmN8uiFtl4rnFbeT7t4ioAKfwjUFfFDDgijzBfMFgvVpiWS-EHiaKdNeGqoWFXOVphvMsFx1MQu2nNeoG_hJDWRV9YXisLjkhE7v3j69MJquAhDtDOEppbV4pOiJjzhINDrhZ36WrXQ0YL0a2VTepauikYBVK6jYxgyx55XuPnwaVZs" />
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full"
-                            style="color: var(--brand-red);">Monterrey</div>
+                            style="color: var(--brand-red);">Tacna</div>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
                         <div class="flex items-center gap-4 mb-6">
-                            <div class="sede-icon"><span class="material-symbols-outlined text-2xl">business</span></div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Norte</h3>
+                            <div class="sede-icon">
+                                <span class="material-symbols-outlined text-2xl">business</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Tacna</h3>
                         </div>
                         <div class="space-y-4 mb-8">
-                            <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300"><span
-                                    class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span><span
-                                    class="text-sm">Calle del Sol 567, Plaza Norte.</span></div>
-                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span
-                                    class="material-symbols-outlined text-lg text-gray-400">schedule</span><span
-                                    class="text-sm">Lun-Vie, 10am - 5pm</span></div>
-                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span
-                                    class="material-symbols-outlined text-lg text-gray-400">call</span><span
-                                    class="text-sm font-medium">+52 81 8765 4321</span></div>
+                            {{-- Dirección Tacna --}}
+                            <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span>
+                                <span class="text-sm">Calle Olga Grohoman 1045, Tacna 23001.</span>
+                            </div>
+                            {{-- Horario (puedes ajustarlo si quieres) --}}
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined text-lg text-gray-400">schedule</span>
+                                <span class="text-sm">Lun-Vie, 9am - 6pm</span>
+                            </div>
+                            {{-- Teléfono Tacna --}}
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined text-lg text-gray-400">call</span>
+                                <span class="text-sm font-medium">921 810 356</span>
+                            </div>
                         </div>
-                        <a href="{{ route('sedes.index') }}#norte"
+                        <a href="{{ route('sedes.index') }}#tacna"
                             class="mt-auto block w-full py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-center font-bold hover:text-white transition-colors"
                             onmouseover="this.style.backgroundColor=var(--brand-red)"
-                            onmouseout="this.style.backgroundColor=''">Ver mapa</a>
+                            onmouseout="this.style.backgroundColor=''">
+                            Ver mapa
+                        </a>
                     </div>
                 </div>
 
+                {{-- TERCERA TARJETA (puedes dejarla genérica o adaptarla luego) --}}
                 <div class="location-card group">
                     <div class="location-image-container">
                         <img class="h-full w-full object-cover" alt="Sede Sur"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg8PymSKI3WqL0j_KJBDo7DgRCwApkez7oMNJ-4DXE0870OQlrDSnJ-oTFCXGT0cnbmhkHAvtgHlfVMfssGaBLKqpobcgKNNh2Z0IwiYk1J9D29_csvV7aoFllZJgqD3ipRx806mX4LLAbRP_YeMqYp03QIlHvUHfh5thXRHFcUb8VfuqVurY6dlSoOnolpLWFcgBCFLvniImMuDxAGPw4-g4W3bgYF4T3GYlhKK3tyw9LHGi5sIYKOKViLgZbIJzYKCY-3hbzraQ" />
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full"
-                            style="color: var(--brand-red);">Guadalajara</div>
+                            style="color: var(--brand-red);">Próximamente</div>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
                         <div class="flex items-center gap-4 mb-6">
-                            <div class="sede-icon"><span class="material-symbols-outlined text-2xl">store</span></div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Sur</h3>
+                            <div class="sede-icon">
+                                <span class="material-symbols-outlined text-2xl">store</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Nueva Sede</h3>
                         </div>
                         <div class="space-y-4 mb-8">
-                            <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300"><span
-                                    class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span><span
-                                    class="text-sm">Av. Vallarta 999, Zona Minerva.</span></div>
-                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span
-                                    class="material-symbols-outlined text-lg text-gray-400">schedule</span><span
-                                    class="text-sm">Lun-Vie, 9am - 6pm</span></div>
-                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300"><span
-                                    class="material-symbols-outlined text-lg text-gray-400">call</span><span
-                                    class="text-sm font-medium">+52 33 1122 3344</span></div>
+                            <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span>
+                                <span class="text-sm">Muy pronto anunciaremos una nueva ubicación para estar más cerca de
+                                    ti.</span>
+                            </div>
                         </div>
-                        <a href="{{ route('sedes.index') }}#sur"
+                        <a href="{{ route('sedes.index') }}"
                             class="mt-auto block w-full py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-center font-bold hover:text-white transition-colors"
                             onmouseover="this.style.backgroundColor=var(--brand-red)"
-                            onmouseout="this.style.backgroundColor=''">Ver mapa</a>
+                            onmouseout="this.style.backgroundColor=''">
+                            Ver sedes
+                        </a>
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
