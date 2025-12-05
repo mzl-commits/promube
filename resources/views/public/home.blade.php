@@ -231,7 +231,10 @@
         {{-- MOSAICO DE BECAS --}}
         <div class="becas-mosaic-grid">
             {{-- 1. Izquierda – arriba --}}
-            <article class="beca-mosaic-card beca-mosaic-card--left-top">
+            <article class="beca-mosaic-card beca-mosaic-card--left-top"
+            onclick="window.location='{{ route('becas.bcp') }}'"
+            style="cursor: pointer;"
+            >
                 <img
                     src="{{ asset('img/becas/beca-bcp.png') }}"
                     alt="Beca BCP"
@@ -239,88 +242,75 @@
                 >
                 <div class="beca-mosaic-overlay"></div>
                 <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">Evento presencial</span>
+                    <span class="beca-mosaic-tag">BECA BCP</span>
                     <h3 class="beca-mosaic-title">
                         EPGXpert Talks: beca para líderes que quieren conectar con expertos
                     </h3>
-                    <p class="beca-mosaic-text">
-                        Accede a charlas exclusivas, mentorías y oportunidades de networking académico.
-                    </p>
                 </div>
             </article>
 
             {{-- 2. Centro – tarjeta alta (ocupa 2 filas) --}}
             <article class="beca-mosaic-card beca-mosaic-card--center">
                 <img
-                    src="{{ asset('img/beca-mosaic-2.jpg') }}"
+                    src="{{ asset('img/becas/beca-18.png') }}"
                     alt="Beca internacional de arbitraje"
                     class="beca-mosaic-img"
                 >
                 <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body beca-mosaic-body--center">
+                <div class="beca-mosaic-body">
+                    <span class="beca-mosaic-tag">BECA 18</span>
                     <h3 class="beca-mosaic-title">
-                        Beca internacional de arbitraje: PROMUBE & aliados
+                        Beca excelencia académica en instituciones líderes del país
                     </h3>
-                    <p class="beca-mosaic-text">
-                        La beca reconoce el talento académico y el compromiso con la investigación jurídica.
-                    </p>
+
                 </div>
             </article>
 
             {{-- 3. Derecha – arriba --}}
             <article class="beca-mosaic-card beca-mosaic-card--right-top">
                 <img
-                    src="{{ asset('img/beca-mosaic-3.jpg') }}"
+                    src="{{ asset('img/becas/beca-tecsup.png') }}"
                     alt="Beca reputación educativa"
                     class="beca-mosaic-img"
                 >
                 <div class="beca-mosaic-overlay"></div>
                 <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">Top educación</span>
+                    <span class="beca-mosaic-tag">BECA TECSUP</span>
                     <h3 class="beca-mosaic-title">
                         Beca excelencia académica en instituciones líderes del país
                     </h3>
-                    <p class="beca-mosaic-text">
-                        Beneficios para quienes destacan por su rendimiento y participación en proyectos.
-                    </p>
                 </div>
             </article>
 
             {{-- 4. Izquierda – abajo --}}
             <article class="beca-mosaic-card beca-mosaic-card--left-bottom">
                 <img
-                    src="{{ asset('img/beca-mosaic-4.jpg') }}"
+                    src="{{ asset('img/Beca-Ferreyros.png') }}"
                     alt="Beca actualización profesional"
                     class="beca-mosaic-img"
                 >
                 <div class="beca-mosaic-overlay"></div>
                 <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">Novedades PROMUBE</span>
+                    <span class="beca-mosaic-tag">BECA FERREYROS</span>
                     <h3 class="beca-mosaic-title">
                         Becas para diplomados y especializaciones en alianza con universidades
                     </h3>
-                    <p class="beca-mosaic-text">
-                        Programas cortos para actualizarte y mantener tu perfil competitivo en el mercado.
-                    </p>
                 </div>
             </article>
 
             {{-- 5. Derecha – abajo --}}
             <article class="beca-mosaic-card beca-mosaic-card--right-bottom">
                 <img
-                    src="{{ asset('img/beca-mosaic-5.jpg') }}"
+                    src="{{ asset('img/becas/beca-uni.png') }}"
                     alt="Beca experiencia universitaria"
                     class="beca-mosaic-img"
                 >
                 <div class="beca-mosaic-overlay"></div>
                 <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">Vida universitaria</span>
+                    <span class="beca-mosaic-tag">BECA UNI</span>
                     <h3 class="beca-mosaic-title">
                         Beca integral que cubre estudios y participación en actividades estudiantiles
                     </h3>
-                    <p class="beca-mosaic-text">
-                        Ideal para quienes quieren estudiar, investigar y participar en proyectos estudiantiles.
-                    </p>
                 </div>
             </article>
         </div>
@@ -338,7 +328,7 @@
             margin: 0;
             font-size: 2.5rem;    /* ajusta si la quieres más grande o pequeña */
             font-weight: 900;     /* negrita */
-            color: #111827;       /* color del título */
+            color: #6e0c0cff;       /* color del título */
         }
 
         /* el contenedor ocupa todo el ancho del layout */
@@ -351,7 +341,7 @@
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             /* filas más altas para tarjetas más grandes */
-            grid-auto-rows: 380px;
+            grid-auto-rows: 500px;
             gap: 1.5rem;
             padding: 0 1.5rem; /* pequeño margen interno para que no pegue al borde */
         }
@@ -369,15 +359,17 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.4s ease;
+            filter: none !important;  
+            z-index: 0;
         }
 
         .beca-mosaic-overlay {
             position: absolute;
             inset: 0;
-            background:transparent !important; ;
+            display: none;              /* 👈 sin overlay ni sombra */
+            background: transparent;
             transition: background 0.3s ease;
-            z-index: 0;
+            z-index: 1;
         }
 
         .beca-mosaic-body {
@@ -386,10 +378,7 @@
             bottom: 0;
             padding: 1.4rem 1.8rem;
             color: #fff;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
+            z-index: 2;
         }
 
         .beca-mosaic-body--center {
@@ -401,8 +390,8 @@
         .beca-mosaic-tag {
             display: inline-block;
             padding: 0.25rem 0.7rem;
-            border-radius: 999px;
-            background: #ffffff;
+            border-radius: 2000px;
+            background: #000000ff;
             color: var(--brand-red);
             font-size: 0.7rem;
             font-weight: 700;
@@ -436,7 +425,8 @@
         }
 
         .beca-mosaic-card:hover .beca-mosaic-overlay {
-            background: rgba(239, 35, 60, 0.9);
+            display: block;  
+            background: rgba(255, 190, 190, 0.75);
         }
 
         /* Responsivo */
@@ -459,17 +449,13 @@
     </style>
 </section>
 
-
-
-
-
         {{-- BOTÓN VER MÁS --}}
         <div class="mt-12 text-center">
             <a href="{{ route('becas.index') }}"
                class="inline-flex items-center justify-center px-10 py-3 text-sm md:text-base font-bold rounded-full
                       text-white hover:opacity-90 transition-all"
                style="background-color: var(--brand-red); box-shadow: 0 10px 30px rgba(239,35,60,0.25);">
-                Ver más becas
+                Ver más
             </a>
         </div>
     </div>

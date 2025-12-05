@@ -9,6 +9,9 @@ use App\Http\Controllers\Public\NoticiaController;
 use App\Http\Controllers\Public\FaqController;
 use App\Http\Controllers\Public\ContactoController;
 
+Route::view('/becas/bcp', 'public.becas.bcp')->name('becas.bcp');
+
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/becas', [BecaController::class, 'index'])->name('becas.index');
