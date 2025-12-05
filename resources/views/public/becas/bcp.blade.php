@@ -11,14 +11,14 @@
 
         /* Fondo general */
         .bcp-wrapper {
-            background: #f5f5f7;
+            background: #ffffffff;
         }
 
         /* Tarjeta principal */
         .bcp-card {
             background: #ffffff;
             border-radius: 1.75rem;
-            border: 2px solid #e5e7eb;   /* borde más grueso */
+            border: 2px solid #f7faffff;   /* borde más grueso */
             box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
         }
 
@@ -79,10 +79,10 @@
 
         /* Beneficios (tarjetas horizontales) */
         .bcp-benefit-card {
-            background: #f9fafb;
+            background: #ebeffaff;
             border-radius: 1.25rem;
             padding: 1.3rem 1.4rem;
-            border: 2px solid #e5e7eb;   /* borde más grueso */
+            border: 2px solid #cd4141ff;   /* borde más grueso */
             transition: all 0.25s ease;
         }
 
@@ -115,7 +115,7 @@
 
         .bcp-benefit-text {
             font-size: 0.9rem;        /* texto más grande */
-            color: #4b5563;
+            color: #000000ff;
         }
 
         /* Pasos */
@@ -142,7 +142,7 @@
 
         .bcp-step-text {
             font-size: 0.8rem;
-            color: #4b5563;
+            color: #141313ff;
             text-align: left;
         }
 
@@ -352,17 +352,8 @@
 
                         </div>
                     </section>
-
-                    {{-- Botón CTA centrado --}}
-                    <div class="pt-2 flex justify-center">
-                        <a href="#"
-                           class="bcp-cta-btn inline-flex items-center justify-center w-full sm:w-auto">
-                            Postular ahora
-                        </a>
-                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection
