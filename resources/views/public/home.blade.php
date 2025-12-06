@@ -5,8 +5,8 @@
 @section('content')
     <style>
         /* =========================================
-                   CONFIGURACIÓN BASE (#EF233C)
-                   ========================================= */
+                       CONFIGURACIÓN BASE (#EF233C)
+                       ========================================= */
         :root {
             --brand-red: #ef233c;
             --brand-red-light: rgba(239, 35, 60, 0.08);
@@ -36,8 +36,8 @@
         }
 
         /* =========================================
-                   1. HERO (SPLIT LAYOUT + ALTURA AJUSTADA)
-                   ========================================= */
+                       1. HERO (SPLIT LAYOUT + ALTURA AJUSTADA)
+                       ========================================= */
         .hero-wrapper {
             position: relative;
             width: 100%;
@@ -254,8 +254,8 @@
         }
 
         /* =========================================
-                   2. ESTILOS TARJETAS Y SECCIONES
-                   ========================================= */
+                       2. ESTILOS TARJETAS Y SECCIONES
+                       ========================================= */
         .perspective-container {
             perspective: 2500px;
             overflow-x: hidden;
@@ -720,7 +720,7 @@
     {{-- BOTÓN VER MÁS --}}
     <div class="mt-12 text-center">
         <a href="{{ route('becas.index') }}" class="inline-flex items-center justify-center px-10 py-3 text-sm md:text-base font-bold rounded-full
-                          text-white hover:opacity-90 transition-all"
+                              text-white hover:opacity-90 transition-all"
             style="background-color: var(--brand-red); box-shadow: 0 10px 30px rgba(239,35,60,0.25);">
             Ver más
         </a>
@@ -878,7 +878,7 @@
                         de la provincia de Candarave.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                            group-hover:scale-x-100 transition-transform duration-300"
+                                group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -896,7 +896,7 @@
                         nuestras familias agricultoras y ganaderas.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                            group-hover:scale-x-100 transition-transform duration-300"
+                                group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -914,7 +914,7 @@
                         de nuestra historia local.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                            group-hover:scale-x-100 transition-transform duration-300"
+                                group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -932,7 +932,7 @@
                         y bienestar social para todos los palqueños.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                            group-hover:scale-x-100 transition-transform duration-300"
+                                group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -996,10 +996,11 @@
     </section>
 
     {{-- 5. SEDES (CON ICONOS) --}}
-    {{-- 5. SEDES (CON ICONOS) --}}
     <section class="py-24 bg-gray-50 dark:bg-[#0a0a0a]">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800 dark:text-white">Nuestras Sedes</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800 dark:text-white">
+                Nuestras Sedes
+            </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                 {{-- SEDE AREQUIPA --}}
@@ -1018,17 +1019,16 @@
                             <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Arequipa</h3>
                         </div>
                         <div class="space-y-4 mb-8">
-                            {{-- Dirección Arequipa --}}
                             <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
                                 <span class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span>
-                                <span class="text-sm">C. Sanchez Trujillo 240, Miraflores 04004, Arequipa.</span>
+                                <span class="text-sm">
+                                    C. Sanchez Trujillo 240, Miraflores 04004, Arequipa.
+                                </span>
                             </div>
-                            {{-- Horario (puedes ajustarlo si quieres) --}}
                             <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
                                 <span class="material-symbols-outlined text-lg text-gray-400">schedule</span>
-                                <span class="text-sm">Lun-Vie, 9am - 6pm</span>
+                                <span class="text-sm">Lun-Vie, 9:00 AM - 6:00 PM</span>
                             </div>
-                            {{-- Teléfono Arequipa --}}
                             <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
                                 <span class="material-symbols-outlined text-lg text-gray-400">call</span>
                                 <span class="text-sm font-medium">931 315 933</span>
@@ -1043,7 +1043,7 @@
                     </div>
                 </div>
 
-                {{-- SEDE TACNA --}}
+                {{-- SEDE TACNA (actualizada) --}}
                 <div class="location-card group">
                     <div class="location-image-container">
                         <img class="h-full w-full object-cover" alt="Sede Tacna"
@@ -1059,17 +1059,19 @@
                             <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Tacna</h3>
                         </div>
                         <div class="space-y-4 mb-8">
-                            {{-- Dirección Tacna --}}
                             <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
                                 <span class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span>
-                                <span class="text-sm">Calle Olga Grohoman 1045, Tacna 23001.</span>
+                                <span class="text-sm">
+                                    Urbanización Bacigalupo, calle Olga Grohmann 1063,
+                                    a media cuadra arriba del parque vial.
+                                </span>
                             </div>
-                            {{-- Horario (puedes ajustarlo si quieres) --}}
                             <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
                                 <span class="material-symbols-outlined text-lg text-gray-400">schedule</span>
-                                <span class="text-sm">Lun-Vie, 9am - 6pm</span>
+                                <span class="text-sm">
+                                    Lun-Vie, 8:00 AM - 1:00 PM y 3:00 PM - 6:00 PM
+                                </span>
                             </div>
-                            {{-- Teléfono Tacna --}}
                             <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
                                 <span class="material-symbols-outlined text-lg text-gray-400">call</span>
                                 <span class="text-sm font-medium">921 810 356</span>
@@ -1084,33 +1086,44 @@
                     </div>
                 </div>
 
-                {{-- TERCERA TARJETA (puedes dejarla genérica o adaptarla luego) --}}
+                {{-- SEDE LIMA --}}
                 <div class="location-card group">
                     <div class="location-image-container">
-                        <img class="h-full w-full object-cover" alt="Sede Sur"
+                        <img class="h-full w-full object-cover" alt="Sede Lima"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg8PymSKI3WqL0j_KJBDo7DgRCwApkez7oMNJ-4DXE0870OQlrDSnJ-oTFCXGT0cnbmhkHAvtgHlfVMfssGaBLKqpobcgKNNh2Z0IwiYk1J9D29_csvV7aoFllZJgqD3ipRx806mX4LLAbRP_YeMqYp03QIlHvUHfh5thXRHFcUb8VfuqVurY6dlSoOnolpLWFcgBCFLvniImMuDxAGPw4-g4W3bgYF4T3GYlhKK3tyw9LHGi5sIYKOKViLgZbIJzYKCY-3hbzraQ" />
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full"
-                            style="color: var(--brand-red);">Próximamente</div>
+                            style="color: var(--brand-red);">Lima</div>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
                         <div class="flex items-center gap-4 mb-6">
                             <div class="sede-icon">
-                                <span class="material-symbols-outlined text-2xl">store</span>
+                                <span class="material-symbols-outlined text-2xl">location_city</span>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Nueva Sede</h3>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Lima</h3>
                         </div>
                         <div class="space-y-4 mb-8">
                             <div class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
                                 <span class="material-symbols-outlined text-lg mt-1 text-gray-400">location_on</span>
-                                <span class="text-sm">Muy pronto anunciaremos una nueva ubicación para estar más cerca de
-                                    ti.</span>
+                                <span class="text-sm">
+                                    Av. Honorio Delgado 169, San Martín de Porres 15102.
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined text-lg text-gray-400">schedule</span>
+                                <span class="text-sm">
+                                    Lun-Vie, 9:00 AM - 6:00 PM
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                                <span class="material-symbols-outlined text-lg text-gray-400">call</span>
+                                <span class="text-sm font-medium">976 156 196</span>
                             </div>
                         </div>
-                        <a href="{{ route('sedes.index') }}"
+                        <a href="{{ route('sedes.index') }}#lima"
                             class="mt-auto block w-full py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-center font-bold hover:text-white transition-colors"
                             onmouseover="this.style.backgroundColor=var(--brand-red)"
                             onmouseout="this.style.backgroundColor=''">
-                            Ver sedes
+                            Ver mapa
                         </a>
                     </div>
                 </div>
@@ -1118,6 +1131,7 @@
             </div>
         </div>
     </section>
+
 
 
     <script>
