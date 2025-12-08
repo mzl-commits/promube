@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Sedes - PROMUBE')
+@section('title', 'Sedes y cobertura - PROMUBE')
 
 @section('content')
     <style>
@@ -13,16 +13,19 @@
             --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
+        /* Overrides locales */
         .text-primary { color: var(--brand-red) !important; }
         .bg-primary { background-color: var(--brand-red) !important; }
         .border-primary { border-color: var(--brand-red) !important; }
 
+        /* Animaciones */
         .fade-enter { animation: fadeIn 0.5s var(--ease-out-expo) forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
             to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
+        /* TABS */
         .tab-btn {
             position: relative;
             transition: all 0.3s ease;
@@ -38,7 +41,10 @@
         .tab-btn::after {
             content: '';
             position: absolute;
-            bottom: -2px; left: 0; width: 100%; height: 3px;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
             background: var(--brand-red);
             transform: scaleX(0);
             transition: transform 0.3s var(--ease-out-expo);
@@ -48,10 +54,9 @@
             color: var(--brand-red);
             background-color: var(--brand-red-light);
         }
-        .tab-btn.active::after {
-            transform: scaleX(1);
-        }
+        .tab-btn.active::after { transform: scaleX(1); }
 
+        /* TARJETAS DE INFO */
         .sede-card {
             border: 1px solid rgba(239, 35, 60, 0.08);
             transition: all 0.4s var(--ease-out-expo);
@@ -63,12 +68,31 @@
             transform: translateY(-5px);
         }
 
+        /* IMAGEN DE SEDE (ADAPTATIVA) */
+        .sede-img-box {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            background: #f9fafb;
+        }
+        .sede-img-box img {
+            width: 100%;
+            height: auto;      /* Respeta proporciones de la foto */
+            display: block;
+            object-fit: cover; /* Por si la imagen es muy ancha */
+            transition: transform 0.6s ease;
+        }
+        .sede-card:hover .sede-img-box img { transform: scale(1.05); }
+
+        /* ICONOS */
         .icon-box {
             background-color: var(--brand-red-light);
             color: var(--brand-red);
             transition: all 0.3s ease;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -81,6 +105,7 @@
             box-shadow: 0 10px 20px -5px rgba(239, 35, 60, 0.4);
         }
 
+        /* BOTÓN CONTACTO */
         .btn-contact {
             background-color: #1e293b;
             color: white;
@@ -92,6 +117,7 @@
             transform: translateY(-2px);
         }
 
+        /* MAPA */
         .map-container {
             border: 1px solid rgba(0,0,0,0.05);
             transition: all 0.3s ease;
@@ -113,36 +139,42 @@
                 Sedes y Cobertura
             </h1>
             <p class="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-normal leading-relaxed max-w-3xl">
-                PROMUBE – CIDECH opera en diferentes regiones del país para estar más cerca de ti.
-                <span class="font-bold" style="color: var(--brand-red);">Encuentra tu sede más cercana</span> y comienza tu camino.
+                PROMUBE – CIDECH opera en diferentes regiones del país.
+                <span class="font-bold" style="color: var(--brand-red);">Encuentra tu sede más cercana</span>.
             </p>
         </div>
 
         {{-- TABS --}}
         <div class="flex flex-wrap justify-center gap-2 mb-12 border-b border-gray-200 dark:border-gray-700 pb-1" id="tabs-container">
-            <button onclick="switchSede('arequipa')" id="tab-arequipa"
-                    class="tab-btn active px-8 py-4 text-lg rounded-t-xl">
+            <button onclick="switchSede('arequipa')" id="tab-arequipa" class="tab-btn active px-8 py-4 text-lg rounded-t-xl">
                 Sede Arequipa
             </button>
-            <button onclick="switchSede('tacna')" id="tab-tacna"
-                    class="tab-btn px-8 py-4 text-lg rounded-t-xl">
+            <button onclick="switchSede('tacna')" id="tab-tacna" class="tab-btn px-8 py-4 text-lg rounded-t-xl">
                 Sede Tacna
             </button>
-            <button onclick="switchSede('lima')" id="tab-lima"
-                    class="tab-btn px-8 py-4 text-lg rounded-t-xl">
+            <button onclick="switchSede('lima')" id="tab-lima" class="tab-btn px-8 py-4 text-lg rounded-t-xl">
                 Sede Lima
             </button>
         </div>
 
         <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
 
-            {{-- INFO AREQUIPA --}}
+            {{-- COLUMNA IZQUIERDA: INFORMACIÓN + FOTO --}}
             <div class="w-full lg:w-1/3">
+
+                {{-- AREQUIPA --}}
                 <div id="info-arequipa" class="sede-info fade-enter">
                     <div class="sede-card bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none">
-                        <div class="flex items-center gap-4 mb-8">
+
+                        {{-- IMAGEN DE LA SEDE --}}
+                        <div class="sede-img-box">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg8PymSKI3WqL0j_KJBDo7DgRCwApkez7oMNJ-4DXE0870OQlrDSnJ-oTFCXGT0cnbmhkHAvtgHlfVMfssGaBLKqpobcgKNNh2Z0IwiYk1J9D29_csvV7aoFllZJgqD3ipRx806mX4LLAbRP_YeMqYp03QIlHvUHfh5thXRHFcUb8VfuqVurY6dlSoOnolpLWFcgBCFLvniImMuDxAGPw4-g4W3bgYF4T3GYlhKK3tyw9LHGi5sIYKOKViLgZbIJzYKCY-3hbzraQ"
+                                 alt="Sede Arequipa">
+                        </div>
+
+                        <div class="flex items-center gap-4 mb-6">
                             <div class="icon-box">
-                                <span class="material-symbols-outlined text-3xl">apartment</span>
+                                <span class="material-symbols-outlined text-2xl">apartment</span>
                             </div>
                             <div>
                                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Arequipa</h2>
@@ -152,7 +184,7 @@
                             </div>
                         </div>
 
-                        <div class="space-y-8">
+                        <div class="space-y-6">
                             <div class="flex gap-4 group">
                                 <span class="material-symbols-outlined text-gray-400 mt-1 group-hover:text-primary transition-colors">
                                     location_on
@@ -162,7 +194,7 @@
                                         Dirección
                                     </p>
                                     <p class="text-gray-800 dark:text-gray-200 font-medium">
-                                        C. Sanchez Trujillo 240, Miraflores 04004, Arequipa.
+                                        C. Sanchez Trujillo 240, Miraflores 04004.
                                     </p>
                                 </div>
                             </div>
@@ -194,7 +226,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+                        <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
                             <a href="#arequipa" class="btn-contact flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold">
                                 <span class="material-symbols-outlined text-sm">mail</span>
                                 Contactar Sede
@@ -203,12 +235,18 @@
                     </div>
                 </div>
 
-                {{-- INFO TACNA (actualizada con el comunicado) --}}
+                {{-- TACNA --}}
                 <div id="info-tacna" class="sede-info hidden">
                     <div class="sede-card bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none">
-                        <div class="flex items-center gap-4 mb-8">
+
+                        {{-- IMAGEN DE LA SEDE --}}
+                        <div class="sede-img-box">
+                            <img src="{{ asset('img/sedes/sede_tacna.jpg') }}" alt="Sede Tacna">
+                        </div>
+
+                        <div class="flex items-center gap-4 mb-6">
                             <div class="icon-box">
-                                <span class="material-symbols-outlined text-3xl">business</span>
+                                <span class="material-symbols-outlined text-2xl">business</span>
                             </div>
                             <div>
                                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Tacna</h2>
@@ -218,7 +256,7 @@
                             </div>
                         </div>
 
-                        <div class="space-y-8">
+                        <div class="space-y-6">
                             <div class="flex gap-4 group">
                                 <span class="material-symbols-outlined text-gray-400 mt-1 group-hover:text-primary transition-colors">
                                     location_on
@@ -228,8 +266,7 @@
                                         Dirección
                                     </p>
                                     <p class="text-gray-800 dark:text-gray-200 font-medium">
-                                        Urbanización Bacigalupo, calle Olga Grohmann 1063,
-                                        a media cuadra arriba del parque vial.
+                                        Urb. Bacigalupo, calle Olga Grohmann 1063.
                                     </p>
                                 </div>
                             </div>
@@ -242,7 +279,7 @@
                                         Horario
                                     </p>
                                     <p class="text-gray-800 dark:text-gray-200 font-medium">
-                                        Lun - Vie: 8:00 AM - 1:00 PM y 3:00 PM - 6:00 PM
+                                        Lun - Vie: 8am-1pm / 3pm-6pm
                                     </p>
                                 </div>
                             </div>
@@ -261,7 +298,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+                        <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
                             <a href="#tacna" class="btn-contact flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold">
                                 <span class="material-symbols-outlined text-sm">mail</span>
                                 Contactar Sede
@@ -270,12 +307,18 @@
                     </div>
                 </div>
 
-                {{-- INFO LIMA --}}
+                {{-- LIMA --}}
                 <div id="info-lima" class="sede-info hidden">
                     <div class="sede-card bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-none">
-                        <div class="flex items-center gap-4 mb-8">
+
+                        {{-- IMAGEN DE LA SEDE --}}
+                        <div class="sede-img-box">
+                            <img src="{{ asset('img/sedes/sede_lima.jpg') }}" alt="Sede Lima">
+                        </div>
+
+                        <div class="flex items-center gap-4 mb-6">
                             <div class="icon-box">
-                                <span class="material-symbols-outlined text-3xl">location_city</span>
+                                <span class="material-symbols-outlined text-2xl">location_city</span>
                             </div>
                             <div>
                                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Sede Lima</h2>
@@ -285,7 +328,7 @@
                             </div>
                         </div>
 
-                        <div class="space-y-8">
+                        <div class="space-y-6">
                             <div class="flex gap-4 group">
                                 <span class="material-symbols-outlined text-gray-400 mt-1 group-hover:text-primary transition-colors">
                                     location_on
@@ -295,7 +338,7 @@
                                         Dirección
                                     </p>
                                     <p class="text-gray-800 dark:text-gray-200 font-medium">
-                                        Av. Honorio Delgado 169, San Martín de Porres 15102.
+                                        Av. Honorio Delgado 169, SMP 15102.
                                     </p>
                                 </div>
                             </div>
@@ -327,7 +370,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-10 pt-6 border-t border-gray-100 dark:border-gray-700">
+                        <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
                             <a href="#lima" class="btn-contact flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold">
                                 <span class="material-symbols-outlined text-sm">mail</span>
                                 Contactar Sede
@@ -338,17 +381,16 @@
 
             </div>
 
-            {{-- MAPA DINÁMICO --}}
-            <div class="w-full lg:w-2/3 map-container relative h-[600px] rounded-3xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
+            {{-- COLUMNA DERECHA: MAPA --}}
+            <div class="w-full lg:w-2/3 map-container relative h-[700px] lg:h-auto rounded-3xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
                 <iframe id="map-frame"
-                        class="w-full h-full"
+                        class="w-full h-full min-h-[600px]"
                         src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d676.6459205817965!2d-71.51716061779871!3d-16.38988146261244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTbCsDIzJzI0LjQiUyA3McKwMzEnMDAuOCJX!5e0!3m2!1ses!2spe!4v1764951615587!5m2!1ses!2spe"
                         style="border:0; opacity: 1; transition: opacity 0.5s ease;"
                         allowfullscreen=""
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
-
                 <div id="map-loader"
                      class="absolute inset-0 bg-white dark:bg-gray-800 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
                     <div class="animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-primary"
@@ -367,12 +409,12 @@
         };
 
         function switchSede(sedeId) {
-            // tabs
+            // Tabs
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             const btn = document.getElementById('tab-' + sedeId);
             if (btn) btn.classList.add('active');
 
-            // info
+            // Info tarjetas
             document.querySelectorAll('.sede-info').forEach(info => {
                 info.classList.add('hidden');
                 info.classList.remove('fade-enter');
@@ -380,18 +422,17 @@
             const selectedInfo = document.getElementById('info-' + sedeId);
             if (selectedInfo) {
                 selectedInfo.classList.remove('hidden');
-                void selectedInfo.offsetWidth;
+                void selectedInfo.offsetWidth; // forzar reflow
                 selectedInfo.classList.add('fade-enter');
             }
 
-            // mapa
+            // Mapa
             const mapFrame = document.getElementById('map-frame');
             const loader = document.getElementById('map-loader');
 
             if (maps[sedeId] && mapFrame.src !== maps[sedeId]) {
                 mapFrame.style.opacity = '0.5';
                 loader.style.opacity = '1';
-
                 setTimeout(() => {
                     mapFrame.src = maps[sedeId];
                     mapFrame.onload = () => {
