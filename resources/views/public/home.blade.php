@@ -5,8 +5,8 @@
 @section('content')
     <style>
         /* =========================================
-               CONFIGURACIÓN BASE (#EF233C)
-            ========================================= */
+                                   CONFIGURACIÓN BASE (#EF233C)
+                                ========================================= */
         :root {
             --brand-red: #ef233c;
             --brand-red-light: rgba(239, 35, 60, 0.08);
@@ -36,8 +36,8 @@
         }
 
         /* =========================================
-               1. HERO (SPLIT LAYOUT + ALTURA AJUSTADA)
-            ========================================= */
+                                   1. HERO (SPLIT LAYOUT + ALTURA AJUSTADA)
+                                ========================================= */
         .hero-wrapper {
             position: relative;
             width: 100%;
@@ -242,8 +242,8 @@
         }
 
         /* =========================================
-               2. ESTILOS TARJETAS GENERALES
-            ========================================= */
+                                   2. ESTILOS TARJETAS GENERALES
+                                ========================================= */
         .partner-card,
         .student-profile,
         .location-card,
@@ -282,19 +282,29 @@
         }
 
         .partner-logo-wrapper {
-            width: 6rem;
-            height: 6rem;
+            width: 7.5rem;
+            /* antes 6rem */
+            height: 7.5rem;
+            /* antes 6rem */
             margin-bottom: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            filter: grayscale(100%) opacity(0.7);
-            transition: 0.5s ease;
+            filter: none;
+            opacity: 1;
+            transition: transform 0.4s ease, filter 0.4s ease;
+            transform-origin: center;
+        }
+
+        /* Que el logo realmente use todo el espacio del wrapper */
+        .partner-logo-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         .partner-card:hover .partner-logo-wrapper {
-            filter: grayscale(0%) opacity(1);
-            transform: scale(1.1);
+            transform: scale(1.35);
         }
 
         .partner-name {
@@ -401,8 +411,8 @@
         }
 
         /* =========================================
-               3. MOSAICO DE BECAS (EFECTO UPC)
-            ========================================= */
+                                   3. MOSAICO DE BECAS (EFECTO UPC)
+                                ========================================= */
         .becas-header {
             text-align: center;
             margin-top: 3rem;
@@ -479,7 +489,7 @@
         }
 
         /* 👉 SOLO SE VE EL TAG POR DEFECTO.
-                  EL TEXTO LARGO APARECE EN HOVER */
+                                      EL TEXTO LARGO APARECE EN HOVER */
         .beca-mosaic-title {
             margin-top: 0.6rem;
             font-size: 0.95rem;
@@ -568,222 +578,224 @@
     </div>
 
     {{-- 2. BECAS DESTACADAS – Mosaico dinámico con hover --}}
-<section id="becas" class="py-2 bg-white dark:bg-[#0a0a0a] overflow-hidden">
-    <div class="mx-auto px-0">
-        {{-- Título sección --}}
-        <div class="becas-header px-6">
-            <h2 class="becas-title">
-                Becas destacadas
-            </h2>
+    <section id="becas" class="py-2 bg-white dark:bg-[#0a0a0a] overflow-hidden">
+        <div class="mx-auto px-0">
+            {{-- Título sección --}}
+            <div class="becas-header px-6">
+                <h2 class="becas-title">
+                    Becas destacadas
+                </h2>
+            </div>
+
+            {{-- MOSAICO DE BECAS --}}
+            <div class="becas-mosaic-grid">
+                {{-- 1. Izquierda – arriba (BECA BCP) --}}
+                <article class="beca-mosaic-card beca-mosaic-card--left-top"
+                    onclick="window.location='{{ route('becas.show', 'beca-bcp') }}'">
+                    <img src="{{ asset('img/becas/beca-bcp.png') }}" alt="Beca BCP" class="beca-mosaic-img">
+                    <div class="beca-mosaic-overlay"></div>
+                    <div class="beca-mosaic-body">
+                        <span class="beca-mosaic-tag">Beca BCP</span>
+                        <h3 class="beca-mosaic-title">
+                            EPGXpert Talks: beca para líderes que quieren conectar con expertos.
+                        </h3>
+                    </div>
+                </article>
+
+                {{-- 2. Centro – tarjeta alta (BECA 18) --}}
+                <article class="beca-mosaic-card beca-mosaic-card--center"
+                    onclick="window.location='{{ route('becas.show', 'beca-18') }}'">
+                    <img src="{{ asset('img/becas/beca-18.png') }}" alt="Beca 18" class="beca-mosaic-img">
+                    <div class="beca-mosaic-overlay"></div>
+                    <div class="beca-mosaic-body beca-mosaic-body--center">
+                        <span class="beca-mosaic-tag">Beca 18</span>
+                        <h3 class="beca-mosaic-title">
+                            Beca de excelencia académica para talentos de todo el país.
+                        </h3>
+                    </div>
+                </article>
+
+                {{-- 3. Derecha – arriba (BECA TECSUP) --}}
+                <article class="beca-mosaic-card beca-mosaic-card--right-top"
+                    onclick="window.location='{{ route('becas.show', 'beca-tecsup') }}'">
+                    <img src="{{ asset('img/becas/beca-tecsup.png') }}" alt="Beca Tecsup" class="beca-mosaic-img">
+                    <div class="beca-mosaic-overlay"></div>
+                    <div class="beca-mosaic-body">
+                        <span class="beca-mosaic-tag">Beca Tecsup</span>
+                        <h3 class="beca-mosaic-title">
+                            Formación tecnológica en carreras con alta demanda laboral.
+                        </h3>
+                    </div>
+                </article>
+
+                {{-- 4. Izquierda – abajo (BECA FERREYROS) --}}
+                <article class="beca-mosaic-card beca-mosaic-card--left-bottom"
+                    onclick="window.location='{{ route('becas.show', 'beca-ferreyros') }}'">
+                    <img src="{{ asset('img/Beca-Ferreyros.png') }}" alt="Beca Ferreyros" class="beca-mosaic-img">
+                    <div class="beca-mosaic-overlay"></div>
+                    <div class="beca-mosaic-body">
+                        <span class="beca-mosaic-tag">Beca Ferreyros</span>
+                        <h3 class="beca-mosaic-title">
+                            Especialización en el sector industrial y maquinaria pesada.
+                        </h3>
+                    </div>
+                </article>
+
+                {{-- 5. Derecha – abajo (BECA UNI) --}}
+                <article class="beca-mosaic-card beca-mosaic-card--right-bottom"
+                    onclick="window.location='{{ route('becas.show', 'beca-uni') }}'">
+                    <img src="{{ asset('img/becas/beca-uni.png') }}" alt="Beca UNI" class="beca-mosaic-img">
+                    <div class="beca-mosaic-overlay"></div>
+                    <div class="beca-mosaic-body">
+                        <span class="beca-mosaic-tag">Beca UNI</span>
+                        <h3 class="beca-mosaic-title">
+                            Beca para estudios en ingeniería y ciencias en la UNI.
+                        </h3>
+                    </div>
+                </article>
+            </div>
         </div>
 
-        {{-- MOSAICO DE BECAS --}}
-        <div class="becas-mosaic-grid">
-            {{-- 1. Izquierda – arriba (BECA BCP) --}}
-            <article class="beca-mosaic-card beca-mosaic-card--left-top"
-                     onclick="window.location='{{ route('becas.show', 'beca-bcp') }}'">
-                <img src="{{ asset('img/becas/beca-bcp.png') }}" alt="Beca BCP" class="beca-mosaic-img">
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">Beca BCP</span>
-                    <h3 class="beca-mosaic-title">
-                        EPGXpert Talks: beca para líderes que quieren conectar con expertos.
-                    </h3>
-                </div>
-            </article>
-
-            {{-- 2. Centro – tarjeta alta (BECA 18) --}}
-            <article class="beca-mosaic-card beca-mosaic-card--center"
-                     onclick="window.location='{{ route('becas.show', 'beca-18') }}'">
-                <img src="{{ asset('img/becas/beca-18.png') }}" alt="Beca 18" class="beca-mosaic-img">
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body beca-mosaic-body--center">
-                    <span class="beca-mosaic-tag">Beca 18</span>
-                    <h3 class="beca-mosaic-title">
-                        Beca de excelencia académica para talentos de todo el país.
-                    </h3>
-                </div>
-            </article>
-
-            {{-- 3. Derecha – arriba (BECA TECSUP) --}}
-            <article class="beca-mosaic-card beca-mosaic-card--right-top"
-                     onclick="window.location='{{ route('becas.show', 'beca-tecsup') }}'">
-                <img src="{{ asset('img/becas/beca-tecsup.png') }}" alt="Beca Tecsup" class="beca-mosaic-img">
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">Beca Tecsup</span>
-                    <h3 class="beca-mosaic-title">
-                        Formación tecnológica en carreras con alta demanda laboral.
-                    </h3>
-                </div>
-            </article>
-
-            {{-- 4. Izquierda – abajo (BECA FERREYROS) --}}
-            <article class="beca-mosaic-card beca-mosaic-card--left-bottom"
-                     onclick="window.location='{{ route('becas.show', 'beca-ferreyros') }}'">
-                <img src="{{ asset('img/Beca-Ferreyros.png') }}" alt="Beca Ferreyros" class="beca-mosaic-img">
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">Beca Ferreyros</span>
-                    <h3 class="beca-mosaic-title">
-                        Especialización en el sector industrial y maquinaria pesada.
-                    </h3>
-                </div>
-            </article>
-
-            {{-- 5. Derecha – abajo (BECA UNI) --}}
-            <article class="beca-mosaic-card beca-mosaic-card--right-bottom"
-                     onclick="window.location='{{ route('becas.show', 'beca-uni') }}'">
-                <img src="{{ asset('img/becas/beca-uni.png') }}" alt="Beca UNI" class="beca-mosaic-img">
-                <div class="beca-mosaic-overlay"></div>
-                <div class="beca-mosaic-body">
-                    <span class="beca-mosaic-tag">Beca UNI</span>
-                    <h3 class="beca-mosaic-title">
-                        Beca para estudios en ingeniería y ciencias en la UNI.
-                    </h3>
-                </div>
-            </article>
-        </div>
-    </div>
-
-    {{-- CSS específico de la grilla tipo UPC + comportamiento hover --}}
-    <style>
-        .becas-header {
-            text-align: center;
-            margin-top: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .becas-title {
-            margin: 0;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #6e0c0c;
-        }
-
-        .becas-mosaic-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            grid-auto-rows: 30vh;
-            gap: 1.5rem;
-            padding: 0 1.5rem;
-        }
-
-        .beca-mosaic-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem;
-            background: #000;
-            cursor: pointer;
-        }
-
-        .beca-mosaic-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .beca-mosaic-overlay {
-            position: absolute;
-            inset: 0;
-            background: transparent; /* sin sombreado por defecto */
-            transition: background 0.3s ease;
-            z-index: 0;
-        }
-
-        .beca-mosaic-body {
-            position: absolute;
-            inset-inline: 0;
-            bottom: 0;
-            padding: 1.4rem 1.8rem;
-            color: #fff;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .beca-mosaic-body--center {
-            top: 50%;
-            bottom: auto;
-            transform: translateY(-50%);
-        }
-
-        .beca-mosaic-tag {
-            display: inline-block;
-            padding: 0.25rem 0.7rem;
-            border-radius: 999px;
-            background: #ffffff;
-            color: var(--brand-red);
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-
-        .beca-mosaic-title {
-            margin: 0;
-            font-size: 0.95rem;
-            font-weight: 800;
-            line-height: 1.2;
-            max-width: 24rem;
-
-            /* 🔹 Oculto por defecto (solo se ve la etiqueta de beca) */
-            opacity: 0;
-            transform: translateY(8px);
-            max-height: 0;
-            overflow: hidden;
-            transition: opacity 0.25s ease, transform 0.25s ease, max-height 0.25s ease;
-        }
-
-        /* Tarjeta central ocupa 2 filas en desktop */
-        .beca-mosaic-card--center {
-            grid-row: span 2;
-        }
-
-        /* HOVER: imagen zoom, overlay rojo, aparece el texto */
-        .beca-mosaic-card:hover .beca-mosaic-img {
-            transform: scale(1.05);
-        }
-
-        .beca-mosaic-card:hover .beca-mosaic-overlay {
-            background: rgba(239, 35, 60, 0.85); /* rojo al hover */
-        }
-
-        .beca-mosaic-card:hover .beca-mosaic-title {
-            opacity: 1;
-            transform: translateY(0);
-            max-height: 200px;
-        }
-
-        /* Responsivo */
-        @media (max-width: 1024px) {
-            .becas-mosaic-grid {
-                grid-template-columns: 1fr 1fr;
-                grid-auto-rows: 40vh;
+        {{-- CSS específico de la grilla tipo UPC + comportamiento hover --}}
+        <style>
+            .becas-header {
+                text-align: center;
+                margin-top: 3rem;
+                margin-bottom: 3rem;
             }
 
-            .beca-mosaic-card--center {
-                grid-row: span 1;
+            .becas-title {
+                margin: 0;
+                font-size: 2.5rem;
+                font-weight: 900;
+                color: #6e0c0c;
             }
-        }
 
-        @media (max-width: 640px) {
             .becas-mosaic-grid {
-                grid-template-columns: 1fr;
-                grid-auto-rows: 36vh;
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                grid-auto-rows: 30vh;
+                gap: 1.5rem;
+                padding: 0 1.5rem;
+            }
+
+            .beca-mosaic-card {
+                position: relative;
+                overflow: hidden;
+                border-radius: 1rem;
+                background: #000;
+                cursor: pointer;
+            }
+
+            .beca-mosaic-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.4s ease;
+            }
+
+            .beca-mosaic-overlay {
+                position: absolute;
+                inset: 0;
+                background: transparent;
+                /* sin sombreado por defecto */
+                transition: background 0.3s ease;
+                z-index: 0;
+            }
+
+            .beca-mosaic-body {
+                position: absolute;
+                inset-inline: 0;
+                bottom: 0;
+                padding: 1.4rem 1.8rem;
+                color: #fff;
+                z-index: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 0.4rem;
             }
 
             .beca-mosaic-body--center {
-                top: auto;
-                bottom: 0;
-                transform: none;
+                top: 50%;
+                bottom: auto;
+                transform: translateY(-50%);
             }
-        }
-    </style>
-</section>
+
+            .beca-mosaic-tag {
+                display: inline-block;
+                padding: 0.25rem 0.7rem;
+                border-radius: 999px;
+                background: #ffffff;
+                color: var(--brand-red);
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+            }
+
+            .beca-mosaic-title {
+                margin: 0;
+                font-size: 0.95rem;
+                font-weight: 800;
+                line-height: 1.2;
+                max-width: 24rem;
+
+                /* 🔹 Oculto por defecto (solo se ve la etiqueta de beca) */
+                opacity: 0;
+                transform: translateY(8px);
+                max-height: 0;
+                overflow: hidden;
+                transition: opacity 0.25s ease, transform 0.25s ease, max-height 0.25s ease;
+            }
+
+            /* Tarjeta central ocupa 2 filas en desktop */
+            .beca-mosaic-card--center {
+                grid-row: span 2;
+            }
+
+            /* HOVER: imagen zoom, overlay rojo, aparece el texto */
+            .beca-mosaic-card:hover .beca-mosaic-img {
+                transform: scale(1.05);
+            }
+
+            .beca-mosaic-card:hover .beca-mosaic-overlay {
+                background: rgba(239, 35, 60, 0.85);
+                /* rojo al hover */
+            }
+
+            .beca-mosaic-card:hover .beca-mosaic-title {
+                opacity: 1;
+                transform: translateY(0);
+                max-height: 200px;
+            }
+
+            /* Responsivo */
+            @media (max-width: 1024px) {
+                .becas-mosaic-grid {
+                    grid-template-columns: 1fr 1fr;
+                    grid-auto-rows: 40vh;
+                }
+
+                .beca-mosaic-card--center {
+                    grid-row: span 1;
+                }
+            }
+
+            @media (max-width: 640px) {
+                .becas-mosaic-grid {
+                    grid-template-columns: 1fr;
+                    grid-auto-rows: 36vh;
+                }
+
+                .beca-mosaic-body--center {
+                    top: auto;
+                    bottom: 0;
+                    transform: none;
+                }
+            }
+        </style>
+    </section>
 
 
     {{-- 3. MUNICIPALIDADES --}}
@@ -799,7 +811,7 @@
                 <div class="partner-card group">
                     <div class="partner-logo-wrapper">
                         <img alt="Escudo Cairani" class="partner-logo"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Coat_of_Arms_of_Cairani.png/200px-Coat_of_Arms_of_Cairani.png">
+                            src="{{ asset('img/aliados/escudo_municipalidad_cairani_tacna.jpg') }}">
                     </div>
                     <h3 class="partner-name text-center">Muni. Cairani</h3>
                     <p class="partner-description text-center text-sm">
@@ -809,7 +821,7 @@
                         de la provincia de Candarave.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                                    group-hover:scale-x-100 transition-transform duration-300"
+                                                        group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -817,7 +829,7 @@
                 <div class="partner-card group">
                     <div class="partner-logo-wrapper">
                         <img alt="Escudo Choco" class="partner-logo"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Coat_of_Arms_of_Choco.png/200px-Coat_of_Arms_of_Choco.png">
+                            src="{{ asset('img/aliados/escudo_municipalidad_choco_arequipa.jpg') }}">
                     </div>
                     <h3 class="partner-name text-center">Muni. Choco</h3>
                     <p class="partner-description text-center text-sm">
@@ -827,7 +839,7 @@
                         nuestras familias agricultoras y ganaderas.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                                    group-hover:scale-x-100 transition-transform duration-300"
+                                                        group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -835,7 +847,7 @@
                 <div class="partner-card group">
                     <div class="partner-logo-wrapper">
                         <img alt="Escudo Sama" class="partner-logo"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Coat_of_Arms_of_Sama.png/200px-Coat_of_Arms_of_Sama.png">
+                            src="{{ asset('img/aliados/escudo_municipalidad_lasyaras_tacna.jpg') }}">
                     </div>
                     <h3 class="partner-name text-center">Muni. Sama</h3>
                     <p class="partner-description text-center text-sm">
@@ -845,7 +857,7 @@
                         de nuestra historia local.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                                    group-hover:scale-x-100 transition-transform duration-300"
+                                                        group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
 
@@ -853,7 +865,7 @@
                 <div class="partner-card group">
                     <div class="partner-logo-wrapper">
                         <img alt="Escudo Palca" class="partner-logo"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Coat_of_Arms_of_Palca.png/200px-Coat_of_Arms_of_Palca.png">
+                            src="{{ asset('img/aliados/escudo_municipalidad_palca_tacna.jpg') }}">
                     </div>
                     <h3 class="partner-name text-center">Muni. Palca</h3>
                     <p class="partner-description text-center text-sm">
@@ -863,7 +875,7 @@
                         y bienestar social para todos los palqueños.
                     </p>
                     <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0
-                                    group-hover:scale-x-100 transition-transform duration-300"
+                                                        group-hover:scale-x-100 transition-transform duration-300"
                         style="background-color: var(--brand-red);"></div>
                 </div>
             </div>
