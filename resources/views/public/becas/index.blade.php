@@ -18,7 +18,6 @@
             margin-bottom: 4rem;
         }
         
-        /* Patrón de fondo decorativo */
         .page-header::before {
             content: '';
             position: absolute;
@@ -48,7 +47,7 @@
         .beca-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
-            border-color: rgba(217, 54, 62, 0.3); /* Primary color border on hover */
+            border-color: rgba(217, 54, 62, 0.3);
         }
 
         .beca-image-wrapper {
@@ -96,7 +95,7 @@
         }
 
         .btn-card {
-            margin-top: auto; /* Empuja el botón al final */
+            margin-top: auto;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -114,7 +113,7 @@
         }
 
         .beca-card:hover .btn-card {
-            background-color: #D9363E; /* Primary */
+            background-color: #D9363E;
             color: white;
         }
     </style>
@@ -123,7 +122,9 @@
     <section class="container mx-auto px-4 sm:px-6 mt-6">
         <div class="page-header">
             <div class="relative z-10">
-                <span class="text-primary font-bold tracking-widest uppercase text-xs mb-3 block">Oportunidades Educativas</span>
+                <span class="text-primary font-bold tracking-widest uppercase text-xs mb-3 block">
+                    Oportunidades Educativas
+                </span>
                 <h1 class="text-3xl md:text-5xl font-black text-white mb-4">
                     Catálogo de Becas
                 </h1>
@@ -136,36 +137,39 @@
 
     {{-- GRID DE BECAS --}}
     <section class="container mx-auto px-4 sm:px-6 pb-24">
-        
-        {{-- Array de imágenes de respaldo para el bucle (Igual que en Home para consistencia) --}}
         @php
             $imagenes = [
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuDb3rjnH-tOJDQRjWL8sJngsXXulCafaehs9nDjeAu6zYizs98lX8A_bo54lS2g7vgvdqjkzewg6f-Ic5WxBlPygioYggDKlrDOQo3s2VxqjzqyTcWx7XrH7U5V95QuEH_r6kyoM3UA2g3bP1EeAFT3EAdTblR8q8X6CtM4rE2uQ7c6OGXldSgWRWjYMRY39Rg47GXpcodlmrH_4IXrUg4zEfxirtMnQgYQoUJQPMcI_spSx-NfQ7wKHrcwC8Q1shtPOLaE7_m9LrE', // Edificio
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuDqT5bOwqFGI9AT3NCbmrUvr4QMG-_jIf7Dfmq0XM8qM2NeCUrVGbX0yrHnegIQDlpJUa7n3bGtSJVPDFblF3jcAwJZzJW9yEBUyVZ04BNi9ualLknOd-opJrQCJGdqau_APHvvH5Id9TdCM4aLmcyuf-4EgH92Sta3ZYzFmzLhzvi6AyUOa0eRJPNCCI5zXRAATGD6aL8qh97DRi0P3CwOolBVp16_tC_FK5JeG_oD37J9tQ5zWifDXsCzVtMpmwQmx4OfX_QwvrY', // Laboratorio
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuADv_BqHe8beMwKtTYPZtrC7KT0_BOv6MDJf5AGBzQMW-Zp_IBt_FTnkTHClhJ28N1dRhs2XLKYUlB31wZYCJmEcAinNBAQ4GnalH4cL4Utfw7P-3Y77bFgAfCONA6r_Nvtk6BUaFhZ6UEzvSklFHvhf6BDMnnKF7fdUS3TxZdIWrdRW_SxCXVz9zGZQz4jdDg-pro2k_id7tiF-0W8yKsdNx67w-SSWkpYK3Tn0OpfTKv2o_SmmCFdFn5vLtfLvZrKnsAtufQ33Kw', // Arte
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuAqsDW7Eyzl38NxtWzXWj9ZPNb9fnfDkRhiSR5ugftDifvRlgtJRrJgnObPxcDYoKv0hx6cghdStc9Rr8w-H_A5ixsXT1LSeMWXrD727ymKaPh_kk7h-Ul2txlr3zTIgf806_eYucfUe1WRUPIxzgoca2dwJHdAgu9x0gwM-QgJtuydonoDwuv31yLaQ5D5fpDyKZdATqfnn6BK_1dOlv3YKPsKjv_pCf62uLtgJibEcgS32AoV8eOVKyXEaq1D6g3znWc1vivIYjw', // Laptops
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuB6zVY2V16CGVuc4WNtxW-GpEd3MpEU1wyTOHuWQqEgHLzwbqf05yKK3k2nBdug7uncLU64WSj5tlCmtB_4zAa0TiOYhNJWNkamFFRtRtOPugWEwkMV5iWP9FcOPeoA1je-V16kb-LWsntI2zf-P0JW3iViyI23Qj_9_uLkihF-bJ6LRzwkg-ocWfZzwb0uaCBhESle3HTNAlj4yMaN_PVDw0V8m09VsLeocoJyw-DJqyy8w0FgdKOda0MhoY0rOYbNfRIB3iojjyE', // Deporte
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuBg8PymSKI3WqL0j_KJBDo7DgRCwApkez7oMNJ-4DXE0870OQlrDSnJ-oTFCXGT0cnbmhkHAvtgHlfVMfssGaBLKqpobcgKNNh2Z0IwiYk1J9D29_csvV7aoFllZJgqD3ipRx806mX4LLAbRP_YeMqYp03QIlHvUHfh5thXRHFcUb8VfuqVurY6dlSoOnolpLWFcgBCFLvniImMuDxAGPw4-g4W3bgYF4T3GYlhKK3tyw9LHGi5sIYKOKViLgZbIJzYKCY-3hbzraQ' // Extra (Biblioteca)
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuDb3rjnH-tOJDQRjWL8sJngsXXulCafaehs9nDjeAu6zYizs98lX8A_bo54lS2g7vgvdqjkzewg6f-Ic5WxBlPygioYggDKlrDOQo3s2VxqjzqyTcWx7XrH7U5V95QuEH_r6kyoM3UA2g3bP1EeAFT3EAdTblR8q8X6CtM4rE2uQ7c6OGXldSgWRWjYMRY39Rg47GXpcodlmrH_4IXrUg4zEfxirtMnQgYQoUJQPMcI_spSx-NfQ7wKHrcwC8Q1shtPOLaE7_m9LrE',
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuDqT5bOwqFGI9AT3NCbmrUvr4QMG-_jIf7Dfmq0XM8qM2NeCUrVGbX0yrHnegIQDlpJUa7n3bGtSJVPDFblF3jcAwJZzJW9yEBUyVZ04BNi9ualLknOd-opJrQCJGdqau_APHvvH5Id9TdCM4aLmcyuf-4EgH92Sta3ZYzFmzLhzvi6AyUOa0eRJPNCCI5zXRAATGD6aL8qh97DRi0P3CwOolBVp16_tC_FK5JeG_oD37J9tQ5zWifDXsCzVtMpmwQmx4OfX_QwvrY',
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuADv_BqHe8beMwKtTYPZtrC7KT0_BOv6MDJf5AGBzQMW-Zp_IBt_FTnkTHClhJ28N1dRhs2XLKYUlB31wZYCJmEcAinNBAQ4GnalH4cL4Utfw7P-3Y77bFgAfCONA6r_Nvtk6BUaFhZ6UEzvSklFHvhf6BDMnnKF7fdUS3TxZdIWrdRW_SxCXVz9zGZQz4jdDg-pro2k_id7tiF-0W8yKsdNx67w-SSWkpYK3Tn0OpfTKv2o_SmmCFdFn5vLtfLvZrKnsAtufQ33Kw',
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuAqsDW7Eyzl38NxtWzXWj9ZPNb9fnfDkRhiSR5ugftDifvRlgtJRrJgnObPxcDYoKv0hx6cghdStc9Rr8w-H_A5ixsXT1LSeMWXrD727ymKaPh_kk7h-Ul2txlr3zTIgf806_eYucfUe1WRUPIxzgoca2dwJHdAgu9x0gwM-QgJtuydonoDwuv31yLaQ5D5fpDyKZdATqfnn6BK_1dOlv3YKPsKjv_pCf62uLtgJibEcgS32AoV8eOVKyXEaq1D6g3znWc1vivIYjw',
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuB6zVY2V16CGVuc4WNtxW-GpEd3MpEU1wyTOHuWQqEgHLzwbqf05yKK3k2nBdug7uncLU64WSj5tlCmtB_4zAa0TiOYhNJWNkamFFRtRtOPugWEwkMV5iWP9FcOPeoA1je-V16kb-LWsntI2zf-P0JW3iViyI23Qj_9_uLkihF-bJ6LRzwkg-ocWZzwb0uaCBhESle3HTNAlj4yMaN_PVDw0V8m09VsLeocoJyw-DJqyy8w0FgdKOda0MhoY0rOYbNfRIB3iojjyE',
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuBg8PymSKI3WqL0j_KJBDo7DgRCwApkez7oMNJ-4DXE0870OQlrDSnJ-oTFCXGT0cnbmhkHAvtgHlfVMfssGaBLKqpobcgKNNh2Z0IwiYk1J9D29_csvV7aoFllZJgqD3ipRx806mX4LLAbRP_YeMqYp03QIlHvUHfh5thXRHFcUb8VfuqVurY6dlSoOnolpLWFcgBCFLvniImMuDxAGPw4-g4W3bgYF4T3GYlhKK3tyw9LHGi5sIYKOKViLgZbIJzYKCY-3hbzraQ'
             ];
         @endphp
 
         @if($becas->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($becas as $index => $beca)
-                    {{-- Selección de imagen cíclica --}}
-                    @php $imgSrc = $imagenes[$index % count($imagenes)]; @endphp
+                    @php
+                        // Imagen: usa la de la BD si existe; si no, una de respaldo
+                        $imgSrc = $beca->imagen_portada
+                            ? (Str::startsWith($beca->imagen_portada, ['http://', 'https://'])
+                                ? $beca->imagen_portada
+                                : asset($beca->imagen_portada))
+                            : $imagenes[$index % count($imagenes)];
+                    @endphp
 
                     <article class="beca-card group">
                         {{-- Imagen + Badge --}}
                         <div class="beca-image-wrapper">
-                            <span class="badge-category">{{ $beca->tipo ?? 'General' }}</span>
-                            <img src="{{ $imgSrc }}" alt="{{ $beca->titulo }}" class="beca-image">
+                            <span class="badge-category">{{ $beca->tipo ?? 'Programa de beca' }}</span>
+                            <img src="{{ $imgSrc }}" alt="{{ $beca->titulo ?? $beca->nombre }}" class="beca-image">
                             <div class="beca-overlay"></div>
-                            
-                            {{-- Info flotante sobre imagen (opcional, como el nivel) --}}
+
                             <div class="absolute bottom-4 left-4 z-10">
                                 <span class="text-white text-xs font-medium bg-black/30 backdrop-blur-sm px-2 py-1 rounded border border-white/20">
-                                    {{ $beca->nivel ?? 'Nivel Varios' }}
+                                    {{ $beca->nivel ?? 'Pregrado' }}
                                 </span>
                             </div>
                         </div>
@@ -174,11 +178,11 @@
                         <div class="p-6 flex flex-col flex-grow">
                             <div class="mb-4">
                                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight group-hover:text-primary transition-colors">
-                                    {{ $beca->titulo }}
+                                    {{ $beca->titulo ?? $beca->nombre }}
                                 </h3>
                                 <p class="text-sm text-gray-500 dark:text-gray-400 font-medium flex items-center gap-1">
                                     <span class="material-symbols-outlined text-base">location_on</span>
-                                    {{ $beca->modalidad ?? 'Presencial' }} • {{ $beca->pais ?? 'México' }}
+                                    {{ $beca->modalidad ?? 'Presencial' }} • {{ $beca->pais ?? 'Perú' }}
                                 </p>
                             </div>
 
@@ -187,20 +191,16 @@
                             </p>
 
                             {{-- Botón de Acción --}}
-                            <a href="{{ route('becas.show', $beca->id) }}" class="btn-card group-hover:shadow-lg">
+                            <a href="{{ route('becas.show', $beca->slug) }}" class="btn-card group-hover:shadow-lg">
                                 Ver convocatoria
-                                <span class="material-symbols-outlined ml-2 text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                <span class="material-symbols-outlined ml-2 text-lg group-hover:translate-x-1 transition-transform">
+                                    arrow_forward
+                                </span>
                             </a>
                         </div>
                     </article>
                 @endforeach
             </div>
-
-            {{-- Paginación (Si la implementaras en el controlador) --}}
-            {{-- <div class="mt-12">
-                {{ $becas->links() }}
-            </div> --}}
-
         @else
             {{-- Estado Vacío --}}
             <div class="text-center py-20 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">

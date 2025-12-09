@@ -567,88 +567,224 @@
         </a>
     </div>
 
-    {{-- 2. BECAS DESTACADAS – MOSAICO --}}
-    <section id="becas" class="py-2 bg-white dark:bg-[#0a0a0a] overflow-hidden">
-        <div class="mx-auto px-0 becas-mosaic-container">
-            {{-- Título sección --}}
-            <div class="becas-header px-6">
-                <h2 class="becas-title">Becas destacadas</h2>
-            </div>
-
-            {{-- MOSAICO --}}
-            <div class="becas-mosaic-grid">
-                {{-- 1. Izquierda – arriba --}}
-                <article class="beca-mosaic-card beca-mosaic-card--left-top"
-                    onclick="window.location='{{ route('becas.bcp') }}'">
-                    <img src="{{ asset('img/becas/beca-bcp.png') }}" alt="Beca BCP" class="beca-mosaic-img">
-                    <div class="beca-mosaic-overlay"></div>
-                    <div class="beca-mosaic-body">
-                        <span class="beca-mosaic-tag">BECA BCP</span>
-                        <h3 class="beca-mosaic-title">
-                            EPGXpert Talks: beca para líderes que quieren conectar con expertos
-                        </h3>
-                    </div>
-                </article>
-
-                {{-- 2. Centro – alta --}}
-                <article class="beca-mosaic-card beca-mosaic-card--center">
-                    <img src="{{ asset('img/becas/beca-18.png') }}" alt="Beca 18" class="beca-mosaic-img">
-                    <div class="beca-mosaic-overlay"></div>
-                    <div class="beca-mosaic-body beca-mosaic-body--center">
-                        <span class="beca-mosaic-tag">BECA 18</span>
-                        <h3 class="beca-mosaic-title">
-                            Beca excelencia académica en instituciones líderes del país
-                        </h3>
-                    </div>
-                </article>
-
-                {{-- 3. Derecha – arriba --}}
-                <article class="beca-mosaic-card beca-mosaic-card--right-top">
-                    <img src="{{ asset('img/becas/beca-tecsup.png') }}" alt="Beca Tecsup" class="beca-mosaic-img">
-                    <div class="beca-mosaic-overlay"></div>
-                    <div class="beca-mosaic-body">
-                        <span class="beca-mosaic-tag">BECA TECSUP</span>
-                        <h3 class="beca-mosaic-title">
-                            Beca excelencia académica en instituciones líderes del país
-                        </h3>
-                    </div>
-                </article>
-
-                {{-- 4. Izquierda – abajo --}}
-                <article class="beca-mosaic-card beca-mosaic-card--left-bottom">
-                    <img src="{{ asset('img/Beca-Ferreyros.png') }}" alt="Beca Ferreyros" class="beca-mosaic-img">
-                    <div class="beca-mosaic-overlay"></div>
-                    <div class="beca-mosaic-body">
-                        <span class="beca-mosaic-tag">BECA FERREYROS</span>
-                        <h3 class="beca-mosaic-title">
-                            Becas para diplomados y especializaciones en alianza con universidades
-                        </h3>
-                    </div>
-                </article>
-
-                {{-- 5. Derecha – abajo --}}
-                <article class="beca-mosaic-card beca-mosaic-card--right-bottom">
-                    <img src="{{ asset('img/becas/beca-uni.png') }}" alt="Beca UNI" class="beca-mosaic-img">
-                    <div class="beca-mosaic-overlay"></div>
-                    <div class="beca-mosaic-body">
-                        <span class="beca-mosaic-tag">BECA UNI</span>
-                        <h3 class="beca-mosaic-title">
-                            Beca integral que cubre estudios y participación en actividades estudiantiles
-                        </h3>
-                    </div>
-                </article>
-            </div>
+    {{-- 2. BECAS DESTACADAS – Mosaico dinámico con hover --}}
+<section id="becas" class="py-2 bg-white dark:bg-[#0a0a0a] overflow-hidden">
+    <div class="mx-auto px-0">
+        {{-- Título sección --}}
+        <div class="becas-header px-6">
+            <h2 class="becas-title">
+                Becas destacadas
+            </h2>
         </div>
 
-        {{-- BOTÓN VER MÁS --}}
-        <div class="mt-12 text-center">
-            <a href="{{ route('becas.index') }}" class="inline-flex items-center justify-center px-10 py-3 text-sm md:text-base font-bold rounded-full
-                          text-white hover:opacity-90 transition-all"
-                style="background-color: var(--brand-red); box-shadow: 0 10px 30px rgba(239,35,60,0.25);">
-                Ver más
-            </a>
+        {{-- MOSAICO DE BECAS --}}
+        <div class="becas-mosaic-grid">
+            {{-- 1. Izquierda – arriba (BECA BCP) --}}
+            <article class="beca-mosaic-card beca-mosaic-card--left-top"
+                     onclick="window.location='{{ route('becas.show', 'beca-bcp') }}'">
+                <img src="{{ asset('img/becas/beca-bcp.png') }}" alt="Beca BCP" class="beca-mosaic-img">
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body">
+                    <span class="beca-mosaic-tag">Beca BCP</span>
+                    <h3 class="beca-mosaic-title">
+                        EPGXpert Talks: beca para líderes que quieren conectar con expertos.
+                    </h3>
+                </div>
+            </article>
+
+            {{-- 2. Centro – tarjeta alta (BECA 18) --}}
+            <article class="beca-mosaic-card beca-mosaic-card--center"
+                     onclick="window.location='{{ route('becas.show', 'beca-18') }}'">
+                <img src="{{ asset('img/becas/beca-18.png') }}" alt="Beca 18" class="beca-mosaic-img">
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body beca-mosaic-body--center">
+                    <span class="beca-mosaic-tag">Beca 18</span>
+                    <h3 class="beca-mosaic-title">
+                        Beca de excelencia académica para talentos de todo el país.
+                    </h3>
+                </div>
+            </article>
+
+            {{-- 3. Derecha – arriba (BECA TECSUP) --}}
+            <article class="beca-mosaic-card beca-mosaic-card--right-top"
+                     onclick="window.location='{{ route('becas.show', 'beca-tecsup') }}'">
+                <img src="{{ asset('img/becas/beca-tecsup.png') }}" alt="Beca Tecsup" class="beca-mosaic-img">
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body">
+                    <span class="beca-mosaic-tag">Beca Tecsup</span>
+                    <h3 class="beca-mosaic-title">
+                        Formación tecnológica en carreras con alta demanda laboral.
+                    </h3>
+                </div>
+            </article>
+
+            {{-- 4. Izquierda – abajo (BECA FERREYROS) --}}
+            <article class="beca-mosaic-card beca-mosaic-card--left-bottom"
+                     onclick="window.location='{{ route('becas.show', 'beca-ferreyros') }}'">
+                <img src="{{ asset('img/Beca-Ferreyros.png') }}" alt="Beca Ferreyros" class="beca-mosaic-img">
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body">
+                    <span class="beca-mosaic-tag">Beca Ferreyros</span>
+                    <h3 class="beca-mosaic-title">
+                        Especialización en el sector industrial y maquinaria pesada.
+                    </h3>
+                </div>
+            </article>
+
+            {{-- 5. Derecha – abajo (BECA UNI) --}}
+            <article class="beca-mosaic-card beca-mosaic-card--right-bottom"
+                     onclick="window.location='{{ route('becas.show', 'beca-uni') }}'">
+                <img src="{{ asset('img/becas/beca-uni.png') }}" alt="Beca UNI" class="beca-mosaic-img">
+                <div class="beca-mosaic-overlay"></div>
+                <div class="beca-mosaic-body">
+                    <span class="beca-mosaic-tag">Beca UNI</span>
+                    <h3 class="beca-mosaic-title">
+                        Beca para estudios en ingeniería y ciencias en la UNI.
+                    </h3>
+                </div>
+            </article>
         </div>
-    </section>
+    </div>
+
+    {{-- CSS específico de la grilla tipo UPC + comportamiento hover --}}
+    <style>
+        .becas-header {
+            text-align: center;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .becas-title {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #6e0c0c;
+        }
+
+        .becas-mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-auto-rows: 30vh;
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+        }
+
+        .beca-mosaic-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #000;
+            cursor: pointer;
+        }
+
+        .beca-mosaic-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .beca-mosaic-overlay {
+            position: absolute;
+            inset: 0;
+            background: transparent; /* sin sombreado por defecto */
+            transition: background 0.3s ease;
+            z-index: 0;
+        }
+
+        .beca-mosaic-body {
+            position: absolute;
+            inset-inline: 0;
+            bottom: 0;
+            padding: 1.4rem 1.8rem;
+            color: #fff;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .beca-mosaic-body--center {
+            top: 50%;
+            bottom: auto;
+            transform: translateY(-50%);
+        }
+
+        .beca-mosaic-tag {
+            display: inline-block;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            background: #ffffff;
+            color: var(--brand-red);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .beca-mosaic-title {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 800;
+            line-height: 1.2;
+            max-width: 24rem;
+
+            /* 🔹 Oculto por defecto (solo se ve la etiqueta de beca) */
+            opacity: 0;
+            transform: translateY(8px);
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.25s ease, transform 0.25s ease, max-height 0.25s ease;
+        }
+
+        /* Tarjeta central ocupa 2 filas en desktop */
+        .beca-mosaic-card--center {
+            grid-row: span 2;
+        }
+
+        /* HOVER: imagen zoom, overlay rojo, aparece el texto */
+        .beca-mosaic-card:hover .beca-mosaic-img {
+            transform: scale(1.05);
+        }
+
+        .beca-mosaic-card:hover .beca-mosaic-overlay {
+            background: rgba(239, 35, 60, 0.85); /* rojo al hover */
+        }
+
+        .beca-mosaic-card:hover .beca-mosaic-title {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 200px;
+        }
+
+        /* Responsivo */
+        @media (max-width: 1024px) {
+            .becas-mosaic-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 40vh;
+            }
+
+            .beca-mosaic-card--center {
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .becas-mosaic-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 36vh;
+            }
+
+            .beca-mosaic-body--center {
+                top: auto;
+                bottom: 0;
+                transform: none;
+            }
+        }
+    </style>
+</section>
+
 
     {{-- 3. MUNICIPALIDADES --}}
     <section class="py-24 bg-gray-50 dark:bg-[#0f0f0f]">

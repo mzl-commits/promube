@@ -2,103 +2,206 @@
 
 namespace Database\Seeders;
 
+use App\Models\Beca;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class BecaSeeder extends Seeder
 {
     public function run(): void
     {
-        // Limpiamos la tabla antes de insertar para no duplicar si corres el seeder varias veces
-        DB::table('becas')->truncate();
-
-        $becas = [
-            // 1. BECA BCP (Información Real)
-            [
-                'titulo' => 'Beca BCP para Tecsup',
-                'tipo' => 'Técnica',
-                'nivel' => 'Superior Técnico',
-                'modalidad' => 'Presencial',
-                'pais' => 'Perú',
-                'area' => 'Tecnología',
-                'resumen' => 'Financiamiento del 100% de gastos académicos, matrícula y laptop para jóvenes talentosos con pasión por la tecnología en Tecsup.',
-                'descripcion' => "La Beca BCP para Tecsup ofrece financiamiento del 100% de los gastos académicos y matrícula, una laptop, y programas de desarrollo de talento y empleabilidad.\n\nEl programa está dirigido a jóvenes con buen rendimiento académico y pasión por la tecnología. La beca cubre la carrera profesional en Tecsup de manera integral (50% BCP y 50% Tecsup), asegurando que el talento no tenga barreras económicas.\n\nPara postular, se deben cumplir los requisitos de la convocatoria, aprobar el examen de admisión de Tecsup y superar la evaluación psicométrica y entrevista personal del BCP.",
-                'beneficios' => "• Gastos académicos: 100% de pensiones y matrícula (6 ciclos).\n• Gastos administrativos: Costos de obtención de título.\n• Laptop: Se proporciona un equipo a cada becario.\n• Desarrollo: Programa de talento y empleabilidad.\n• Acompañamiento: Tutoría y seguimiento constante.",
-                'url_oficial' => 'https://www.becasbcp.com', 
-                'es_destacada' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+        // 1. BECA BCP (la que ya tienes maquetada)
+        Beca::create([
+            'nombre'          => 'Beca BCP',
+            'slug'            => 'beca-bcp',
+            'imagen_portada'  => 'img/becas/beca-bcp.png',
+            'banner'          => 'img/becas/beca-bcp.png',
+            'titulo'          => 'Postula y potencia tu talento',
+            'subtitulo'       => 'Un programa integral del BCP diseñado para jóvenes sobresalientes con recursos limitados.',
+            'descripcion'     => "El programa Beca BCP – Carreras Universitarias ofrece la oportunidad única de estudiar una carrera profesional en las mejores universidades del país.\n\nNo es solo una ayuda económica; es un compromiso con tu desarrollo. Busca jóvenes con vocación de servicio, liderazgo y ganas de impactar positivamente en su comunidad.",
+            'beneficios'      => [
+                [
+                    'icon'        => 'school',
+                    'titulo'      => 'Cobertura Académica Total',
+                    'descripcion' => 'Pensiones y matrículas cubiertas al 100% durante toda la carrera, según las condiciones del programa.',
+                ],
+                [
+                    'icon'        => 'laptop_mac',
+                    'titulo'      => 'Herramientas Digitales',
+                    'descripcion' => 'Acceso a laptop y recursos tecnológicos para estudiar sin limitaciones.',
+                ],
+                [
+                    'icon'        => 'rocket_launch',
+                    'titulo'      => 'Desarrollo de Talento',
+                    'descripcion' => 'Talleres, mentorías y espacios formativos para fortalecer tus habilidades blandas y liderazgo.',
+                ],
+                [
+                    'icon'        => 'support_agent',
+                    'titulo'      => 'Acompañamiento Constante',
+                    'descripcion' => 'Soporte académico y emocional durante toda tu formación profesional.',
+                ],
             ],
-            
-            // 2. Placeholder: Beca Investigación
-            [
-                'titulo' => 'Beca de Apoyo a la Investigación',
-                'tipo' => 'Investigación',
-                'nivel' => 'Maestría',
-                'modalidad' => 'Mixta',
-                'pais' => 'Internacional',
-                'area' => 'Ciencias',
-                'resumen' => 'Dirigida a estudiantes de maestría que desarrollen proyectos de investigación con alto impacto y relevancia social.',
-                'descripcion' => "Este programa impulsa a estudiantes de posgrado que están desarrollando tesis o proyectos de investigación científica.\n\nBuscamos propuestas innovadoras que ofrezcan soluciones a problemas actuales. Los becarios tendrán acceso a laboratorios de alta tecnología y recursos bibliográficos.",
-                'beneficios' => "• Financiamiento para materiales y equipo.\n• Estancia de investigación en el extranjero.\n• Publicación de artículos en revistas indexadas.",
-                'url_oficial' => 'https://conahcyt.mx/',
-                'es_destacada' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+            'pasos'           => [
+                [
+                    'titulo'      => 'Registro Online',
+                    'descripcion' => 'Completa el formulario oficial con tus datos personales, académicos y socioeconómicos.',
+                ],
+                [
+                    'titulo'      => 'Evaluación',
+                    'descripcion' => 'Revisión de requisitos, historial académico y situación económica familiar.',
+                ],
+                [
+                    'titulo'      => 'Entrevista Final',
+                    'descripcion' => 'Entrevista personal para conocer tu historia, motivación y proyecto de vida.',
+                ],
             ],
+        ]);
 
-            // 3. Placeholder: Beca Artística
-            [
-                'titulo' => 'Beca para Talentos Artísticos',
-                'tipo' => 'Artística',
-                'nivel' => 'Diplomado',
-                'modalidad' => 'Presencial',
-                'pais' => 'México',
-                'area' => 'Artes',
-                'resumen' => 'Impulsamos el talento en las artes visuales, música y artes escénicas. Abierta a todos los niveles creativos.',
-                'descripcion' => "Esta beca apoya a músicos, pintores, actores y artistas plásticos emergentes.\n\nEl programa incluye la participación en exposiciones, conciertos y talleres impartidos por artistas de renombre nacional e internacional.",
-                'beneficios' => "• Pago de colegiaturas en conservatorios.\n• Materiales para producción artística.\n• Espacios para exposiciones.",
-                'url_oficial' => 'https://inba.gob.mx/',
-                'es_destacada' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+        // 2. BECA 18
+        Beca::create([
+            'nombre'          => 'Beca 18',
+            'slug'            => 'beca-18',
+            'imagen_portada'  => 'img/becas/beca-18.png',
+            'banner'          => 'img/becas/beca-18.png',
+            'titulo'          => 'Oportunidad para talentos de todo el país',
+            'subtitulo'       => 'Dirigida a jóvenes de alto rendimiento académico en condición de vulnerabilidad.',
+            'descripcion'     => "Beca 18 es un programa estatal que financia los estudios superiores de jóvenes peruanos con talento y recursos económicos limitados.\n\nPermite acceder a universidades e institutos de calidad en diversas regiones del país.",
+            'beneficios'      => [
+                [
+                    'icon'        => 'payments',
+                    'titulo'      => 'Cobertura integral',
+                    'descripcion' => 'Financiamiento de matrícula, pensiones, alimentación, movilidad local y materiales de estudio.',
+                ],
+                [
+                    'icon'        => 'home',
+                    'titulo'      => 'Alojamiento',
+                    'descripcion' => 'Apoyo en residencia o subvención para estudiantes que deben trasladarse de región.',
+                ],
             ],
-
-            // 4. Placeholder: Beca Emprendimiento
-            [
-                'titulo' => 'Beca de Liderazgo y Emprendimiento',
-                'tipo' => 'Emprendimiento',
-                'nivel' => 'Posgrado',
-                'modalidad' => 'Virtual',
-                'pais' => 'Latinoamérica',
-                'area' => 'Negocios',
-                'resumen' => 'Buscamos a los líderes del mañana. Para estudiantes con proyectos innovadores de alto impacto.',
-                'descripcion' => "Diseñada para emprendedores visionarios que desean llevar sus ideas al siguiente nivel.\n\nOfrece apoyo económico, programa intensivo de incubación de empresas, asesoría legal y conexión con inversionistas.",
-                'beneficios' => "• Capital semilla para el proyecto.\n• Mentoría con CEOs exitosos.\n• Acceso a espacios de coworking.",
-                'url_oficial' => 'https://www.inadem.gob.mx/',
-                'es_destacada' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+            'pasos'           => [
+                [
+                    'titulo'      => 'Postulación en línea',
+                    'descripcion' => 'Registro en la plataforma oficial según cronograma de PRONABEC.',
+                ],
+                [
+                    'titulo'      => 'Evaluación y preselección',
+                    'descripcion' => 'Validación de requisitos, rendimiento académico y condición socioeconómica.',
+                ],
+                [
+                    'titulo'      => 'Asignación de la beca',
+                    'descripcion' => 'Publicación de resultados y confirmación de institución educativa elegida.',
+                ],
             ],
+        ]);
 
-            // 5. Placeholder: Beca Deportiva
-            [
-                'titulo' => 'Beca para Deportistas',
-                'tipo' => 'Deportiva',
-                'nivel' => 'Licenciatura',
-                'modalidad' => 'Presencial',
-                'pais' => 'México',
-                'area' => 'Deportes',
-                'resumen' => 'Apoyamos a atletas que combinan su carrera deportiva con la excelencia académica.',
-                'descripcion' => "Esta beca ofrece flexibilidad académica y recursos para que los atletas puedan entrenar, competir y estudiar sin tener que renunciar a ninguna de sus pasiones.",
-                'beneficios' => "• Beca académica del 100%.\n• Nutriólogo y fisioterapeuta personalizado.\n• Apoyo para viajes a competencias.",
-                'url_oficial' => 'https://www.gob.mx/conade',
-                'es_destacada' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
+        // 3. BECA TECSUP
+        Beca::create([
+            'nombre'          => 'Beca Tecsup',
+            'slug'            => 'beca-tecsup',
+            'imagen_portada'  => 'img/becas/beca-tecsup.png',
+            'banner'          => 'img/becas/beca-tecsup.png',
+            'titulo'          => 'Estudia carreras técnicas de alta demanda',
+            'subtitulo'       => 'Beca orientada a jóvenes que buscan formación tecnológica aplicada.',
+            'descripcion'     => "La Beca Tecsup brinda acceso a programas técnicos con alta empleabilidad, en áreas como ingeniería, tecnología y gestión.\n\nEstá enfocada en estudiantes con interés por la innovación y el desarrollo tecnológico.",
+            'beneficios'      => [
+                [
+                    'icon'        => 'engineering',
+                    'titulo'      => 'Formación tecnológica',
+                    'descripcion' => 'Carreras alineadas a las necesidades actuales de la industria.',
+                ],
+                [
+                    'icon'        => 'work',
+                    'titulo'      => 'Empleabilidad',
+                    'descripcion' => 'Acompañamiento para prácticas preprofesionales y vinculación con empresas.',
+                ],
             ],
-        ];
+            'pasos'           => [
+                [
+                    'titulo'      => 'Inscripción',
+                    'descripcion' => 'Registro en la página oficial de Tecsup o a través de convenios.',
+                ],
+                [
+                    'titulo'      => 'Evaluación',
+                    'descripcion' => 'Pruebas de conocimiento y revisión de perfil académico.',
+                ],
+                [
+                    'titulo'      => 'Admisión',
+                    'descripcion' => 'Confirmación de vacante y firma de compromiso de becario.',
+                ],
+            ],
+        ]);
 
-        DB::table('becas')->insert($becas);
+        // 4. BECA FERREYROS
+        Beca::create([
+            'nombre'          => 'Beca Ferreyros',
+            'slug'            => 'beca-ferreyros',
+            'imagen_portada'  => 'img/Beca-Ferreyros.png',
+            'banner'          => 'img/Beca-Ferreyros.png',
+            'titulo'          => 'Impulsa tu futuro en el sector industrial',
+            'subtitulo'       => 'Dirigida a jóvenes que desean especializarse en mantenimiento, maquinaria y operaciones.',
+            'descripcion'     => "La Beca Ferreyros está enfocada en la formación de talento técnico vinculado al sector de maquinaria pesada e industria.\n\nCombina formación académica y experiencia práctica.",
+            'beneficios'      => [
+                [
+                    'icon'        => 'precision_manufacturing',
+                    'titulo'      => 'Formación especializada',
+                    'descripcion' => 'Programas orientados a maquinaria pesada, mantenimiento y operación.',
+                ],
+                [
+                    'icon'        => 'handshake',
+                    'titulo'      => 'Vínculo con empresa líder',
+                    'descripcion' => 'Posibilidad de realizar prácticas en Ferreyros u otras empresas del grupo.',
+                ],
+            ],
+            'pasos'           => [
+                [
+                    'titulo'      => 'Postulación',
+                    'descripcion' => 'Envío de datos personales, académicos y carta de motivación.',
+                ],
+                [
+                    'titulo'      => 'Evaluación técnica',
+                    'descripcion' => 'Pruebas de aptitud e interés en el sector industrial.',
+                ],
+                [
+                    'titulo'      => 'Selección',
+                    'descripcion' => 'Publicación de becarios seleccionados y asignación de programa.',
+                ],
+            ],
+        ]);
+
+        // 5. BECA UNI
+        Beca::create([
+            'nombre'          => 'Beca UNI',
+            'slug'            => 'beca-uni',
+            'imagen_portada'  => 'img/becas/beca-uni.png',
+            'banner'          => 'img/becas/beca-uni.png',
+            'titulo'          => 'Excelencia académica en ingeniería y ciencias',
+            'subtitulo'       => 'Dirigida a estudiantes con alto rendimiento que buscan formarse en la UNI.',
+            'descripcion'     => "Beca UNI apoya a estudiantes talentosos para que puedan estudiar carreras de ingeniería, arquitectura y ciencias en una de las universidades más reconocidas del país.\n\nBusca potenciar perfiles con alto rendimiento y vocación científica.",
+            'beneficios'      => [
+                [
+                    'icon'        => 'science',
+                    'titulo'      => 'Entorno académico exigente',
+                    'descripcion' => 'Acceso a laboratorios, proyectos de investigación y docentes especializados.',
+                ],
+                [
+                    'icon'        => 'groups',
+                    'titulo'      => 'Red de contactos',
+                    'descripcion' => 'Convivencia con estudiantes y egresados destacados en diversas áreas.',
+                ],
+            ],
+            'pasos'           => [
+                [
+                    'titulo'      => 'Admisión UNI',
+                    'descripcion' => 'Participación en el examen de admisión y logro de una vacante.',
+                ],
+                [
+                    'titulo'      => 'Postulación a beca',
+                    'descripcion' => 'Registro como ingresante y presentación de requisitos socioeconómicos.',
+                ],
+                [
+                    'titulo'      => 'Asignación de beneficio',
+                    'descripcion' => 'Evaluación y otorgamiento de la beca según los cupos disponibles.',
+                ],
+            ],
+        ]);
     }
 }
