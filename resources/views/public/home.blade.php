@@ -881,66 +881,280 @@
             </div>
         </div>
     </section>
+    {{-- =======================
+     SECCIÓN HISTORIAS REALES
+   ======================= --}}
+<section class="historias-wrapper py-16 bg-white">
+    <style>
+        .historias-wrapper {
+            font-family: Arial, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
 
-    {{-- 4. ALUMNOS (CARRUSEL) --}}
-    <section class="py-24 bg-white dark:bg-black relative overflow-hidden">
-        <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-3xl md:text-5xl font-bold text-center mb-20 text-gray-900 dark:text-white">
-                Historias Reales
-            </h2>
+        .historias-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
 
-            <div class="relative group">
-                <div id="students-slider"
-                    class="flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-10 px-4"
-                    style="-webkit-overflow-scrolling: touch;">
-                    @forelse($beneficiados as $beneficiado)
-                        <div class="snap-center shrink-0 w-full md:w-[calc(50%-16px)] flex">
-                            <div class="student-slide w-full">
-                                <div
-                                    class="student-profile p-8 flex flex-col sm:flex-row items-start space-y-6 sm:space-y-0 sm:space-x-6 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors h-full">
-                                    <img alt="{{ $beneficiado->nombre }}"
-                                        class="w-24 h-24 rounded-full object-cover border-2 flex-shrink-0"
-                                        style="border-color: var(--brand-red);"
-                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuByk8OgTgtv_Epn23gLOB2dvUFQZoSEdH6Yh-xJaA7Cy6jjwfLdEF9O-YR56DRbI_H7bQqJNnUsonVyyiXvnBFPb1dgi4_hy-mYhiPDdA4qaWKzC--5urvzaTJkSkyCiOh5B-sPKeBovAax32rEujmMa285QuIMLqXFbq4cUM-G9rupld6CjAqxtH8lOn-Dtft0iiggVZtq53VyZPdlJZ7wJuCGZ12Yp8wRM4se0pps6DGoOy8revcVhLf72c5GYJjt3HRLGd6aEfg" />
-                                    <div>
-                                        <h4 class="font-bold text-xl text-gray-900 dark:text-white">
-                                            {{ $beneficiado->nombre }}
-                                        </h4>
-                                        <p class="text-xs font-bold uppercase tracking-wide mb-3"
-                                            style="color: var(--brand-red);">
-                                            Becario {{ date('Y') }}
-                                        </p>
-                                        <p class="text-gray-600 dark:text-gray-400 italic text-base">
-                                            "{{ $beneficiado->testimonio ?? 'Experiencia increíble.' }}"
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+        .historias-title {
+            font-size: clamp(2.5rem, 4vw, 3rem);
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 2.5rem;
+        }
+
+        /* CARRUSEL */
+        .stories-carousel {
+            overflow: hidden;
+        }
+
+        .stories-track {
+            display: flex;
+            transition: transform 0.6s ease;
+            will-change: transform;
+        }
+
+        .stories-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+
+        /* TARJETA */
+        .story-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .story-avatar-wrap {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: #ef233c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .story-avatar-wrap img {
+            width: 90%;
+            height: 90%;
+            object-fit: cover;
+        }
+
+        .story-info {
+            background: #ffffff;
+            border-radius: 1.2rem;
+            border: 3px solid #ef233c;
+            padding: 1.1rem 1.8rem;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .story-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .story-role {
+            margin-top: 0.15rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .story-desc {
+            margin-top: 0.4rem;
+            font-size: 0.9rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        /* PUNTITOS */
+        .stories-dots {
+            margin-top: 1.7rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.45rem;
+        }
+
+        .stories-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #e5e7eb;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .stories-dot.is-active {
+            background: #ef233c;
+            transform: scale(1.2);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .stories-slide {
+                gap: 1.5rem;
+            }
+            .story-avatar-wrap {
+                width: 220px;
+                height: 220px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stories-slide {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+
+    <div class="historias-container">
+        <h2 class="historias-title">Historias Reales</h2>
+
+        {{-- CARRUSEL --}}
+        <div class="stories-carousel">
+            <div class="stories-track" id="storiesTrack">
+                {{-- SLIDE 1 (3 tarjetas) --}}
+                <div class="stories-slide">
+                    <div class="story-card">
+                        <div class="story-avatar-wrap">
+                            <img src="{{ asset('img/historias/keler.png') }}" alt="Miranda condori keller">
                         </div>
-                    @empty
-                        @foreach([1, 2, 3, 4] as $i)
-                            <div class="snap-center shrink-0 w-full md:w-[calc(50%-16px)] flex">
-                                <div class="student-slide w-full">
-                                    <div class="student-profile p-8 flex items-start space-x-6">
-                                        <img class="w-24 h-24 rounded-full border-2" style="border-color: var(--brand-red);"
-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuByk8OgTgtv_Epn23gLOB2dvUFQZoSEdH6Yh-xJaA7Cy6jjwfLdEF9O-YR56DRbI_H7bQqJNnUsonVyyiXvnBFPb1dgi4_hy-mYhiPDdA4qaWKzC--5urvzaTJkSkyCiOh5B-sPKeBovAax32rEujmMa285QuIMLqXFbq4cUM-G9rupld6CjAqxtH8lOn-Dtft0iiggVZtq53VyZPdlJZ7wJuCGZ12Yp8wRM4se0pps6DGoOy8revcVhLf72c5GYJjt3HRLGd6aEfg"
-                                            alt="Estudiante">
-                                        <div>
-                                            <h4 class="font-bold text-xl dark:text-white">Estudiante Ejemplar {{ $i }}</h4>
-                                            <p class="text-gray-600 dark:text-gray-400 italic">
-                                                "Gracias a PROMUBE pude estudiar mi carrera soñada."
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endforelse
+                        <div class="story-info">
+                            <p class="story-name">Miranda condori keller</p>
+                            <p class="story-role">1er PUESTO
+
+Ing. Petroquímica IEN-UNI-2025</p>
+                            <p class="story-desc">
+                                Universidad Nacional de Ingenieria
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-avatar-wrap">
+                            <img src="{{ asset('img/historias/benjamin.png') }}" alt="Juan Pérez 2">
+                        </div>
+                        <div class="story-info">
+                            <p class="story-name">NAVARRO LOYOLA BENJAMIN SHENEDIT BRUCE</p>
+                            <p class="story-role">1er PUESTO
+
+QUIMICA</p>
+                            <p class="story-desc">
+                                Universidad Nacional de Ingenieria
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-avatar-wrap">
+                            <img src="{{ asset('img/historias/fabricio.png') }}" alt="Juan Pérez 3">
+                        </div>
+                        <div class="story-info">
+                            <p class="story-name">NOA CCALLO ALEXIS FABRIZIO</p>
+                            <p class="story-role">INGRESANTE A INGENIERÍA DE CIBERSEGURIDAD</p>
+                            <p class="story-desc">
+                                Universidad Nacional de Ingenieria
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- SLIDE 2 (3 tarjetas más – puedes cambiar nombres/fotos) --}}
+                <div class="stories-slide">
+                    <div class="story-card">
+                        <div class="story-avatar-wrap">
+                            <img src="{{ asset('img/historias/ana1.png') }}" alt="Ana Torres">
+                        </div>
+                        <div class="story-info">
+                            <p class="story-name">Ana Torres.</p>
+                            <p class="story-role">Mentora académica.</p>
+                            <p class="story-desc">
+                                Apoya a los becarios en organización del tiempo, hábitos de estudio
+                                y manejo de ansiedad en exámenes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-avatar-wrap">
+                            <img src="{{ asset('img/historias/luis1.png') }}" alt="Luis Ramírez">
+                        </div>
+                        <div class="story-info">
+                            <p class="story-name">Luis Ramírez.</p>
+                            <p class="story-role">Egresado becado.</p>
+                            <p class="story-desc">
+                                Gracias a su beca pudo terminar Ingeniería y ahora acompaña a
+                                nuevos estudiantes como voluntario.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-avatar-wrap">
+                            <img src="{{ asset('img/historias/carla1.png') }}" alt="Carla Medina">
+                        </div>
+                        <div class="story-info">
+                            <p class="story-name">Carla Medina.</p>
+                            <p class="story-role">Psicóloga educativa.</p>
+                            <p class="story-desc">
+                                Trabaja en el soporte socioemocional de los beneficiarios de PROMUBE,
+                                acompañando todo su proceso.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="flex justify-center items-center gap-3 mt-6" id="student-dots"></div>
         </div>
-    </section>
+
+        {{-- PUNTITOS --}}
+        <div class="stories-dots">
+            <span class="stories-dot is-active" data-slide="0"></span>
+            <span class="stories-dot" data-slide="1"></span>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const track = document.getElementById('storiesTrack');
+            const dots = document.querySelectorAll('.stories-dot');
+            let current = 0;
+            const total = dots.length;
+
+            function goToSlide(index) {
+                current = index;
+                track.style.transform = 'translateX(-' + (index * 100) + '%)';
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('is-active', i === index);
+                });
+            }
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', function () {
+                    const slide = parseInt(this.dataset.slide, 10);
+                    goToSlide(slide);
+                });
+            });
+
+            // (Opcional) auto-slide cada 8s:
+            // setInterval(() => {
+            //     const next = (current + 1) % total;
+            //     goToSlide(next);
+            // }, 8000);
+        })();
+    </script>
+</section>
+
 
     {{-- 5. SEDES --}}
     <section class="py-24 bg-gray-50 dark:bg-[#0a0a0a]">
@@ -953,7 +1167,7 @@
                 <div class="location-card group">
                     <div class="location-image-container">
                         <img class="h-full w-full object-cover" alt="Sede Arequipa"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd2_H08jilsWIyRClEVK8eRTHnJGc3jQKquVDiSoNGEmoEB0C6UCpS7WeA8aDPrO52EOkPAKHDWRSSDC-CvWlIn_NF_xhC7D77LVrpgHAWwwZUYdgrD9MNYUhAJPn7H1g40rCQNKpMSsI8w1pnFQnDuHRLeFLZ5JWnmxFqjoby8WiAddfI1QE-0yVUXwJn1BOTldsaWXw3NK5bk6E1Nd9-wP0qxr1pTSn0WZul-HeY6eu5E7RZpploWOPfTa6-5N3ra-k2AbbdoYI" />
+                           src="{{ asset('img/sedes/sede_arequipa.png') }}" />
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full"
                             style="color: var(--brand-red);">Arequipa</div>
                     </div>
