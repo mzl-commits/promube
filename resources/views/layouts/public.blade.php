@@ -73,10 +73,10 @@
                     Sedes
                 </a>
                 
-                {{-- Botón Contacto --}}
-                <a href="{{ route('contacto.index') }}"
+                {{-- Botón Aula virtual --}}
+                <a href="https://muni.cidech.edu.pe/"
                    class="rounded-full bg-white px-6 py-2.5 text-base font-bold text-primary shadow-lg transition-all hover:bg-gray-100 hover:shadow-xl hover:-translate-y-0.5">
-                    Contacto
+                    Aula virtual
                 </a>
             </nav>
 

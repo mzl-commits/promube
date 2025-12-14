@@ -1020,7 +1020,6 @@
 
     <div class="historias-container">
         <h2 class="historias-title">Historias Reales</h2>
-
         {{-- CARRUSEL --}}
         <div class="stories-carousel">
             <div class="stories-track" id="storiesTrack">
@@ -1033,8 +1032,7 @@
                         <div class="story-info">
                             <p class="story-name">Miranda condori keller</p>
                             <p class="story-role">1er PUESTO
-
-Ing. Petroquímica IEN-UNI-2025</p>
+                            Ing. Petroquímica IEN-UNI-2025</p>
                             <p class="story-desc">
                                 Universidad Nacional de Ingenieria
                             </p>
@@ -1049,7 +1047,7 @@ Ing. Petroquímica IEN-UNI-2025</p>
                             <p class="story-name">NAVARRO LOYOLA BENJAMIN SHENEDIT BRUCE</p>
                             <p class="story-role">1er PUESTO
 
-QUIMICA</p>
+                             QUIMICA</p>
                             <p class="story-desc">
                                 Universidad Nacional de Ingenieria
                             </p>
@@ -1102,14 +1100,13 @@ QUIMICA</p>
 
                     <div class="story-card">
                         <div class="story-avatar-wrap">
-                            <img src="{{ asset('img/historias/carla1.png') }}" alt="Carla Medina">
+                            <img src="{{ asset('img/historias/walter.png') }}" alt="Walter Alcantara">
                         </div>
                         <div class="story-info">
-                            <p class="story-name">Carla Medina.</p>
-                            <p class="story-role">Psicóloga educativa.</p>
+                            <p class="story-name">Alcántara Quispe Walter Amilcar</p>
+                            <p class="story-role">Ingeniería Ambiental</p>
                             <p class="story-desc">
-                                Trabaja en el soporte socioemocional de los beneficiarios de PROMUBE,
-                                acompañando todo su proceso.
+                                Universidad Peruana Cayetano Heredia
                             </p>
                         </div>
                     </div>
