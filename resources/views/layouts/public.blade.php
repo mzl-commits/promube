@@ -64,10 +64,7 @@
                    class="text-base font-bold text-white transition-all hover:text-white/80 hover:scale-105">
                     Becas
                 </a>
-                <a href="{{ route('beneficiados.index') }}"
-                   class="text-base font-bold text-white transition-all hover:text-white/80 hover:scale-105">
-                    Beneficiados
-                </a>
+
                 <a href="{{ route('sedes.index') }}"
                    class="text-base font-bold text-white transition-all hover:text-white/80 hover:scale-105">
                     Sedes

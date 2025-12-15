@@ -791,35 +791,35 @@
                       alt="Foto de perfil"
                       class="w-32 h-32 rounded-full object-cover border-4 transition-transform duration-300 group-hover:scale-110"
                       style="border-color:var(--brand-red)"
-                      src="{{ asset('img/historias/ana1.png') }}"
+                      src="{{ asset('img/historias/walter.png') }}"
                     />
                   </div>
                   <h3 class="text-2xl font-bold tracking-wide" style="color:var(--brand-red)">
-                    Ana Torres
+                    Alcantara Quispe Walter Amilcar
                   </h3>
                   <p class="text-base mt-1 text-gray-500 dark:text-gray-400">
-                    Mentora académica
+                    Ingresante Beca 18
                   </p>
                 </header>
 
                 <div class="mt-8 space-y-4 text-left">
                   <div class="flex items-center space-x-4">
                     <span class="material-symbols-outlined w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg text-white" style="background:var(--brand-red)">menu_book</span>
-                    <p class="font-medium text-gray-700 dark:text-gray-200">Plan de estudio y hábitos</p>
+                    <p class="font-medium text-gray-700 dark:text-gray-200">Beca: Beca 18</p>
                   </div>
                   <div class="flex items-center space-x-4">
                     <span class="material-symbols-outlined w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg text-white" style="background:var(--brand-red)">schedule</span>
-                    <p class="font-medium text-gray-700 dark:text-gray-200">Organización del tiempo</p>
+                    <p class="font-medium text-gray-700 dark:text-gray-200">Ingeniería Ambiental</p>
                   </div>
                   <div class="flex items-center space-x-4">
                     <span class="material-symbols-outlined w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg text-white" style="background:var(--brand-red)">psychology</span>
-                    <p class="font-medium text-gray-700 dark:text-gray-200">Manejo de ansiedad</p>
+                    <p class="font-medium text-gray-700 dark:text-gray-200">Universidad Peruana Cayetano Heredia</p>
                   </div>
                 </div>
 
                 <footer class="mt-8">
                   <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-                    Apoya a los becarios a sostener rutinas y rendir mejor en exámenes.
+                    Ingresante a la Universidad Peruana Cayetano Heredia, reconocida como la universidad número uno del país.
                   </p>
                 </footer>
               </article>
