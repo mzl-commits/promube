@@ -168,7 +168,7 @@
 
                         {{-- IMAGEN DE LA SEDE --}}
                         <div class="sede-img-box">
-                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg8PymSKI3WqL0j_KJBDo7DgRCwApkez7oMNJ-4DXE0870OQlrDSnJ-oTFCXGT0cnbmhkHAvtgHlfVMfssGaBLKqpobcgKNNh2Z0IwiYk1J9D29_csvV7aoFllZJgqD3ipRx806mX4LLAbRP_YeMqYp03QIlHvUHfh5thXRHFcUb8VfuqVurY6dlSoOnolpLWFcgBCFLvniImMuDxAGPw4-g4W3bgYF4T3GYlhKK3tyw9LHGi5sIYKOKViLgZbIJzYKCY-3hbzraQ"
+                            <img src="{{ asset('img/sedes/sede_arequipa.png') }}"
                                  alt="Sede Arequipa">
                         </div>
 

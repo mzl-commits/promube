@@ -132,7 +132,7 @@
                             <span class="material-symbols-outlined group-hover:scale-110 transition-transform">mail</span>
                         </a>
                         <a href="#" class="flex items-center gap-3 hover:text-primary transition-colors group">
-                            <span>+52 55 1234 5678</span>
+                            <span>921 810 356</span>
                             <span class="material-symbols-outlined group-hover:scale-110 transition-transform">call</span>
                         </a>
                     </div>
