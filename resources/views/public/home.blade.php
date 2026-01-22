@@ -5,8 +5,11 @@
 @section('content')
   <style>
     /* =========================================================
-        PROMUBE UI KIT (HOME) — coherente con el resto del sitio
-      ========================================================= */
+       PROMUBE UI KIT (HOME)
+       Estilos locales para la Home, consistentes con el layout público
+    ========================================================== */
+
+    /* Variables base para color, sombras y radios */
     :root {
       --brand-red: #ef233c;
       --brand-red-dark: #d61c32;
@@ -16,9 +19,7 @@
       --muted: #64748b;
 
       --radius-xl: 1.25rem;
-      /* 20px */
       --radius-lg: 1rem;
-      /* 16px */
 
       --ease-out-expo: cubic-bezier(.19, 1, .22, 1);
 
@@ -26,23 +27,14 @@
       --shadow-red: 0 26px 60px -35px rgba(239, 35, 60, .45);
     }
 
-    /* OVERRIDES GLOBALES */
-    .bg-primary {
-      background-color: var(--brand-red) !important;
-    }
+    /* Overrides del color de marca para clases usadas por todo el sitio */
+    .bg-primary { background-color: var(--brand-red) !important; }
+    .text-primary { color: var(--brand-red) !important; }
+    .border-primary { border-color: var(--brand-red) !important; }
 
-    .text-primary {
-      color: var(--brand-red) !important;
-    }
+    html { scroll-behavior: smooth; }
 
-    .border-primary {
-      border-color: var(--brand-red) !important;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    /* Accesibilidad: reduce animaciones si el usuario lo pide */
     @media (prefers-reduced-motion: reduce) {
       * {
         animation: none !important;
@@ -51,18 +43,13 @@
       }
     }
 
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    /* Utilidad: ocultar scrollbar en carruseles */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* =========================
-        BOTONES (consistencia)
-      ========================= */
+       Botones: primario y soft
+    ========================== */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -81,29 +68,28 @@
       outline-offset: 4px;
     }
 
+    /* Botón principal (rojo) */
     .btn-primary {
       background: var(--brand-red);
       color: #fff;
       box-shadow: 0 14px 30px -18px rgba(239, 35, 60, .7);
     }
-
     .btn-primary:hover {
       background: var(--brand-red-dark);
       transform: translateY(-1px);
     }
 
+    /* Botón suave (gris claro) */
     .btn-soft {
       background: rgba(15, 23, 42, .06);
       color: var(--ink);
       border: 1px solid rgba(15, 23, 42, .06);
     }
-
     .dark .btn-soft {
       background: rgba(255, 255, 255, .08);
       border-color: rgba(255, 255, 255, .08);
       color: #e5e7eb;
     }
-
     .btn-soft:hover {
       background: var(--brand-red);
       border-color: rgba(239, 35, 60, .55);
@@ -113,11 +99,12 @@
     }
 
     /* =========================
-        TÍTULOS DE SECCIÓN (firma)
-      ========================= */
+       Encabezado de secciones
+       (título, subtítulo y línea roja)
+    ========================== */
     .section-head {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 2.75rem; /* Ajuste: antes 4rem, reduce espacios grandes */
     }
 
     .section-kicker {
@@ -135,10 +122,7 @@
       font-weight: 900;
       color: #111827;
     }
-
-    .dark .section-title {
-      color: #fff;
-    }
+    .dark .section-title { color: #fff; }
 
     .section-line {
       width: 5.5rem;
@@ -157,11 +141,9 @@
       margin-inline: auto;
       line-height: 1.6;
     }
+    .dark .section-desc { color: rgba(148, 163, 184, .95); }
 
-    .dark .section-desc {
-      color: rgba(148, 163, 184, .95);
-    }
-
+    /* Separador visual entre secciones */
     .section-divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(239, 35, 60, .30), transparent);
@@ -170,29 +152,18 @@
     }
 
     /* =========================
-        ANIMACIÓN SUAVE HOME
-      ========================= */
-    .animate-fade-in-up {
-      animation: fadeInUp .9s var(--ease-out-expo) both;
-    }
-
+       Animación suave al cargar
+    ========================== */
+    .animate-fade-in-up { animation: fadeInUp .9s var(--ease-out-expo) both; }
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-        filter: blur(6px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-      }
+      from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
 
     /* =========================================
-        1) HERO (split) — ya lo tenías, lo pulimos
-      ========================================= */
+       1) HERO (split)
+       Portada principal con CTA y typewriter
+    ========================================= */
     .hero-wrapper {
       position: relative;
       width: 100%;
@@ -205,6 +176,7 @@
       background-color: var(--brand-red);
     }
 
+    /* Fondo animado del hero */
     .hero-bg-css {
       position: absolute;
       inset: 0;
@@ -214,6 +186,7 @@
       animation: gradientMove 10s ease infinite alternate;
     }
 
+    /* Patrón de puntos */
     .hero-pattern {
       position: absolute;
       inset: 0;
@@ -223,16 +196,17 @@
       opacity: .45;
     }
 
+    /* Glow radial para profundidad */
     .hero-glow {
       position: absolute;
       inset: -30%;
       z-index: 2;
       background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .18), transparent 55%);
       pointer-events: none;
-      filter: blur(0);
       opacity: .85;
     }
 
+    /* Layout del contenido del hero */
     .hero-content {
       position: relative;
       z-index: 10;
@@ -271,37 +245,34 @@
       line-height: 1.45;
     }
 
+    /* CTA del hero */
     .hero-actions {
       display: flex;
       gap: .75rem;
       flex-wrap: wrap;
       margin-bottom: 1.25rem;
     }
+    .hero-actions .btn { padding: .9rem 1.2rem; border-radius: .9rem; }
 
-    .hero-actions .btn {
-      padding: .9rem 1.2rem;
-      border-radius: .9rem;
-    }
-
+    /* Botón ghost del hero */
     .btn-ghost {
       background: rgba(255, 255, 255, .16);
       border: 1px solid rgba(255, 255, 255, .28);
       color: #fff;
       backdrop-filter: blur(8px);
     }
-
     .btn-ghost:hover {
       background: rgba(255, 255, 255, .22);
       transform: translateY(-1px);
     }
 
+    /* Columna visual del icono grande */
     .hero-visual-col {
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
     }
-
     .hero-main-icon {
       font-size: clamp(15rem, 25vw, 30rem);
       color: rgba(255, 255, 255, .15);
@@ -310,6 +281,7 @@
       transform: rotate(-10deg);
     }
 
+    /* Caja del typewriter (convocatorias) */
     .typewriter-box {
       display: inline-flex;
       align-items: center;
@@ -344,6 +316,7 @@
       max-width: 22rem;
     }
 
+    /* Cursor del typewriter */
     .cursor {
       width: 3px;
       height: 1.4em;
@@ -351,6 +324,7 @@
       animation: blink 1s step-end infinite;
     }
 
+    /* Indicador de scroll hacia la sección de becas */
     .scroll-indicator {
       position: absolute;
       bottom: 26px;
@@ -361,91 +335,35 @@
       z-index: 20;
       transition: color .3s;
     }
+    .scroll-indicator:hover { color: #fff; }
 
-    .scroll-indicator:hover {
-      color: #fff;
-    }
-
+    /* Responsive del hero: pasa a una columna */
     @media (max-width:1024px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 1.75rem;
-      }
-
-      .hero-text-col {
-        align-items: center;
-      }
-
-      .hero-visual-col {
-        order: -1;
-      }
-
-      .hero-main-icon {
-        font-size: 12rem;
-        margin-bottom: -2rem;
-        opacity: .3;
-      }
-
-      .hero-actions {
-        justify-content: center;
-      }
-
-      .typewriter-text {
-        max-width: 16rem;
-      }
+      .hero-content { grid-template-columns: 1fr; text-align: center; gap: 1.75rem; }
+      .hero-text-col { align-items: center; }
+      .hero-visual-col { order: -1; }
+      .hero-main-icon { font-size: 12rem; margin-bottom: -2rem; opacity: .3; }
+      .hero-actions { justify-content: center; }
+      .typewriter-text { max-width: 16rem; }
     }
 
-    @keyframes gradientMove {
-      0% {
-        background-position: 0% 50%
-      }
-
-      100% {
-        background-position: 100% 50%
-      }
-    }
-
+    /* Animaciones del hero */
+    @keyframes gradientMove { 0% { background-position: 0% 50% } 100% { background-position: 100% 50% } }
     @keyframes floatingLogo {
-
-      0%,
-      100% {
-        transform: translateY(0) rotate(-5deg)
-      }
-
-      50% {
-        transform: translateY(-20px) rotate(5deg)
-      }
+      0%,100% { transform: translateY(0) rotate(-5deg) }
+      50% { transform: translateY(-20px) rotate(5deg) }
     }
-
-    @keyframes blink {
-      50% {
-        opacity: 0
-      }
-    }
-
+    @keyframes blink { 50% { opacity: 0 } }
     @keyframes bounce {
-
-      0%,
-      20%,
-      50%,
-      80%,
-      100% {
-        transform: translate(-50%, 0)
-      }
-
-      40% {
-        transform: translate(-50%, -10px)
-      }
-
-      60% {
-        transform: translate(-50%, -5px)
-      }
+      0%,20%,50%,80%,100% { transform: translate(-50%, 0) }
+      40% { transform: translate(-50%, -10px) }
+      60% { transform: translate(-50%, -5px) }
     }
 
     /* =========================================
-        2) CARDS GENERALES (unificar)
-      ========================================= */
+       2) Cards generales
+       Base de tarjetas para partners, sedes y testimonios
+    ========================================= */
     .card {
       background: #fff;
       border-radius: var(--radius-xl);
@@ -454,19 +372,14 @@
       overflow: hidden;
       position: relative;
     }
-
-    .dark .card {
-      background: #151515;
-      border-color: rgba(255, 255, 255, .08);
-    }
-
+    .dark .card { background: #151515; border-color: rgba(255, 255, 255, .08); }
     .card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow-red);
       border-color: rgba(239, 35, 60, .28);
     }
 
-    /* Partner */
+    /* Partner cards: aliados estratégicos */
     .partner-card {
       padding: 2.5rem 1.75rem;
       display: flex;
@@ -486,15 +399,8 @@
       transform-origin: center;
     }
 
-    .partner-logo-wrapper img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
-    .partner-card:hover .partner-logo-wrapper {
-      transform: scale(1.18);
-    }
+    .partner-logo-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .partner-card:hover .partner-logo-wrapper { transform: scale(1.18); }
 
     .partner-name {
       font-size: 1.25rem;
@@ -503,14 +409,8 @@
       margin-bottom: .85rem;
       transition: color .25s ease;
     }
-
-    .dark .partner-name {
-      color: #f1f5f9;
-    }
-
-    .partner-card:hover .partner-name {
-      color: var(--brand-red);
-    }
+    .dark .partner-name { color: #f1f5f9; }
+    .partner-card:hover .partner-name { color: var(--brand-red); }
 
     .partner-description {
       font-size: .95rem;
@@ -518,14 +418,12 @@
       text-align: center;
       line-height: 1.7;
     }
-
-    .dark .partner-description {
-      color: #94a3b8;
-    }
+    .dark .partner-description { color: #94a3b8; }
 
     /* =========================================
-        3) MOSAICO BECAS (mejorado, accesible)
-      ========================================= */
+       3) Becas destacadas: mosaico
+       Grid responsivo con overlay y texto al hover
+    ========================================= */
     .becas-mosaic-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -544,11 +442,7 @@
       border: 1px solid rgba(255, 255, 255, .08);
     }
 
-    .beca-mosaic-link {
-      display: block;
-      height: 100%;
-      width: 100%;
-    }
+    .beca-mosaic-link { display: block; height: 100%; width: 100%; }
 
     .beca-mosaic-img {
       width: 100%;
@@ -599,6 +493,7 @@
       width: fit-content;
     }
 
+    /* Título oculto por defecto para mostrarlo al hover */
     .beca-mosaic-title {
       margin: 0;
       font-size: 1.02rem;
@@ -613,13 +508,9 @@
       text-shadow: 0 12px 26px rgba(0, 0, 0, .28);
     }
 
-    .beca-mosaic-card--center {
-      grid-row: span 2;
-    }
+    .beca-mosaic-card--center { grid-row: span 2; }
 
-    .beca-mosaic-card:hover .beca-mosaic-img {
-      transform: scale(1.06);
-    }
+    .beca-mosaic-card:hover .beca-mosaic-img { transform: scale(1.06); }
 
     .beca-mosaic-card:hover .beca-mosaic-overlay {
       background: linear-gradient(to top, rgba(239, 35, 60, .88) 0%, rgba(239, 35, 60, .55) 45%, transparent 75%);
@@ -632,65 +523,31 @@
       max-height: 220px;
     }
 
+    /* Responsivo del mosaico */
     @media (max-width:1024px) {
-      .becas-mosaic-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-auto-rows: minmax(220px, 40vh);
-      }
-
-      .beca-mosaic-card--center {
-        grid-row: span 1;
-      }
+      .becas-mosaic-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: minmax(220px, 40vh); }
+      .beca-mosaic-card--center { grid-row: span 1; }
     }
-
     @media (max-width:640px) {
-      .becas-mosaic-grid {
-        grid-template-columns: 1fr;
-        grid-auto-rows: minmax(220px, 36vh);
-      }
-
-      .beca-mosaic-body--center {
-        top: auto;
-        bottom: 0;
-        transform: none;
-      }
+      .becas-mosaic-grid { grid-template-columns: 1fr; grid-auto-rows: minmax(220px, 36vh); }
+      .beca-mosaic-body--center { top: auto; bottom: 0; transform: none; }
     }
 
     /* =========================================
-        4) HISTORIAS REALES (manteniendo tu estilo)
-      ========================================= */
-    .stories-carousel {
-      overflow: hidden;
-    }
-
-    .stories-track {
-      display: flex;
-      transition: transform .7s var(--ease-out-expo);
-      will-change: transform;
-    }
-
-    .stories-slide {
-      min-width: 100%;
-      padding: .25rem;
-    }
+       4) Historias reales: carrusel (2 slides)
+       Track con translateX y dots
+    ========================================= */
+    .stories-carousel { overflow: hidden; }
+    .stories-track { display: flex; transition: transform .7s var(--ease-out-expo); will-change: transform; }
+    .stories-slide { min-width: 100%; padding: .25rem; }
 
     .stories-grid {
       display: grid;
       gap: 2rem;
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-
-    @media (max-width:1024px) {
-      .stories-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width:768px) {
-      .stories-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    @media (max-width:1024px) { .stories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width:768px) { .stories-grid { grid-template-columns: 1fr; } }
 
     .story-icon {
       width: 40px;
@@ -709,11 +566,9 @@
       border: 0 !important;
       box-shadow: 0 0 0 4px rgba(255, 255, 255, .88);
     }
+    .dark .story-avatar { box-shadow: 0 0 0 4px rgba(255, 255, 255, .14); }
 
-    .dark .story-avatar {
-      box-shadow: 0 0 0 4px rgba(255, 255, 255, .14);
-    }
-
+    /* Clamp para nombres largos */
     .story-name-clamp {
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -721,25 +576,18 @@
       overflow: hidden;
     }
 
-    .story-item {
-      font-size: .95rem;
-      line-height: 1.4;
-    }
+    .story-item { font-size: .95rem; line-height: 1.4; }
+    .story-footer { opacity: .92; }
 
-    .story-footer {
-      opacity: .92;
-    }
-
+    /* Separador dentro de la tarjeta */
     .story-sep {
       margin-top: 1.5rem;
       border-top: 1px solid rgba(17, 24, 39, .08);
       padding-top: 1.25rem;
     }
+    .dark .story-sep { border-top: 1px solid rgba(255, 255, 255, .10); }
 
-    .dark .story-sep {
-      border-top: 1px solid rgba(255, 255, 255, .10);
-    }
-
+    /* Tarjeta de estudiante: brillo y glow al hover */
     .student-card {
       position: relative;
       overflow: hidden;
@@ -773,18 +621,14 @@
       border-color: rgba(239, 35, 60, .28);
     }
 
-    .student-card:hover::before {
-      transform: translateX(120%);
-    }
-
-    .student-card:hover::after {
-      opacity: 1;
-    }
+    .student-card:hover::before { transform: translateX(120%); }
+    .student-card:hover::after { opacity: 1; }
 
     .dark .student-card::before {
       background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, .10) 15%, transparent 35%);
     }
 
+    /* Dots del carrusel */
     .stories-dots {
       margin-top: 2rem;
       display: flex;
@@ -802,9 +646,7 @@
       transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
     }
 
-    .dark .stories-dot {
-      background: #333;
-    }
+    .dark .stories-dot { background: #333; }
 
     .stories-dot.is-active {
       background: var(--brand-red);
@@ -813,20 +655,14 @@
     }
 
     @media (max-width:640px) {
-      .story-avatar-size {
-        width: 6rem !important;
-        height: 6rem !important;
-      }
+      .story-avatar-size { width: 6rem !important; height: 6rem !important; }
     }
 
     /* =========================================
-        5) SEDES (mejor: sin JS inline)
-      ========================================= */
-    .location-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
+       5) Sedes: tarjetas con imagen y chip
+       Secciones de contacto por sede
+    ========================================= */
+    .location-card { display: flex; flex-direction: column; height: 100%; }
 
     .location-image-container {
       height: 16rem;
@@ -841,9 +677,7 @@
       object-fit: cover;
     }
 
-    .location-card:hover img {
-      transform: scale(1.08);
-    }
+    .location-card:hover img { transform: scale(1.08); }
 
     .chip-city {
       position: absolute;
@@ -883,9 +717,33 @@
       transform: scale(1.08);
       box-shadow: 0 18px 36px -26px rgba(239, 35, 60, .95);
     }
+
+    /* =========================
+       Ajuste de espacios entre secciones
+       Reduce el "py-24" visual sin tocar Tailwind global
+    ========================== */
+    .section-pad {
+      padding-top: 5rem;   /* antes 6rem (py-24) */
+      padding-bottom: 5rem;
+    }
+    @media (min-width: 768px) {
+      .section-pad {
+        padding-top: 5.5rem;
+        padding-bottom: 5.5rem;
+      }
+    }
+
+    /* Ajuste opcional de divisores */
+    .divider-pad {
+      margin-top: .5rem;
+      margin-bottom: .5rem;
+    }
   </style>
 
-  {{-- 1) HERO --}}
+  {{-- =========================================================
+      1) HERO
+      Portada principal con CTA + typewriter de convocatorias
+  ========================================================== --}}
   <div class="hero-wrapper">
     <div class="hero-bg-css"></div>
     <div class="hero-pattern"></div>
@@ -927,8 +785,11 @@
     </a>
   </div>
 
-  {{-- 2) BECAS DESTACADAS --}}
-  <section id="becas" class="py-24 bg-white dark:bg-[#0a0a0a] overflow-hidden">
+  {{-- =========================================================
+      2) BECAS DESTACADAS
+      Mosaico con becas clave y CTA al catálogo
+  ========================================================== --}}
+  <section id="becas" class="section-pad bg-white dark:bg-[#0a0a0a] overflow-hidden">
     <div class="mx-auto px-0">
       <div class="section-head px-6">
         <span class="section-kicker">Oportunidades</span>
@@ -1001,7 +862,7 @@
         </article>
       </div>
 
-      <div class="mt-14 px-6 flex justify-center">
+      <div class="mt-12 px-6 flex justify-center">
         <a href="{{ route('becas.index') }}" class="btn btn-soft">
           Ver todas las becas
           <span class="material-symbols-outlined text-lg">arrow_forward</span>
@@ -1010,10 +871,13 @@
     </div>
   </section>
 
-  <div class="section-divider"></div>
+  <div class="section-divider divider-pad"></div>
 
-  {{-- 3) MUNICIPALIDADES --}}
-  <section class="py-24 bg-gray-50 dark:bg-[#0f0f0f]">
+  {{-- =========================================================
+      3) MUNICIPALIDADES
+      Grid de aliados con tarjetas consistentes
+  ========================================================== --}}
+  <section class="section-pad bg-gray-50 dark:bg-[#0f0f0f]">
     <div class="container mx-auto px-6">
       <div class="section-head">
         <span class="section-kicker">Alianzas</span>
@@ -1023,51 +887,49 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {{-- Card aliado 1 --}}
         <div class="card partner-card group">
           <div class="partner-logo-wrapper">
-            <img loading="lazy" alt="Escudo Cairani"
-              src="{{ asset('img/aliados/escudo_municipalidad_cairani_tacna.jpg') }}">
+            <img loading="lazy" alt="Escudo Cairani" src="{{ asset('img/aliados/escudo_municipalidad_cairani_tacna.jpg') }}">
           </div>
           <h3 class="partner-name text-center">Muni. Cairani</h3>
           <p class="partner-description text-center text-sm">
             <strong>Alcalde (2023-2026):</strong> Tito Mamani Mamani <br><br>
             Cooperación para fortalecer el desarrollo agrícola e hídrico en Candarave.
           </p>
-          <div
-            class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-            style="background-color: var(--brand-red);"></div>
+          <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+               style="background-color: var(--brand-red);"></div>
         </div>
 
+        {{-- Card aliado 2 --}}
         <div class="card partner-card group">
           <div class="partner-logo-wrapper">
-            <img loading="lazy" alt="Escudo Choco"
-              src="{{ asset('img/aliados/escudo_municipalidad_choco_arequipa.jpg') }}">
+            <img loading="lazy" alt="Escudo Choco" src="{{ asset('img/aliados/escudo_municipalidad_choco_arequipa.jpg') }}">
           </div>
           <h3 class="partner-name text-center">Muni. Choco</h3>
           <p class="partner-description text-center text-sm">
             <strong>Alcaldesa (2023-2026):</strong> Eva Elizabeth Chura Quicaña <br><br>
             Impulsamos oportunidades para familias agricultoras y ganaderas en la zona altoandina.
           </p>
-          <div
-            class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-            style="background-color: var(--brand-red);"></div>
+          <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+               style="background-color: var(--brand-red);"></div>
         </div>
 
+        {{-- Card aliado 3 --}}
         <div class="card partner-card group">
           <div class="partner-logo-wrapper">
-            <img loading="lazy" alt="Escudo Sama"
-              src="{{ asset('img/aliados/escudo_municipalidad_lasyaras_tacna.jpg') }}">
+            <img loading="lazy" alt="Escudo Sama" src="{{ asset('img/aliados/escudo_municipalidad_lasyaras_tacna.jpg') }}">
           </div>
           <h3 class="partner-name text-center">Muni. Sama</h3>
           <p class="partner-description text-center text-sm">
             <strong>Alcalde (2023-2026):</strong> Richard Santos Calizaya Pimentel <br><br>
             Alianza para fortalecer agricultura, turismo y la identidad cultural del valle.
           </p>
-          <div
-            class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-            style="background-color: var(--brand-red);"></div>
+          <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+               style="background-color: var(--brand-red);"></div>
         </div>
 
+        {{-- Card aliado 4 --}}
         <div class="card partner-card group">
           <div class="partner-logo-wrapper">
             <img loading="lazy" alt="Escudo Palca" src="{{ asset('img/aliados/escudo_municipalidad_palca_tacna.jpg') }}">
@@ -1077,18 +939,20 @@
             <strong>Alcalde (2023-2026):</strong> Toribio Zanga Onofre <br><br>
             Proyectos para bienestar social y mejoras de infraestructura en comunidades fronterizas.
           </p>
-          <div
-            class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-            style="background-color: var(--brand-red);"></div>
+          <div class="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+               style="background-color: var(--brand-red);"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="section-divider"></div>
+  <div class="section-divider divider-pad"></div>
 
-  {{-- 4) HISTORIAS REALES --}}
-  <section class="py-24 bg-white dark:bg-[#0a0a0a] overflow-hidden">
+  {{-- =========================================================
+      4) HISTORIAS REALES
+      Carrusel con track horizontal y dots
+  ========================================================== --}}
+  <section class="section-pad bg-white dark:bg-[#0a0a0a] overflow-hidden">
     <div class="container mx-auto px-6">
       <div class="section-head">
         <span class="section-kicker">Testimonios</span>
@@ -1108,8 +972,8 @@
                   <header>
                     <div class="relative inline-block mb-4 overflow-hidden rounded-full">
                       <img loading="lazy" alt="Foto de perfil"
-                        class="w-32 h-32 story-avatar story-avatar-size rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        src="{{ asset('img/historias/keler.png') }}" />
+                           class="w-32 h-32 story-avatar story-avatar-size rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+                           src="{{ asset('img/historias/keler.png') }}" />
                     </div>
                     <h3 class="text-2xl font-black tracking-wide story-name-clamp" style="color:var(--brand-red)">
                       Miranda Condori Keller
@@ -1128,8 +992,7 @@
                     </div>
                     <div class="flex items-center space-x-4">
                       <span class="material-symbols-outlined story-icon">account_balance</span>
-                      <p class="font-medium text-gray-700 dark:text-gray-200 story-item">Universidad Nacional de
-                        Ingeniería</p>
+                      <p class="font-medium text-gray-700 dark:text-gray-200 story-item">Universidad Nacional de Ingeniería</p>
                     </div>
                   </div>
 
@@ -1147,8 +1010,8 @@
                   <header>
                     <div class="relative inline-block mb-4 overflow-hidden rounded-full">
                       <img loading="lazy" alt="Foto de perfil"
-                        class="w-32 h-32 story-avatar story-avatar-size rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        src="{{ asset('img/historias/benjamin.png') }}" />
+                           class="w-32 h-32 story-avatar story-avatar-size rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+                           src="{{ asset('img/historias/benjamin.png') }}" />
                     </div>
                     <h3 class="text-2xl font-black tracking-wide story-name-clamp" style="color:var(--brand-red)">
                       Navarro Loyola Benjamin Shenedit Bruce
@@ -1167,8 +1030,7 @@
                     </div>
                     <div class="flex items-center space-x-4">
                       <span class="material-symbols-outlined story-icon">account_balance</span>
-                      <p class="font-medium text-gray-700 dark:text-gray-200 story-item">Universidad Nacional de
-                        Ingeniería</p>
+                      <p class="font-medium text-gray-700 dark:text-gray-200 story-item">Universidad Nacional de Ingeniería</p>
                     </div>
                   </div>
 
@@ -1186,8 +1048,8 @@
                   <header>
                     <div class="relative inline-block mb-4 overflow-hidden rounded-full">
                       <img loading="lazy" alt="Foto de perfil"
-                        class="w-32 h-32 story-avatar story-avatar-size rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        src="{{ asset('img/historias/fabricio.png') }}" />
+                           class="w-32 h-32 story-avatar story-avatar-size rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+                           src="{{ asset('img/historias/fabricio.png') }}" />
                     </div>
                     <h3 class="text-2xl font-black tracking-wide story-name-clamp" style="color:var(--brand-red)">
                       Noa Ccallo Alexis Fabrizio
@@ -1206,8 +1068,7 @@
                     </div>
                     <div class="flex items-center space-x-4">
                       <span class="material-symbols-outlined story-icon">account_balance</span>
-                      <p class="font-medium text-gray-700 dark:text-gray-200 story-item">Universidad Nacional de
-                        Ingeniería</p>
+                      <p class="font-medium text-gray-700 dark:text-gray-200 story-item">Universidad Nacional de Ingeniería</p>
                     </div>
                   </div>
 
@@ -1230,8 +1091,8 @@
                   <header>
                     <div class="relative inline-block mb-4 overflow-hidden rounded-full">
                       <img loading="lazy" alt="Foto de perfil"
-                        class="w-32 h-32 story-avatar story-avatar-size rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        src="{{ asset('img/historias/walter.png') }}" />
+                           class="w-32 h-32 story-avatar story-avatar-size rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+                           src="{{ asset('img/historias/walter.png') }}" />
                     </div>
                     <h3 class="text-2xl font-black tracking-wide story-name-clamp" style="color:var(--brand-red)">
                       Alcantara Quispe Walter Amilcar
@@ -1250,8 +1111,9 @@
                     </div>
                     <div class="flex items-center space-x-4">
                       <span class="material-symbols-outlined story-icon">account_balance</span>
-                      <p class="font-medium text-gray-700 dark:text-gray-200 story-item">Universidad Peruana Cayetano
-                        Heredia</p>
+                      <p class="font-medium text-gray-700 dark:text-gray-200 story-item">
+                        Universidad Peruana Cayetano Heredia
+                      </p>
                     </div>
                   </div>
 
@@ -1269,8 +1131,8 @@
                   <header>
                     <div class="relative inline-block mb-4 overflow-hidden rounded-full">
                       <img loading="lazy" alt="Foto de perfil"
-                        class="w-32 h-32 rounded-full object-cover story-avatar transition-transform duration-300 group-hover:scale-110"
-                        src="{{ asset('img/historias/milton_ccota.png') }}" />
+                           class="w-32 h-32 rounded-full object-cover story-avatar transition-transform duration-300 group-hover:scale-110"
+                           src="{{ asset('img/historias/milton_ccota.png') }}" />
                     </div>
 
                     <h3 class="text-2xl font-black tracking-wide" style="color:var(--brand-red)">
@@ -1308,8 +1170,8 @@
                   <header>
                     <div class="relative inline-block mb-4 overflow-hidden rounded-full">
                       <img loading="lazy" alt="Foto de perfil"
-                        class="w-32 h-32 rounded-full object-cover story-avatar transition-transform duration-300 group-hover:scale-110"
-                        src="{{ asset('img/historias/alex_gallegos.png') }}" />
+                           class="w-32 h-32 rounded-full object-cover story-avatar transition-transform duration-300 group-hover:scale-110"
+                           src="{{ asset('img/historias/alex_gallegos.png') }}" />
                     </div>
 
                     <h3 class="text-2xl font-black tracking-wide" style="color:var(--brand-red)">
@@ -1342,16 +1204,18 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
-      {{-- DOTS --}}
+      {{-- Dots: navegación entre slides --}}
       <div class="stories-dots" role="tablist" aria-label="Historias reales">
         <button class="stories-dot is-active" data-slide="0" type="button" aria-label="Slide 1"></button>
         <button class="stories-dot" data-slide="1" type="button" aria-label="Slide 2"></button>
       </div>
     </div>
 
+    {{-- Script del carrusel: controla translateX y estado de dots --}}
     <script>
       (function () {
         const track = document.getElementById('storiesTrack');
@@ -1378,10 +1242,13 @@
     </script>
   </section>
 
-  <div class="section-divider"></div>
+  <div class="section-divider divider-pad"></div>
 
-  {{-- 5) SEDES --}}
-  <section class="py-24 bg-gray-50 dark:bg-[#0a0a0a]">
+  {{-- =========================================================
+      5) SEDES
+      Cards con dirección, horario, teléfono y CTA a mapa
+  ========================================================== --}}
+  <section class="section-pad bg-gray-50 dark:bg-[#0a0a0a]">
     <div class="container mx-auto px-6">
       <div class="section-head">
         <span class="section-kicker">Oficinas</span>
@@ -1508,18 +1375,27 @@
     </div>
   </section>
 
-
-
-  {{-- SCRIPT GENERAL --}}
+  {{-- =========================================================
+      Script general del home
+      Typewriter para el bloque de convocatorias del hero
+  ========================================================== --}}
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      /* TYPEWRITER */
       const textElement = document.getElementById('typewriter-text');
-      const phrases = ["Beca Tecsup", "Beca Cayetano Heredia", "Beca Ferreyros", "Beca BCP", "Beca UNI", "Beca San Marcos"];
+      const phrases = [
+        "Beca Tecsup",
+        "Beca Cayetano Heredia",
+        "Beca Ferreyros",
+        "Beca BCP",
+        "Beca UNI",
+        "Beca San Marcos"
+      ];
+
       let phraseIndex = 0, charIndex = 0, isDeleting = false;
 
       function type() {
         const currentPhrase = phrases[phraseIndex];
+
         if (isDeleting) {
           textElement.textContent = currentPhrase.substring(0, charIndex - 1);
           charIndex--;
@@ -1539,6 +1415,7 @@
           setTimeout(type, isDeleting ? 45 : 85);
         }
       }
+
       if (textElement) type();
     });
   </script>
