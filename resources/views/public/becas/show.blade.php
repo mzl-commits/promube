@@ -1,402 +1,550 @@
 @extends('layouts.public')
 
-@section('title', $beca->nombre . ' - PROMUBE')
+@section('title', ($beca->nombre ?? 'Beca') . ' - PROMUBE')
 
 @section('content')
     <style>
-        /* =========================================
-           CONFIGURACIÓN BASE (#EF233C)
-           ========================================= */
-        :root {
-            --brand-red: #ef233c;
-            --brand-red-light: rgba(239, 35, 60, 0.08);
+        /* =========================================================
+           SHOW BECA - LOOK & FEEL alineado al layout PROMUBE
+           - Misma marca (#EF233C) y sombras suaves
+           - Card principal + aside sticky (desktop) para que no se vea “vacío”
+           - Beneficios y pasos con estilo más moderno
+        ========================================================== */
+        :root{
+            --brand-red:#ef233c;
+            --brand-red-light: rgba(239,35,60,.10);
             --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* Utilidades de color */
-        .text-brand { color: var(--brand-red) !important; }
-        .bg-brand { background-color: var(--brand-red) !important; }
-        .bg-brand-light { background-color: var(--brand-red-light) !important; }
-
-        /* Contenedor Principal */
-        .bcp-wrapper {
-            background-color: #f9fafb; /* Fondo gris muy suave */
-            min-height: 100vh;
+        /* Fondo del show (más elegante y a juego con la web) */
+        .beca-page{
+            background: linear-gradient(180deg, #ffffff 0%, #f7f7f7 60%, #f3f4f6 100%);
         }
 
-        /* Tarjeta Principal */
-        .bcp-card {
-            background: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08); /* Sombra suave y elevada */
-            border: 1px solid rgba(0,0,0,0.03);
-            overflow: hidden;
+        /* Card principal */
+        .beca-card{
+            background:#fff;
+            border-radius: 1.75rem;
+            border: 1px solid rgba(0,0,0,.05);
+            box-shadow: 0 22px 50px -18px rgba(0,0,0,.14);
+            overflow:hidden;
         }
 
-        /* Encabezado */
-        .bcp-pill {
-            display: inline-block;
-            padding: 0.35rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            background-color: var(--brand-red-light);
+        /* HERO interno */
+        .beca-hero{
+            position:relative;
+            overflow:hidden;
+            background:#0b0b0b;
+        }
+        .beca-hero-img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            transform: scale(1.02);
+            transition: transform .9s ease;
+        }
+        .beca-hero:hover .beca-hero-img{ transform: scale(1.06); }
+
+        .beca-hero-overlay{
+            position:absolute; inset:0;
+            background:
+                linear-gradient(90deg, rgba(0,0,0,.70) 0%, rgba(0,0,0,.35) 52%, rgba(0,0,0,.10) 100%),
+                radial-gradient(60% 60% at 15% 30%, rgba(239,35,60,.35) 0%, transparent 60%);
+        }
+
+        /* Pill / badge */
+        .beca-pill{
+            display:inline-flex;
+            align-items:center;
+            gap:.45rem;
+            padding:.4rem 1rem;
+            border-radius:999px;
+            font-size:.75rem;
+            font-weight:900;
+            letter-spacing:.12em;
+            text-transform:uppercase;
+            background: var(--brand-red-light);
             color: var(--brand-red);
-            margin-bottom: 1rem;
         }
 
-        .bcp-title {
-            font-size: clamp(2rem, 4vw, 3rem); /* Título responsivo grande */
+        /* Títulos */
+        .beca-title{
+            font-size: clamp(2.1rem, 4vw, 3.1rem);
             font-weight: 900;
-            color: #111827;
             letter-spacing: -0.03em;
-            line-height: 1.1;
+            line-height: 1.06;
         }
-
-        .bcp-subtitle {
-            font-size: 1.1rem;
-            color: #4b5563;
-            line-height: 1.6;
-        }
-
-        /* Secciones */
-        .bcp-section-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 800;
-            color: var(--brand-red);
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .bcp-section-heading {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: #111827;
-            margin-bottom: 1.5rem;
-        }
-
-        .bcp-text {
-            font-size: 1rem;
-            color: #374151;
+        .beca-subtitle{
+            font-size: 1.06rem;
             line-height: 1.7;
+            color: rgba(255,255,255,.82);
         }
 
-        /* Tarjetas de Beneficios */
-        .bcp-benefit-card {
-            background: #ffffff;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s var(--ease-out-expo);
-            height: 100%;
-        }
-
-        .bcp-benefit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px -5px rgba(239, 35, 60, 0.15); /* Sombra roja al hover */
-            border-color: rgba(239, 35, 60, 0.2);
-        }
-
-        .bcp-benefit-icon {
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--brand-red-light);
+        /* Labels sección */
+        .sec-label{
+            font-size:.8rem;
+            letter-spacing:.16em;
+            text-transform:uppercase;
+            font-weight:900;
             color: var(--brand-red);
-            margin-bottom: 1rem;
+        }
+        .sec-title{
+            font-size: 1.65rem;
+            font-weight: 900;
+            color:#111827;
+            margin-top:.35rem;
+        }
+        .sec-text{
+            color:#374151;
+            line-height:1.75;
         }
 
-        .bcp-benefit-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
+        /* Beneficios */
+        .benefit-card{
+            background:#fff;
+            border-radius: 1.1rem;
+            border:1px solid rgba(0,0,0,.06);
+            box-shadow: 0 10px 24px -18px rgba(0,0,0,.25);
+            transition: transform .35s var(--ease-out-expo), box-shadow .35s var(--ease-out-expo), border-color .35s var(--ease-out-expo);
+            height:100%;
+        }
+        .benefit-card:hover{
+            transform: translateY(-6px);
+            border-color: rgba(239,35,60,.25);
+            box-shadow: 0 22px 45px -25px rgba(239,35,60,.45);
+        }
+        .benefit-icon{
+            width: 3.25rem;
+            height: 3.25rem;
+            border-radius: 1rem;
+            display:flex; align-items:center; justify-content:center;
+            background: var(--brand-red-light);
+            color: var(--brand-red);
+            flex-shrink:0;
+        }
+        .benefit-title{
+            font-weight: 900;
+            color:#111827;
+            margin-bottom:.35rem;
+        }
+        .benefit-text{
+            color:#6b7280;
+            line-height:1.55;
+            font-size:.95rem;
         }
 
-        .bcp-benefit-text {
-            font-size: 0.9rem;
-            color: #6b7280;
-            line-height: 1.5;
+        /* Aside (a la derecha en desktop) */
+        .aside-card{
+            background:#fff;
+            border-radius: 1.35rem;
+            border:1px solid rgba(0,0,0,.06);
+            box-shadow: 0 18px 44px -30px rgba(0,0,0,.35);
+            overflow:hidden;
+        }
+        .aside-head{
+            background: linear-gradient(135deg, rgba(239,35,60,.18), rgba(239,35,60,.04));
+            border-bottom: 1px solid rgba(0,0,0,.05);
+        }
+        .aside-pill{
+            display:flex;
+            align-items:center;
+            gap:.85rem;
+            padding:.95rem 1rem;
+            border-radius: 999px;
+            background: rgba(17,24,39,.04);
+            border: 1px solid rgba(17,24,39,.08);
+            transition: transform .18s ease, background .18s ease, border-color .18s ease;
+        }
+        .aside-pill:hover{
+            transform: translateY(-1px);
+            background: rgba(17,24,39,.06);
+            border-color: rgba(17,24,39,.12);
         }
 
-        /* Pasos (Timeline) */
-        .bcp-step {
-            position: relative;
-            padding-left: 1.5rem; /* Espacio para la línea en móvil */
+        /* CTA principal */
+        .cta-btn{
+            background: var(--brand-red);
+            color:#fff;
+            border-radius: 999px;
+            font-weight: 900;
+            padding: .95rem 1.2rem;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:.55rem;
+            width:100%;
+            box-shadow: 0 18px 40px -22px rgba(239,35,60,.75);
+            transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
         }
-
-        .bcp-step-circle {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--brand-red);
-            color: white;
-            font-size: 1.25rem;
-            font-weight: 800;
-            box-shadow: 0 4px 10px rgba(239, 35, 60, 0.4);
-            z-index: 2;
-            position: relative;
-        }
-
-        /* Línea conectora (Desktop) */
-        @media (min-width: 1024px) {
-            .bcp-steps-container {
-                position: relative;
-                display: flex;
-                justify-content: space-between;
-                gap: 2rem;
-            }
-            /* Línea gris de fondo */
-            .bcp-steps-container::before {
-                content: '';
-                position: absolute;
-                top: 1.5rem; /* Mitad del círculo */
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background-color: #e5e7eb;
-                z-index: 0;
-            }
-            .bcp-step { 
-                padding-left: 0; 
-                flex: 1; 
-                text-align: center; 
-                display: flex; 
-                flex-direction: column; 
-                align-items: center; 
-            }
-            .bcp-step-text { text-align: center; }
-        }
-
-        /* Botón CTA Flotante */
-        .bcp-cta-btn {
-            background-color: var(--brand-red);
-            color: white;
-            border-radius: 9999px;
-            font-weight: 700;
-            padding: 1rem 3rem;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 25px -5px rgba(239, 35, 60, 0.5);
-            transition: all 0.3s ease;
-            display: inline-flex; align-items: center; gap: 0.5rem;
-        }
-        .bcp-cta-btn:hover {
+        .cta-btn:hover{
             transform: translateY(-2px);
-            box-shadow: 0 20px 40px -10px rgba(239, 35, 60, 0.7);
+            filter: brightness(1.02);
+            box-shadow: 0 28px 60px -28px rgba(239,35,60,.95);
+        }
+        .cta-ghost{
+            background: rgba(17,24,39,.04);
+            border: 1px solid rgba(17,24,39,.10);
+            color:#111827;
+            border-radius: 999px;
+            font-weight: 900;
+            padding: .9rem 1.1rem;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:.55rem;
+            width:100%;
+            transition: transform .2s ease, background .2s ease, border-color .2s ease;
+        }
+        .cta-ghost:hover{
+            transform: translateY(-1px);
+            background: rgba(17,24,39,.06);
+            border-color: rgba(17,24,39,.14);
+        }
+
+        /* Timeline (pasos) */
+        .steps{
+            position:relative;
+        }
+        /* línea vertical (mobile) */
+        .steps::before{
+            content:"";
+            position:absolute;
+            left: 1.15rem;
+            top: .3rem;
+            bottom: .3rem;
+            width: 2px;
+            background: #e5e7eb;
+        }
+        .step{
+            position:relative;
+            padding-left: 3.3rem;
+        }
+        .step-dot{
+            position:absolute;
+            left: .25rem;
+            top: .15rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 999px;
+            display:flex; align-items:center; justify-content:center;
+            background: var(--brand-red);
+            color:#fff;
+            font-weight:900;
+            box-shadow: 0 10px 22px -12px rgba(239,35,60,.70);
+        }
+
+        /* línea horizontal (desktop) */
+        @media (min-width: 1024px){
+            .steps::before{ display:none; }
+            .steps-grid{
+                position:relative;
+                display:grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 1.25rem;
+            }
+            .steps-grid::before{
+                content:"";
+                position:absolute;
+                top: 1.1rem;
+                left: 1rem;
+                right: 1rem;
+                height: 2px;
+                background: #e5e7eb;
+            }
+            .step{
+                padding-left: 0;
+                text-align:center;
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+            }
+            .step-dot{
+                position:relative;
+                left:auto; top:auto;
+                margin-bottom: .75rem;
+            }
         }
     </style>
 
-    <div class="bcp-wrapper py-12 lg:py-20">
+    <div class="beca-page py-12 lg:py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            {{-- Botón Volver --}}
+            {{-- HEADER DEL SHOW: volver --}}
             <div class="mb-8">
-                <a href="{{ route('becas.index') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-brand transition-colors">
-                    <span class="material-symbols-outlined mr-1 text-lg">arrow_back</span>
+                <a href="{{ route('becas.index') }}"
+                   class="inline-flex items-center gap-2 text-sm font-black text-gray-500 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-lg">arrow_back</span>
                     Volver al catálogo
                 </a>
             </div>
 
-            <div class="bcp-card">
-                
-                {{-- HERO INTERNO (Imagen + Título) --}}
+            <div class="beca-card">
+
+                {{-- HERO INTERNO (imagen + overlay + textos) --}}
                 <div class="grid grid-cols-1 lg:grid-cols-2">
                     {{-- Imagen --}}
-                    <div class="relative h-64 lg:h-auto overflow-hidden bg-gray-100">
-                        <img src="{{ asset($beca->banner ?? $beca->imagen_portada ?? 'img/becas/default.png') }}" 
-                             alt="{{ $beca->nombre }}" 
-                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
-                        {{-- Overlay degradado sutil --}}
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-black/10"></div>
+                    <div class="beca-hero h-72 lg:h-auto">
+                        <img
+                            src="{{ asset($beca->banner ?? $beca->imagen_portada ?? 'img/becas/default.png') }}"
+                            alt="{{ $beca->nombre }}"
+                            class="beca-hero-img"
+                        />
+                        <div class="beca-hero-overlay"></div>
+
+                        {{-- Texto sobre la imagen (solo desktop para que se vea pro) --}}
+                        <div class="absolute inset-0 hidden lg:flex items-end p-10">
+                            <div class="max-w-md">
+                                <span class="beca-pill">
+                                    <span class="material-symbols-outlined text-base">workspace_premium</span>
+                                    Beca
+                                </span>
+                                <h1 class="beca-title text-white mt-4">
+                                    {{ $beca->titulo ?? 'Postula y potencia tu talento' }}
+                                </h1>
+                                <p class="beca-subtitle mt-4">
+                                    {{ $beca->subtitulo ?? 'Programa diseñado para jóvenes talentosos con ganas de transformar su futuro a través de la educación.' }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
-                    {{-- Contenido Header --}}
-                    <div class="p-8 lg:p-12 flex flex-col justify-center">
-                        <div>
-                            <span class="bcp-pill">{{ $beca->nombre }}</span>
-                            <h1 class="bcp-title mb-4">
+                    {{-- Header contenido (mobile/tablet) + resumen --}}
+                    <div class="p-8 lg:p-10">
+                        {{-- En mobile mostramos el título aquí (en desktop ya está sobre la imagen) --}}
+                        <div class="lg:hidden">
+                            <span class="beca-pill">
+                                <span class="material-symbols-outlined text-base">workspace_premium</span>
+                                {{ $beca->nombre }}
+                            </span>
+
+                            <h1 class="beca-title text-gray-900 mt-4">
                                 {{ $beca->titulo ?? 'Postula y potencia tu talento' }}
                             </h1>
-                            <p class="bcp-subtitle">
+
+                            <p class="text-gray-600 mt-4 leading-relaxed">
                                 {{ $beca->subtitulo ?? 'Programa diseñado para jóvenes talentosos con ganas de transformar su futuro a través de la educación.' }}
                             </p>
+                        </div>
+
+                        {{-- “Quick info” para que el lado derecho no se vea vacío --}}
+                        <div class="mt-6 lg:mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="rounded-2xl border border-black/5 bg-black/[0.02] p-5">
+                                <p class="text-xs font-black tracking-[0.18em] uppercase text-gray-500">Programa</p>
+                                <p class="mt-2 font-black text-gray-900">
+                                    {{ $beca->nombre ?? 'Beca' }}
+                                </p>
+                            </div>
+
+                            <div class="rounded-2xl border border-black/5 bg-black/[0.02] p-5">
+                                <p class="text-xs font-black tracking-[0.18em] uppercase text-gray-500">Estado</p>
+                                <p class="mt-2 font-black text-gray-900">
+                                    {{ $beca->estado ?? 'Disponible' }}
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Nota sutil --}}
+                        <div class="mt-6 rounded-2xl border border-[rgba(239,35,60,.20)] bg-[rgba(239,35,60,.06)] p-5">
+                            <div class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">info</span>
+                                <p class="text-sm text-gray-700 leading-relaxed">
+                                    Revisa los requisitos y el proceso de postulación. Si la convocatoria cambia, esta página se actualiza.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- CONTENIDO DETALLADO --}}
-                <div class="p-8 lg:p-12 space-y-16">
-                    
-                    {{-- DESCRIPCIÓN --}}
-                    <section class="max-w-3xl">
-                        <span class="bcp-section-label">Sobre el programa</span>
-                        <h2 class="bcp-section-heading">
-                            ¿De qué trata {{ $beca->nombre }}?
-                        </h2>
-                        <div class="space-y-4 text-lg">
-                            @if(!empty($beca->descripcion))
-                                <p class="bcp-text">
-                                    {!! nl2br(e($beca->descripcion)) !!}
-                                </p>
-                            @else
-                                <p class="bcp-text">
-                                    El programa <strong>{{ $beca->nombre }}</strong> ofrece la oportunidad de acceder a una formación de calidad, 
-                                    dirigida a estudiantes con alto desempeño académico y proyección de liderazgo.
-                                </p>
-                                <p class="bcp-text">
-                                    Más que un apoyo económico, busca impulsar tu desarrollo integral y tu compromiso con la comunidad.
-                                </p>
-                            @endif
-                        </div>
-                    </section>
+                {{-- CUERPO: contenido + aside (desktop) --}}
+                <div class="p-8 lg:p-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
-                    <hr class="border-gray-100">
+                        {{-- MAIN --}}
+                        <div class="lg:col-span-8 space-y-14">
 
-                    {{-- BENEFICIOS (GRID 2x2) --}}
-                    <section>
-                        <div class="text-center mb-10">
-                            <span class="bcp-section-label">Lo que recibes</span>
-                            <h2 class="bcp-section-heading">Beneficios exclusivos</h2>
-                        </div>
+                            {{-- DESCRIPCIÓN --}}
+                            <section class="max-w-3xl">
+                                <p class="sec-label">Sobre el programa</p>
+                                <h2 class="sec-title">¿De qué trata {{ $beca->nombre }}?</h2>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                            @if(is_array($beca->beneficios) && count($beca->beneficios))
-                                @foreach($beca->beneficios as $beneficio)
-                                    <div class="bcp-benefit-card">
-                                        <div class="flex flex-col sm:flex-row gap-5 items-start">
-                                            <div class="bcp-benefit-icon flex-shrink-0">
-                                                {{-- si guardas icono, úsalo, sino un default --}}
-                                                <span class="material-symbols-outlined text-3xl">
-                                                    {{ $beneficio['icon'] ?? 'star' }}
-                                                </span>
+                                <div class="mt-5 space-y-4">
+                                    @if(!empty($beca->descripcion))
+                                        <p class="sec-text text-[1.02rem]">
+                                            {!! nl2br(e($beca->descripcion)) !!}
+                                        </p>
+                                    @else
+                                        <p class="sec-text text-[1.02rem]">
+                                            El programa <strong>{{ $beca->nombre }}</strong> ofrece la oportunidad de acceder a una formación de calidad,
+                                            dirigida a estudiantes con alto desempeño académico y proyección de liderazgo.
+                                        </p>
+                                        <p class="sec-text text-[1.02rem]">
+                                            Más que un apoyo económico, busca impulsar tu desarrollo integral y tu compromiso con la comunidad.
+                                        </p>
+                                    @endif
+                                </div>
+                            </section>
+
+                            <hr class="border-gray-100">
+
+                            {{-- BENEFICIOS --}}
+                            <section>
+                                <div class="text-center mb-10">
+                                    <p class="sec-label">Lo que recibes</p>
+                                    <h2 class="sec-title">Beneficios exclusivos</h2>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                                    @if(is_array($beca->beneficios) && count($beca->beneficios))
+                                        @foreach($beca->beneficios as $beneficio)
+                                            <div class="benefit-card p-6">
+                                                <div class="flex gap-5 items-start">
+                                                    <div class="benefit-icon">
+                                                        <span class="material-symbols-outlined text-3xl">
+                                                            {{ $beneficio['icon'] ?? 'verified' }}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <h3 class="benefit-title text-lg">
+                                                            {{ $beneficio['titulo'] ?? 'Beneficio' }}
+                                                        </h3>
+                                                        <p class="benefit-text">
+                                                            {{ $beneficio['descripcion'] ?? '' }}
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h3 class="bcp-benefit-title">
-                                                    {{ $beneficio['titulo'] ?? 'Beneficio' }}
+                                        @endforeach
+                                    @else
+                                        {{-- Fallback --}}
+                                        <div class="benefit-card p-6">
+                                            <div class="flex gap-5 items-start">
+                                                <div class="benefit-icon">
+                                                    <span class="material-symbols-outlined text-3xl">school</span>
+                                                </div>
+                                                <div>
+                                                    <h3 class="benefit-title text-lg">Cobertura Académica</h3>
+                                                    <p class="benefit-text">Pensiones y matrículas cubiertas parcialmente o al 100%, según las condiciones de la beca.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="benefit-card p-6">
+                                            <div class="flex gap-5 items-start">
+                                                <div class="benefit-icon">
+                                                    <span class="material-symbols-outlined text-3xl">laptop_mac</span>
+                                                </div>
+                                                <div>
+                                                    <h3 class="benefit-title text-lg">Herramientas académicas</h3>
+                                                    <p class="benefit-text">Acceso a recursos digitales, plataformas educativas y acompañamiento académico.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="benefit-card p-6">
+                                            <div class="flex gap-5 items-start">
+                                                <div class="benefit-icon">
+                                                    <span class="material-symbols-outlined text-3xl">rocket_launch</span>
+                                                </div>
+                                                <div>
+                                                    <h3 class="benefit-title text-lg">Desarrollo de talento</h3>
+                                                    <p class="benefit-text">Talleres, mentorías y espacios de formación para potenciar tus habilidades.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="benefit-card p-6">
+                                            <div class="flex gap-5 items-start">
+                                                <div class="benefit-icon">
+                                                    <span class="material-symbols-outlined text-3xl">support_agent</span>
+                                                </div>
+                                                <div>
+                                                    <h3 class="benefit-title text-lg">Acompañamiento</h3>
+                                                    <p class="benefit-text">Soporte emocional y académico durante tu proceso de formación.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </section>
+
+                            <hr class="border-gray-100">
+
+                            {{-- PASOS --}}
+                            <section>
+                                <div class="text-center mb-12">
+                                    <p class="sec-label">¿Cómo participar?</p>
+                                    <h2 class="sec-title">Tu camino a la beca</h2>
+                                </div>
+
+                                {{-- Mobile: vertical / Desktop: horizontal --}}
+                                <div class="steps">
+                                    <div class="steps-grid lg:steps-grid space-y-8 lg:space-y-0">
+                                        @php
+                                            $pasos = (is_array($beca->pasos) && count($beca->pasos)) ? $beca->pasos : [
+                                                ['titulo'=>'Registro', 'descripcion'=>'Completa el formulario en línea con tus datos personales y académicos.'],
+                                                ['titulo'=>'Evaluación', 'descripcion'=>'Revisión de requisitos, historial académico y situación socioeconómica.'],
+                                                ['titulo'=>'Resultados', 'descripcion'=>'Publicación de seleccionados y comunicación de los siguientes pasos.'],
+                                            ];
+                                        @endphp
+
+                                        @foreach($pasos as $i => $paso)
+                                            <div class="step">
+                                                <div class="step-dot">{{ $i + 1 }}</div>
+                                                <h3 class="font-black text-lg text-gray-900">
+                                                    {{ $paso['titulo'] ?? ('Paso '.($i+1)) }}
                                                 </h3>
-                                                <p class="bcp-benefit-text">
-                                                    {{ $beneficio['descripcion'] ?? '' }}
+                                                <p class="mt-2 text-gray-600 text-sm leading-relaxed max-w-sm">
+                                                    {{ $paso['descripcion'] ?? '' }}
                                                 </p>
                                             </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @else
-                                {{-- Fallback si aún no tienes beneficios en BD --}}
-                                <div class="bcp-benefit-card">
-                                    <div class="flex flex-col sm:flex-row gap-5 items-start">
-                                        <div class="bcp-benefit-icon flex-shrink-0">
-                                            <span class="material-symbols-outlined text-3xl">school</span>
-                                        </div>
-                                        <div>
-                                            <h3 class="bcp-benefit-title">Cobertura Académica</h3>
-                                            <p class="bcp-benefit-text">Pensiones y matrículas cubiertas parcialmente o al 100%, según las condiciones de la beca.</p>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
-
-                                <div class="bcp-benefit-card">
-                                    <div class="flex flex-col sm:flex-row gap-5 items-start">
-                                        <div class="bcp-benefit-icon flex-shrink-0">
-                                            <span class="material-symbols-outlined text-3xl">laptop_mac</span>
-                                        </div>
-                                        <div>
-                                            <h3 class="bcp-benefit-title">Herramientas académicas</h3>
-                                            <p class="bcp-benefit-text">Acceso a recursos digitales, plataformas educativas y acompañamiento académico.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="bcp-benefit-card">
-                                    <div class="flex flex-col sm:flex-row gap-5 items-start">
-                                        <div class="bcp-benefit-icon flex-shrink-0">
-                                            <span class="material-symbols-outlined text-3xl">rocket_launch</span>
-                                        </div>
-                                        <div>
-                                            <h3 class="bcp-benefit-title">Desarrollo de talento</h3>
-                                            <p class="bcp-benefit-text">Talleres, mentorías y espacios de formación para potenciar tus habilidades.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="bcp-benefit-card">
-                                    <div class="flex flex-col sm:flex-row gap-5 items-start">
-                                        <div class="bcp-benefit-icon flex-shrink-0">
-                                            <span class="material-symbols-outlined text-3xl">support_agent</span>
-                                        </div>
-                                        <div>
-                                            <h3 class="bcp-benefit-title">Acompañamiento</h3>
-                                            <p class="bcp-benefit-text">Soporte emocional y académico durante tu proceso de formación.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-                    </section>
-
-                    <hr class="border-gray-100">
-
-                    {{-- PROCESO DE POSTULACIÓN (TIMELINE) --}}
-                    <section>
-                        <div class="text-center mb-12">
-                            <span class="bcp-section-label">¿Cómo participar?</span>
-                            <h2 class="bcp-section-heading">Tu camino a la beca</h2>
+                            </section>
                         </div>
 
-                        <div class="bcp-steps-container flex flex-col lg:flex-row gap-8 lg:gap-4 relative">
-                            @if(is_array($beca->pasos) && count($beca->pasos))
-                                @foreach($beca->pasos as $index => $paso)
-                                    <div class="bcp-step flex-1">
-                                        <div class="bcp-step-circle mb-4 mx-auto">{{ $index + 1 }}</div>
-                                        <h3 class="font-bold text-lg text-gray-900 mb-2">
-                                            {{ $paso['titulo'] ?? 'Paso ' . ($index + 1) }}
-                                        </h3>
-                                        <p class="bcp-step-text text-gray-600 text-sm max-w-xs mx-auto">
-                                            {{ $paso['descripcion'] ?? '' }}
-                                        </p>
-                                    </div>
-                                @endforeach
-                            @else
-                                {{-- Fallback si no hay pasos aún --}}
-                                <div class="bcp-step flex-1">
-                                    <div class="bcp-step-circle mb-4 mx-auto">1</div>
-                                    <h3 class="font-bold text-lg text-gray-900 mb-2">Registro</h3>
-                                    <p class="bcp-step-text text-gray-600 text-sm max-w-xs mx-auto">
-                                        Completa el formulario en línea con tus datos personales y académicos.
+                        {{-- ASIDE (desktop sticky) --}}
+                        <aside class="lg:col-span-4">
+                            <div class="aside-card lg:sticky lg:top-28">
+                                <div class="aside-head p-6">
+                                    <p class="text-sm font-black tracking-[0.18em] uppercase text-gray-700">Acciones</p>
+                                    <p class="mt-2 text-gray-900 font-black text-xl leading-tight">
+                                        Postula a {{ $beca->nombre ?? 'esta beca' }}
+                                    </p>
+                                    <p class="mt-2 text-sm text-gray-600 leading-relaxed">
+                                        Si tienes dudas, contáctanos y te guiamos.
                                     </p>
                                 </div>
 
-                                <div class="bcp-step flex-1">
-                                    <div class="bcp-step-circle mb-4 mx-auto">2</div>
-                                    <h3 class="font-bold text-lg text-gray-900 mb-2">Evaluación</h3>
-                                    <p class="bcp-step-text text-gray-600 text-sm max-w-xs mx-auto">
-                                        Revisión de requisitos, historial académico y situación socioeconómica.
-                                    </p>
-                                </div>
+                                <div class="p-6 space-y-4">
+                                    {{-- CTA principal (por ahora manda al catálogo; si luego tienes link real, reemplaza aquí) --}}
+                                    <a href="{{ route('becas.index') }}" class="cta-btn">
+                                        Ver otras becas
+                                        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                                    </a>
 
-                                <div class="bcp-step flex-1">
-                                    <div class="bcp-step-circle mb-4 mx-auto">3</div>
-                                    <h3 class="font-bold text-lg text-gray-900 mb-2">Resultados</h3>
-                                    <p class="bcp-step-text text-gray-600 text-sm max-w-xs mx-auto">
-                                        Publicación de seleccionados y comunicación de los siguientes pasos.
-                                    </p>
+                                    {{-- Contacto rápido (mismo estilo que tu footer) --}}
+                                    <a href="mailto:contacto@cidech.com" class="aside-pill">
+                                        <span class="material-symbols-outlined text-xl text-primary">mail</span>
+                                        <span class="font-black text-gray-900">contacto@cidech.com</span>
+                                    </a>
+
+                                    <a href="tel:921810356" class="aside-pill">
+                                        <span class="material-symbols-outlined text-xl text-primary">call</span>
+                                        <span class="font-black text-gray-900">921 810 356</span>
+                                    </a>
+
+                                    <button type="button" class="cta-ghost" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                                        Volver arriba
+                                        <span class="material-symbols-outlined text-lg">arrow_upward</span>
+                                    </button>
                                 </div>
-                            @endif
-                        </div>
-                    </section>
-                </div> {{-- Fin padding content --}}
-            </div> {{-- Fin Card --}}
+                            </div>
+                        </aside>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

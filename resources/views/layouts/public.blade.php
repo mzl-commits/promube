@@ -4,9 +4,6 @@
 <head>
     {{-- =========================================
        META BÁSICO
-       - charset + viewport para responsive
-       - theme-color para color del navegador en móvil
-       - title configurable por @yield
     ========================================== --}}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,16 +12,11 @@
 
     {{-- =========================================
        ASSETS CON VITE
-       - app.css: Tailwind + estilos globales
-       - app.js: scripts de la app
-       Nota: si en hosting no se compila, por eso agregamos CSS crítico aquí
     ========================================== --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- =========================================
        FUENTES E ICONOS
-       - Public Sans: tipografía base
-       - Material Symbols: íconos (menu, mail, call, etc.)
     ========================================== --}}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,39 +26,29 @@
     <style>
         /* =========================================
            TOKENS DE MARCA
-           - variables reutilizables en toda la vista
-           - evita repetir colores y opacidades
         ========================================== */
         :root{
             --brand-red: #ef233c;
             --footer-card: rgba(255,255,255,.04);
             --footer-border: rgba(255,255,255,.10);
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* Scroll suave para #top */
         html{ scroll-behavior: smooth; }
 
-        /* Configuración de Material Symbols */
         .material-symbols-outlined{
             font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
         }
 
-        /* =========================================
-           UTILIDADES DE MARCA (override)
-           - garantiza que bg/text/border-primary sean el rojo oficial
-        ========================================== */
         .bg-primary{ background-color: var(--brand-red) !important; }
         .text-primary{ color: var(--brand-red) !important; }
         .border-primary{ border-color: var(--brand-red) !important; }
 
         /* =========================================
            HEADER: NAV DESKTOP
-           - separación controlada del menú
-           - underline animado en hover/active
+           OJO: NO ponemos display:flex aquí porque pisa el "hidden" de Tailwind en móvil
         ========================================== */
         .site-nav{
-            display:flex;
-            align-items:center;
             gap: 2.5rem;
         }
 
@@ -101,8 +83,6 @@
 
         /* =========================================
            LOGO BADGE
-           - tarjeta del ícono del logo con blur
-           - hover: pasa a fondo blanco y el ícono se vuelve rojo
         ========================================== */
         .logo-badge{
             display:flex;
@@ -123,14 +103,46 @@
         }
 
         /* =========================================
-           MENÚ MÓVIL
-           - panel rojo con blur
-           - enlaces tipo botón con borde y hover
+           MENÚ MÓVIL (panel animado + overlay)
         ========================================== */
         .mobile-panel{
             border-top: 1px solid rgba(255,255,255,.18);
             background: rgba(239,35,60,.96);
             backdrop-filter: blur(10px);
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-8px);
+            pointer-events: none;
+
+            transition:
+                max-height .45s var(--ease-out-expo),
+                opacity .2s ease,
+                transform .2s ease;
+        }
+        .mobile-panel.is-open{
+            max-height: 520px;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .mobile-backdrop{
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.38);
+            backdrop-filter: blur(2px);
+            z-index: 40; /* debajo del header (z-50) */
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .mobile-panel{ transition: none; }
         }
 
         .mobile-link{
@@ -171,14 +183,11 @@
 
         /* =========================================
            FOOTER
-           - glow superior rojo
-           - aire superior/inferior independiente de Tailwind
-           - grid controlado para evitar choques entre columnas
         ========================================== */
         .footer-wrap{
             position: relative;
             overflow: hidden;
-            margin-top: 1rem; /* separa el footer del contenido anterior */
+            margin-top: 1rem;
         }
 
         .footer-wrap::before{
@@ -192,7 +201,6 @@
             pointer-events:none;
         }
 
-        /* Aire real del footer (no depende de Tailwind) */
         .footer-inner{
             padding-top: 4rem;
             padding-bottom: 5rem;
@@ -204,7 +212,6 @@
             }
         }
 
-        /* Títulos del footer (estilo consistente) */
         .footer-title{
             font-weight: 900;
             letter-spacing: .12em;
@@ -213,7 +220,6 @@
             color: rgba(255,255,255,.92);
         }
 
-        /* Links del footer (hover sutil) */
         .footer-link{
             display:inline-flex;
             align-items:center;
@@ -227,7 +233,6 @@
             transform: translateX(2px);
         }
 
-        /* Tarjetas del footer (Horario) */
         .footer-card{
             background: var(--footer-card);
             border: 1px solid var(--footer-border);
@@ -236,7 +241,6 @@
             box-shadow: 0 26px 70px -60px rgba(0,0,0,.9);
         }
 
-        /* Pills (Contacto) */
         .footer-pill{
             display:flex;
             align-items:center;
@@ -253,15 +257,10 @@
             border-color: rgba(255,255,255,.14);
         }
 
-        /* =========================================
-           FOOTER GRID CONTROLADO
-           - col 2 centrada y con ancho controlado
-           - col 3 con menos separación vertical
-        ========================================== */
         .footer-grid{
             display:grid;
             grid-template-columns: 1fr;
-            gap: 4rem; /* móvil */
+            gap: 4rem;
             align-items:start;
         }
         @media (min-width: 768px){
@@ -274,27 +273,26 @@
 
         .footer-col-links{
             width: 100%;
-            max-width: 15rem; /* evita que “estire” y se pegue a la derecha */
+            max-width: 15rem;
         }
         @media (min-width: 768px){
             .footer-col-links{
-                justify-self: center; /* centra la columna 2 dentro de su celda */
+                justify-self: center;
             }
         }
 
         .footer-col-right{
             display:flex;
             flex-direction:column;
-            gap: 1.75rem; /* reduce el espacio entre Horario y Contacto */
+            gap: 1.75rem;
         }
         @media (min-width: 768px){
             .footer-col-right{
-                align-items:flex-end; /* alinea a la derecha en desktop */
+                align-items:flex-end;
                 gap: 2rem;
             }
         }
 
-        /* Botones sociales */
         .social-btn{
             height:44px;
             width:44px;
@@ -313,11 +311,6 @@
             border-color: rgba(255,255,255,.16);
         }
 
-        /* =========================================
-           BOTTOM BAR
-           - copyright + botón volver arriba
-           - en móvil apila, en desktop distribuye
-        ========================================== */
         .footer-bottom{
             display:flex;
             flex-direction:column;
@@ -345,7 +338,7 @@
             transition: transform .2s ease, background .2s ease, border-color .2s ease;
             white-space: nowrap;
             flex-shrink: 0;
-            align-self: flex-end; /* móvil: se alinea a la derecha */
+            align-self: flex-end;
         }
         .backtop-btn:hover{
             transform: translateY(-1px);
@@ -354,7 +347,6 @@
         }
     </style>
 
-    {{-- Permite que cada vista agregue estilos/scripts en el head --}}
     @stack('head')
 </head>
 
@@ -362,14 +354,11 @@
 
     {{-- =========================================
        HEADER
-       - sticky fijo arriba
-       - desktop: nav horizontal + botón aula virtual
-       - móvil: botón menú que despliega panel
     ========================================== --}}
-    <header class="sticky top-0 z-50 w-full bg-primary shadow-xl transition-all duration-300">
+    <header class="sticky top-0 z-50 relative w-full bg-primary shadow-xl transition-all duration-300">
         <div class="container mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
 
-            {{-- Logo: vuelve al home --}}
+            {{-- Logo --}}
             <a href="{{ route('home') }}" class="logo-wrap flex items-center gap-4 group">
                 <div class="logo-badge" aria-hidden="true">
                     <span class="material-symbols-outlined text-3xl">school</span>
@@ -381,13 +370,12 @@
                 </div>
             </a>
 
-            {{-- Navegación principal (solo desktop) --}}
-            <nav class="hidden md:flex site-nav" aria-label="Navegación principal">
+            {{-- Nav desktop --}}
+            <nav class="hidden md:flex items-center site-nav" aria-label="Navegación principal">
                 <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'is-active' : '' }}">Inicio</a>
                 <a href="{{ route('becas.index') }}" class="nav-link {{ request()->routeIs('becas.*') ? 'is-active' : '' }}">Becas</a>
                 <a href="{{ route('sedes.index') }}" class="nav-link {{ request()->routeIs('sedes.*') ? 'is-active' : '' }}">Sedes</a>
 
-                {{-- CTA externo --}}
                 <a href="https://muni.cidech.edu.pe/"
                    class="inline-flex items-center gap-3 rounded-full bg-white px-6 py-2.5 text-base font-black text-primary shadow-lg transition-all hover:bg-gray-100 hover:shadow-xl hover:-translate-y-0.5">
                     Aula virtual
@@ -395,7 +383,7 @@
                 </a>
             </nav>
 
-            {{-- Botón del menú móvil --}}
+            {{-- Botón menú móvil --}}
             <button id="mobileMenuBtn" type="button"
                     class="md:hidden rounded-xl p-2 text-white transition-colors hover:bg-white/20"
                     aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
@@ -403,8 +391,8 @@
             </button>
         </div>
 
-        {{-- Panel desplegable móvil (se muestra/oculta por JS) --}}
-        <div id="mobileMenu" class="md:hidden hidden mobile-panel">
+        {{-- Panel móvil animado --}}
+        <div id="mobileMenu" class="md:hidden mobile-panel" aria-hidden="true">
             <div class="container mx-auto max-w-7xl px-6 py-4 space-y-3">
                 <a href="{{ route('home') }}" class="mobile-link">
                     <span>Inicio</span><span class="material-symbols-outlined">arrow_forward</span>
@@ -423,9 +411,11 @@
         </div>
     </header>
 
+    {{-- Backdrop --}}
+    <div id="mobileBackdrop" class="mobile-backdrop hidden md:hidden" aria-hidden="true"></div>
+
     {{-- =========================================
-       CONTENIDO PRINCIPAL
-       - aquí renderiza cada vista con @yield('content')
+       CONTENIDO
     ========================================== --}}
     <main class="flex-grow">
         <div class="w-full">
@@ -435,16 +425,12 @@
 
     {{-- =========================================
        FOOTER
-       - 3 columnas: marca, enlaces, horario/contacto
-       - bottom bar: copyright + volver arriba
     ========================================== --}}
     <footer class="footer-wrap w-full bg-[#1a1a1a] text-white font-display border-t-4 border-primary">
         <div class="footer-inner relative mx-auto max-w-7xl px-6 z-[1]">
 
-            {{-- Grid principal del footer --}}
             <div class="footer-grid">
-
-                {{-- Columna 1: marca + descripción + redes --}}
+                {{-- Columna 1 --}}
                 <div class="flex flex-col gap-8">
                     <div class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary text-4xl">school</span>
@@ -471,7 +457,7 @@
                     </div>
                 </div>
 
-                {{-- Columna 2: enlaces rápidos (centrada en desktop) --}}
+                {{-- Columna 2 --}}
                 <div class="footer-col-links flex flex-col">
                     <p class="footer-title mb-2">Enlaces rápidos</p>
                     <ul class="space-y-4">
@@ -480,7 +466,7 @@
                     </ul>
                 </div>
 
-                {{-- Columna 3: tarjetas de horario y contacto (compactadas) --}}
+                {{-- Columna 3 --}}
                 <div class="footer-col-right">
                     <div class="footer-card w-full md:w-[20rem]">
                         <p class="footer-title mb-4">Horario</p>
@@ -504,10 +490,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
-            {{-- Barra inferior: separación reducida para que no se sienta “pegada” --}}
             <div class="mt-10 border-t border-white/10 pt-5 footer-bottom">
                 <p class="text-sm text-gray-500">
                     © {{ date('Y') }} PROMUBE CIDECH. Todos los derechos reservados.
@@ -522,32 +506,51 @@
     </footer>
 
     {{-- =========================================
-       JS DEL MENÚ MÓVIL
-       - toggle al hacer click en el botón
-       - cierre automático al hacer click fuera
+       JS: MENÚ MÓVIL
     ========================================== --}}
     <script>
         (function () {
             const btn = document.getElementById('mobileMenuBtn');
             const panel = document.getElementById('mobileMenu');
-            if (!btn || !panel) return;
+            const backdrop = document.getElementById('mobileBackdrop');
+
+            if (!btn || !panel || !backdrop) return;
+
+            const openMenu = () => {
+                panel.classList.add('is-open');
+                backdrop.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                btn.setAttribute('aria-expanded', 'true');
+                panel.setAttribute('aria-hidden', 'false');
+            };
+
+            const closeMenu = () => {
+                panel.classList.remove('is-open');
+                backdrop.classList.add('hidden');
+                document.body.style.overflow = '';
+                btn.setAttribute('aria-expanded', 'false');
+                panel.setAttribute('aria-hidden', 'true');
+            };
 
             btn.addEventListener('click', () => {
-                const isOpen = !panel.classList.contains('hidden');
-                panel.classList.toggle('hidden');
-                btn.setAttribute('aria-expanded', String(!isOpen));
+                const isOpen = panel.classList.contains('is-open');
+                isOpen ? closeMenu() : openMenu();
             });
 
-            document.addEventListener('click', (e) => {
-                if (panel.classList.contains('hidden')) return;
-                if (panel.contains(e.target) || btn.contains(e.target)) return;
-                panel.classList.add('hidden');
-                btn.setAttribute('aria-expanded', 'false');
+            backdrop.addEventListener('click', closeMenu);
+
+            panel.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) closeMenu();
             });
         })();
     </script>
 
-    {{-- Permite que cada vista agregue scripts al final --}}
     @stack('scripts')
 </body>
 </html>
