@@ -5,7 +5,7 @@
 @section('content')
     <div class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-10">
         <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-            {{-- Título principal --}}
+
             <div class="flex flex-wrap justify-between gap-3 p-4">
                 <div class="flex w-full flex-col gap-3">
                     <p class="text-primary text-4xl font-black leading-tight tracking-[-0.033em]">
@@ -18,9 +18,8 @@
                 </div>
             </div>
 
-            {{-- Filtros básicos (interfaz, opcionalmente conectados por GET) --}}
             <form method="GET" class="flex gap-3 p-4 flex-wrap">
-                {{-- Año --}}
+
                 <div class="relative">
                     <select
                         name="anio"
@@ -39,7 +38,6 @@
                     </span>
                 </div>
 
-                {{-- Región --}}
                 <div class="relative">
                     <select
                         name="region"
@@ -59,9 +57,19 @@
                         expand_more
                     </span>
                 </div>
+
+                <button type="submit"
+                        class="h-9 px-5 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition">
+                    Filtrar
+                </button>
+
+                <a href="{{ url()->current() }}"
+                   class="h-9 px-5 rounded-lg bg-gray-300 dark:bg-gray-800 text-gray-900 dark:text-gray-200 font-semibold text-sm hover:bg-gray-400 dark:hover:bg-gray-700 transition flex items-center">
+                    Limpiar
+                </a>
+
             </form>
 
-            {{-- Cifras resumen --}}
             @php
                 $totalBeneficiados = $beneficiados->count();
                 $totalRegiones     = $beneficiados->whereNotNull('region')->unique('region')->count();
@@ -101,7 +109,6 @@
                 </div>
             </div>
 
-            {{-- Nuestros alumnos --}}
             <h2 class="text-gray-900 dark:text-gray-100 text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-8">
                 Nuestros alumnos
             </h2>
@@ -131,7 +138,6 @@
                                 {{ $b->nombre_completo }}
                             </p>
 
-                            {{-- Programa + año --}}
                             <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">
                                 @if($b->programa)
                                     {{ $b->programa }}
@@ -141,7 +147,6 @@
                                 @endif
                             </p>
 
-                            {{-- Región --}}
                             @if($b->region)
                                 <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">
                                     Región: {{ $b->region }}
@@ -177,12 +182,12 @@
                 @endforelse
             </div>
 
-            {{-- Paginación si viene paginado --}}
             @if($beneficiados instanceof \Illuminate\Contracts\Pagination\Paginator)
-                <div class="mt-6">
+                <div class="mt-6 px-4">
                     {{ $beneficiados->links() }}
                 </div>
             @endif
+
         </div>
     </div>
 @endsection

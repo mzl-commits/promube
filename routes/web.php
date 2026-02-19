@@ -16,7 +16,7 @@ Route::get('/becas', [BecaController::class, 'index'])->name('becas.index');
 // 👇 IMPORTANTE: por slug
 Route::get('/becas/{beca:slug}', [BecaController::class, 'show'])->name('becas.show');
 
-Route::get('/beneficiados', [BeneficiadoController::class, 'index'])->name('beneficiados.index');
+Route::get('/beneficiados', [BeneficiadoController::class, 'index'])->name('beneficiados');
 Route::get('/sedes', [SedeController::class, 'index'])->name('sedes.index');
 Route::get('/noticias', [NoticiaController::class, 'index'])->name('noticias.index');
 Route::get('/preguntas-frecuentes', [FaqController::class, 'index'])->name('faqs.index');
