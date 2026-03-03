@@ -239,7 +239,7 @@
           </div>
 
           <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
-            <a href="#arequipa" class="btn-contact flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold">
+            <a href="https://api.whatsapp.com/send/?phone=51999408642&text=Deseo+m%C3%A1s+informaci%C3%B3n+sobre+las+becas+PROMUBE&type=phone_number&app_absent=0" class="btn-contact flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold">
               <span class="material-symbols-outlined text-sm">mail</span>
               Contactar Sede
             </a>
@@ -305,7 +305,7 @@
           </div>
 
           <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
-            <a href="#tacna" class="btn-contact flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold">
+            <a href="https://api.whatsapp.com/send/?phone=51921810356&text=Deseo+m%C3%A1s+informaci%C3%B3n+sobre+las+becas+PROMUBE&type=phone_number&app_absent=0" class="btn-contact flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold">
               <span class="material-symbols-outlined text-sm">mail</span>
               Contactar Sede
             </a>
@@ -370,7 +370,7 @@
           </div>
 
           <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
-            <a href="#lima" class="btn-contact flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold">
+            <a href="https://api.whatsapp.com/send/?phone=51976156196&text=Deseo+m%C3%A1s+informaci%C3%B3n+sobre+las+becas+PROMUBE&type=phone_number&app_absent=0" class="btn-contact flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold">
               <span class="material-symbols-outlined text-sm">mail</span>
               Contactar Sede
             </a>
