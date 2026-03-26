@@ -24,5 +24,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('profile.edit');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-    Volt::route('/admin/becas', 'admin.becas')->name('admin.becas');
+    Volt::route('/admin/becas', 'admin.becas.index')->name('admin.becas');
+    Volt::route('/admin/becas/crear', 'admin.becas.create')->name('admin.becas.create');
+    Volt::route('/admin/becas/{beca}/editar', 'admin.becas.edit')->name('admin.becas.edit');
 });
