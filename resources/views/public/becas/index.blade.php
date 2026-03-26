@@ -304,6 +304,10 @@
         </article>
       @endforeach
     </div>
+    
+    <div class="mt-8 flex justify-center w-full">
+      {{ $becas->links() }}
+    </div>
   @else
     {{-- Estado vacío --}}
     <div class="text-center py-20 bg-gray-50 dark:bg-[#151515] rounded-2xl border border-dashed border-gray-300 dark:border-white/10">

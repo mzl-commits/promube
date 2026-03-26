@@ -13,7 +13,7 @@ class NoticiaController extends Controller
             ->where('visible', true)
             ->orderByDesc('publicado_en')
             ->orderByDesc('created_at')
-            ->get();
+            ->paginate(9);
 
         return view('public.noticias.index', compact('noticias'));
     }

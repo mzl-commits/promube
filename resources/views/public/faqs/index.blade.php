@@ -191,64 +191,7 @@
                         </div>
                     </div>
 
-                    {{-- Formulario de contacto (solo vista pública por ahora) --}}
-                    <form
-                        method="POST"
-                        action="#"
-                        class="flex flex-col gap-4 p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/50">
-                        @csrf
-
-                        <div>
-                            <label for="name"
-                                   class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-1">
-                                Nombre
-                            </label>
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                placeholder="Tu nombre completo"
-                                class="w-full rounded-lg border-gray-300 dark:border-gray-600
-                                       dark:bg-gray-700 dark:text-white focus:border-primary focus:ring-primary" />
-                        </div>
-
-                        <div>
-                            <label for="email"
-                                   class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-1">
-                                Correo electrónico
-                            </label>
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                placeholder="tu@email.com"
-                                class="w-full rounded-lg border-gray-300 dark:border-gray-600
-                                       dark:bg-gray-700 dark:text-white focus:border-primary focus:ring-primary" />
-                        </div>
-
-                        <div>
-                            <label for="message"
-                                   class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-1">
-                                Mensaje
-                            </label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="5"
-                                placeholder="Escribe tu consulta aquí..."
-                                class="w-full rounded-lg border-gray-300 dark:border-gray-600
-                                       dark:bg-gray-700 dark:text-white focus:border-primary focus:ring-primary"></textarea>
-                        </div>
-
-                        <button
-                            type="submit"
-                            class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden
-                                   rounded-lg h-12 px-4 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900
-                                   text-sm font-bold leading-normal tracking-[0.015em] hover:bg-gray-900 dark:hover:bg-white">
-                            <span class="truncate">Enviar consulta</span>
-                        </button>
-                    </form>
-                </div>
+                    </div>
             </div>
         </div>
     </div>

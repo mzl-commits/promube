@@ -15,11 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::firstOrCreate(
-            ['email' => 'test@example.com'],
+        User::updateOrCreate(
+            ['email' => 'admin@promube.com'],
             [
-                'name' => 'Test User',
-                'password' => 'password',
+                'name' => 'Administrador',
+                'password' => bcrypt('password123'),
+                'is_admin' => true,
                 'email_verified_at' => now(),
             ]
         );

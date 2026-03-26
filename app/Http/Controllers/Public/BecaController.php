@@ -9,7 +9,7 @@ class BecaController extends Controller
 {
     public function index()
     {
-        $becas = Beca::all();
+        $becas = Beca::paginate(9);
         return view('public.becas.index', compact('becas'));
     }
 

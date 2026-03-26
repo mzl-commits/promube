@@ -13,7 +13,7 @@ class BeneficiadoController extends Controller
             ->where('visible', true)
             ->orderByDesc('anio')
             ->orderBy('nombre_completo')
-            ->get();
+            ->paginate(12);
 
         return view('public.beneficiados.index', compact('beneficiados'));
     }
